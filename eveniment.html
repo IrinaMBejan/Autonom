@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link rel="stylesheet" type="text/css" href="eveniment.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="eveniment.js"></script>
+</head>
+<body>
+    <div class="headerNumeEveniment">
+        <h2>Nume Eveniment</h2>
+    </div>
+    <div class="containerDetaliiEveniment">
+        <img class="imagineEveniment" src="event.jpg" alt="Event">
+        <ul>
+            <li>Data:  23 mai  </li>
+            <li>Locatia:  Hotel International</li>
+        <li>Descriere: Workshop de Java</li>
+    <li>Pretul biletului: Intrarea gratuita</li>  
+      <li>Numar maxim de locuri: 100 de locuri</li>
+      <li>Categorie eveniment: tehnic</li>
+      <li>Taguri: back-end</li>
+      <li>Sugereaza o modificare <input type="image" id="imageEdit" src="edit.png" /></li>
+    </ul>
+    </div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Formular de modificare</h2>
+      </div>
+      <div class="modal-body">
+        <p>Completeaza formularul pentru a sugera o modificare administratorului!</p>
+        <from action="modificare.php" id="modificare">
+
+        <label for="subiect">Titlul informatiei care trebuie schimbata:</label> <br>
+        <input type="text" name="titlu" id="subiect">
+        <br>
+        <h3>Mesajul tau!</h3>
+        <textarea name="textarea" rows="5" cols="30" placeholder="Detaliaza modificarile!"></textarea>
+        <br>
+        <input type="submit" value="Submit">
+        </from>
+      </div>
+      <div class="modal-footer">
+        <h3>Agregator &copy; 2019  </h3>
+      </div>
+    </div>
+  
+  </div>
+
+  <script src="eveniment.js"></script>
+</body>
+</html>
