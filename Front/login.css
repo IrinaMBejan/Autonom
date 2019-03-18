@@ -2,7 +2,7 @@
     height: 100%;
 }
 
-/* Full-width input fields */
+
 input[type=text], input[type=password] {
     width: 100%;
     padding: 15px;
@@ -13,7 +13,6 @@ input[type=text], input[type=password] {
     border-radius: 1em;
 }
 
-/* Add a background color when the inputs get focus */
 input[type=text]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
@@ -53,27 +52,27 @@ button:hover {
 
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0, 0, 0); 
+    background-color: rgba(0, 0, 0, 0.4); 
     padding-top: 50px;
 }
 
-/* Modal Content/Box */
+
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    margin: 5% auto 15% auto; 
     border: 1px solid #888;
     border-radius: 25px;
     color: black;
-    width: 40%; /* Could be more or less, depending on screen size */
+    width: 40%; 
 }
 
 
@@ -82,7 +81,7 @@ hr {
     margin-bottom: 25px;
 }
 
-/* The Close Button (x) */
+
 .close {
     position: absolute;
     right: 35px;
@@ -110,9 +109,11 @@ hr {
     .signup .cancelbtn, .signupbtn {
         width: 100%;
     }
+
 }
 
-/* Add Zoom Animation */
+
+
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
@@ -138,7 +139,15 @@ hr {
     }
 }
 
-/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 650px) {
+
+    .modal-content {
+        width: 90%;
+    }
+}
+
+
+
 @media screen and (max-width: 300px) {
     span.psw {
         display: block;
@@ -148,6 +157,11 @@ hr {
     .cancelbtn {
         width: 100%;
     }
+
+    .modal-content {
+        width: 90%;
+    }
+
 }
 
 .container-welcome {
