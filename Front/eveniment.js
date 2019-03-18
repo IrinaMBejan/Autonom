@@ -1,3 +1,5 @@
+
+
 // Get the modal
 var modal = document.getElementById('myModal');
 
@@ -23,3 +25,47 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+var firstPhoto=document.getElementById('firstPhoto');
+var secondPhoto=document.getElementById('secondPhoto');
+var thirdPhoto=document.getElementById('thirdPhoto');
+firstPhoto.onclick=function(){
+  var img=document.getElementsByClassName("imagineEveniment")[0];
+  img.style.display="block";
+  img=document.getElementsByClassName("imagineEveniment2")[0];
+  img.style.display="none";
+  img=document.getElementsByClassName("imagineEveniment3")[0];
+  img.style.display="none";
+  firstPhoto.style.backgroundColor = "blue";
+  secondPhoto.style.backgroundColor="gray";
+  thirdPhoto.style.backgroundColor="gray";
+}
+
+
+secondPhoto.onclick=function(){
+  var img=document.getElementsByClassName("imagineEveniment")[0];
+  img.style.display="none";
+  img=document.getElementsByClassName("imagineEveniment2")[0];
+  img.style.display="block";
+  img=document.getElementsByClassName("imagineEveniment3")[0];
+  img.style.display="none";
+  secondPhoto.style.backgroundColor = "blue";
+  firstPhoto.style.backgroundColor = "gray";
+  thirdPhoto.style.backgroundColor="gray";
+
+}
+
+
+thirdPhoto.onclick=function(){
+  var img=document.getElementsByClassName("imagineEveniment")[0];
+  img.style.display="none";
+  img=document.getElementsByClassName("imagineEveniment2")[0];
+  img.style.display="none";
+  img=document.getElementsByClassName("imagineEveniment3")[0];
+  img.style.display="block";
+  thirdPhoto.style.backgroundColor="blue";
+  firstPhoto.style.backgroundColor="gray";
+  secondPhoto.style.backgroundColor="gray";
+
+}
+
+

@@ -20,23 +20,39 @@
     height: 30%;
     min-width: 300px;
 }
+.imagineEveniment2{
+  width: 30%;
+  height: 30%;
+  min-width: 300px;
+  max-height: 400px;
+  display: none;
+}
+.imagineEveniment3{
+  width: 30%;
+  height: 30%;
+  min-width: 300px;
+  display: none;
+}
+.containerDetaliiEveniment button {
+  border-radius: 50%;
+}
 #imageEdit {
     width: 2%;
     height: 2%;
     min-width: 15px;
 }
 
-.containerDetaliiEveniment ul {
+.containerDetaliiEveniment ul:last-child {
     list-style-type: none;
     width: 50%;
 }
-.containerDetaliiEveniment ul li {
+.containerDetaliiEveniment ul:last-child li {
     padding: 2%;
     border-bottom: 1px solid lightgray;
     text-align: center;
     border-radius: 5%; 
 }
-.containerDetaliiEveniment ul li:hover {
+.containerDetaliiEveniment ul:last-child li:hover {
     background-color: lightblue;
 }
 
@@ -112,4 +128,19 @@
     background-color: lightskyblue;
     color: black;
   }
-  
+  /* select modal body */
+  .modal-body select {
+  padding: 2px;
+  margin: 1%;
+  border-radius: 2px;
+
+  }
+ #firstPhoto, #secondPhoto, #thirdPhoto{
+
+  width: 15px;
+  background-color: gray;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 2px;
+ }
