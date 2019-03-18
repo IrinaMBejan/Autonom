@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <title>Requests</title>
+    
+    <style>
+
+
+
+        .request {
+            display: flex;
+            padding: 20px 20px 20px 20px;
+            justify-content: space-between;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+
+            border: 5px solid black;
+            margin: 10px;
+            
+        }
+
+            .request .user {
+                color: red;
+                font-size: 2vw;
+        
+            }
+        
+           .request * {
+               padding: 3px 3px 3px 3px;
+               margin: 5px;
+           }
+
+        .list-requests .titlu {
+             position: flex;
+             align-items: center;
+             font-size: 6vw;
+            list-style-type: none;
+         }
+
+
+
+    </style>
+</head>
+
+<body>
+    
+
+
+<ul class="list-requests">
+    <div class="titlu" align="center">
+        Requests
+    </div>
+    
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." >
+
+    <li class="request">
+        
+        <span class="user">Ionescu</span>
+        <span class="camp">fii practic-descriere</span>
+        <textarea class="modificare" rows="4" cols="50">fa cevva cu viata ta </textarea>
+        <div class="butoane">
+            <button type="button"><span><i class="fas fa-check"></i></span> </button>
+            <button type="button"><span><i class="fas fa-times"></i></span> </button>
+        </div>
+
+    </li>
+    
+    <li class="request">
+        <span class="user">Popescu</span>
+        <span class="camp">altceva-ora</span>
+        <textarea class="modificare" rows="4" cols="50">  fa ceva cu viata altora</textarea>
+        <div class="butoane">
+            <button type="button"><span><i class="fas fa-check"></i></span> </button>
+            <button type="button"><span><i class="fas fa-times"></i></span> </button>
+        </div>
+
+    </li>
+    
+    <li class="request">
+        <span class="user">Ionescu</span>
+        <span class="camp">fii practic-descriere</span>
+        <textarea class="modificare" rows="4" cols="50"> </textarea>
+        <div class="butoane">
+            <button type="button"><span><i class="fas fa-check"></i></span> </button>
+            <button type="button"><span><i class="fas fa-times"></i></span> </button>
+        </div>
+
+    </li>
+    
+    <li class="request">
+        
+        <span class="user">Ionescu</span>
+        <span class="camp">fii practic-descriere</span>
+        <textarea class="modificare" rows="4" cols="50"> </textarea>
+        <div class="butoane">
+            <button type="button"><span><i class="fas fa-check"></i></span> </button>
+            <button type="button"><span><i class="fas fa-times"></i></span> </button>
+        </div>
+
+    </li>
+
+</ul>
+
+<script>
+    function myFunction() {
+        var input, filter, ul, li, caut, i,j, txtValue, dis;
+        input = document.getElementById("myInput");
+        
+        filter = input.value.toUpperCase();
+
+  
+        ul = document.getElementsByClassName("list-requests");
+        li = ul[0].getElementsByTagName("li");
+        
+
+        for (i = 0; i < li.length; i++) {
+            caut = li[i].querySelectorAll(".user, .camp, .modificare");
+
+            dis = false;
+
+            for (j = 0; j < caut.length; j++) {
+                txtValue = caut[j].textContent || caut[j].innerText;
+                console.log(txtValue);
+                if (txtValue.toUpperCase().indexOf(filter) >-1) {
+                    dis = true;
+                }
+            }
+
+            if (dis) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+
+    }
+</script>
+
+</body>
+</html>
