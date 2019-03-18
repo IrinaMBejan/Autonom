@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="home.css"/>
 
     <title>Requests</title>
     
@@ -47,14 +48,36 @@
     </style>
 </head>
 
-<body>
+<body class="base">
     
+<header class="base-container">
+    <div class="logo"><img style="width:22em; height:auto;" src="https://i.imgur.com/3P1vAHn.png" alt="Logo"></div>
+    <div class="nav-placeholder">
+        <section>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="" title="Tags">Tags</a>
+                    </li>
+                    
+                    <li>
+                        <a href="" title="Requests"> Requests</a>
+                    </li>
+                    
+                    <li>
+                        <a href="" title="Links">Links</a>
+                    </li>
 
-
-<ul class="list-requests">
-    <div class="titlu" align="center">
-        Requests
+                </ul>
+            </nav>
+        </section>
     </div>
+</header>
+<main class="base-container">
+<ul class="list-requests">
     
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." >
 
@@ -105,7 +128,7 @@
     </li>
 
 </ul>
-
+</main>
 <script>
     function myFunction() {
         var input, filter, ul, li, caut, i,j, txtValue, dis;
