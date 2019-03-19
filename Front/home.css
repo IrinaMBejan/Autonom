@@ -450,15 +450,13 @@ a {
 }
 
 footer {
-    width:300px;
+    padding: 25px 25px;
+    text-align: center;
 }
 
 footer span {
     color: black;
     transform: translateY(-50%);
-}
-
-.small-notice {
 }
 
 @media (min-width: 200px) {
