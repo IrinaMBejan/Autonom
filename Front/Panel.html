@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,87 +17,87 @@
 
     <script src="Panel.js"> </script>
 
-<header class="base-container">
-    <div class="logo"><img style="width:22em; height:auto;" src="https://i.imgur.com/3P1vAHn.png" alt="Logo"></div>
-    <div class="nav-placeholder">
-        <section>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="home.html" title="Home">Home</a>
-                    </li>
-                    <li>
-                        <a href="" title="Tags">Tags</a>
-                    </li>
-                    
-                    <li>
-                        <a href="Panel.html" title="Requests"> Requests</a>
-                    </li>
-                    
-                    <li>
-                        <a href="" title="Links">Links</a>
-                    </li>
+    <header class="base-container">
+        <div class="logo"><img style="width:22em; height:auto;" src="https://i.imgur.com/3P1vAHn.png" alt="Logo"></div>
+        <div class="nav-placeholder">
+            <section>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="" title="Home">Home</a>
+                        </li>
+                        <li>
+                            <a href="" title="Tags">Tags</a>
+                        </li>
+                        
+                        <li>
+                            <a href="" title="Requests">Requests</a>
+                        </li>
+                        
+                        <li>
+                            <a href="" title="Links">Links</a>
+                        </li>
 
-                </ul>
-            </nav>
-        </section>
-    </div>
-</header>
-<main class="base-container">
-    <ul class="list-requests">
-    
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." >
+                    </ul>
+                </nav>
+            </section>
+        </div>
+    </header>
+    <main class="base-container">
+        <h1>Change requests</h1>
 
-        <li class="request">
-        
-            <span class="user">Ionescu</span>
-            <span class="camp">fii practic-descriere</span>
-            <textarea class="modificare" rows="4" cols="50">fa cevva cu viata ta </textarea>
-            <div class="butoane">
-                <button type="button"><span><i class="fas fa-check"></i></span> </button>
-                <button type="button"><span><i class="fas fa-times"></i></span> </button>
+        <div class="requests-page">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search..">
+
+            <ul class="list-requests">
+                <li class="table-header">
+                        <span class="header-element">User</span>
+                        <span class="header-element">Field</span>
+                        <span class="header-element">Proposed change</span>
+                        <span class="header-element">Action</span>
+                </li>
+                <li class="request">
+                    <span class="user">Ionescu</span>
+                    <span class="field">descriere</span>
+                    <textarea class="modification" rows="4" cols="50">fa cevva cu viata ta </textarea>
+                    <div>
+                        <button type="button" class="accept"><span><i class="fas fa-check"></i></span> </button>
+                        <button type="button" class="reject"><span><i class="fas fa-times"></i></span> </button>
+                    </div>
+                </li>
+            
+                <li class="request">
+                    <span class="user">Popescu</span>
+                    <span class="field">fii practic-descriere</span>
+                    <textarea class="modification" rows="4" cols="50">fa ceva cu viata ta</textarea>
+                    <div>
+                        <button type="button" class="accept"><span><i class="fas fa-check"></i></span> </button>
+                        <button type="button" class="reject"><span><i class="fas fa-times"></i></span> </button>
+                    </div>
+                </li>
+            
+                <li class="request">
+                    <span class="user">Ionescu</span>
+                    <span class="field">fii practic-descriere</span>
+                    <textarea class="modification" rows="4" cols="50">bla bla bla</textarea>
+                    <div>
+                        <button type="button" class="accept"><span><i class="fas fa-check"></i></span> </button>
+                        <button type="button" class="reject"><span><i class="fas fa-times"></i></span> </button>
+                    </div>
+
+                </li>
+            
+                <li class="request">
+                    <span class="user">Ionescu</span>
+                    <span class="field">fii practic-descriere</span>
+                    <textarea class="modification" rows="4" cols="50">bla bla bla</textarea>
+                    <div>
+                        <button type="button" class="accept"><span><i class="fas fa-check"></i></span> </button>
+                        <button type="button" class="reject"><span><i class="fas fa-times"></i></span> </button>
+                    </div>
+                </li>
+            </ul>
             </div>
+    </main>
 
-        </li>
-    
-        <li class="request">
-            <span class="user">Popescu</span>
-            <span class="camp">altceva-ora</span>
-            <textarea class="modificare" rows="4" cols="50">  fa ceva cu viata altora</textarea>
-            <div class="butoane">
-                <button type="button"><span><i class="fas fa-check"></i></span> </button>
-                <button type="button"><span><i class="fas fa-times"></i></span> </button>
-            </div>
-
-        </li>
-    
-        <li class="request">
-            <span class="user">Ionescu</span>
-            <span class="camp">fii practic-descriere</span>
-            <textarea class="modificare" rows="4" cols="50"> </textarea>
-            <div class="butoane">
-                <button type="button"><span><i class="fas fa-check"></i></span> </button>
-                <button type="button"><span><i class="fas fa-times"></i></span> </button>
-            </div>
-
-        </li>
-    
-        <li class="request">
-        
-            <span class="user">Ionescu</span>
-            <span class="camp">fii practic-descriere</span>
-            <textarea class="modificare" rows="4" cols="50"> </textarea>
-            <div class="butoane">
-                <button type="button"><span><i class="fas fa-check"></i></span> </button>
-                <button type="button"><span><i class="fas fa-times"></i></span> </button>
-            </div>
-
-        </li>
-
-    </ul>
-</main>
-
-
-
-</body>
-</html>
+</body></html>
