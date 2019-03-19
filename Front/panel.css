@@ -1,32 +1,84 @@
-﻿
+﻿.requests-page {
+    background-color: transparent;
+    border-radius: 10px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+}
 
-        .request {
-            display: flex;
-            padding: 20px 20px 20px 20px;
-            justify-content: space-between;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
+.list-requests .request, .list-requests .table-header {
+    display: flex;
+    padding: 20px 20px 20px 20px;
+    justify-content: space-around;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius:10px;
+    margin: 10px;
+    box-shadow: 0 0 3px rgb(0,0,0,0.4);
+}
 
-            border: 5px solid black;
-            margin: 10px;
-            
-        }
+.list-requests .table-header{
+    background-color:white ;
+}
 
-        .request .user {
-            color: red;
-            font-size: 2vw;
-        
-        }
-        
-        .request * {
-            padding: 3px 3px 3px 3px;
-            margin: 5px;
-        }
+.list-requests .request .user {
+    color: rgb(224, 156, 30);
+    font-size: 1.2em;
+}
 
-        .list-requests .titlu {
-            position: flex;
-            align-items: center;
-            font-size: 6vw;
-            list-style-type: none;
-        }
+.list-requests .request .field{
+    width: 10em;
+}
+
+.list-requests .table-header .header-element {
+    padding: 3px 3px 3px 3px;
+    align-content: flex-start;
+}
+
+.list-requests .request * {
+    padding: 3px 3px 3px 3px;
+    margin: 5px;
+}
+
+.list-requests .request:nth-child(odd) {
+    background: white;
+}
+
+.list-requests .request:nth-child(even) {
+    background: whitesmoke ;
+}
+
+.list-requests .request button {
+    display: inline-block;
+    margin: 30px auto;
+    padding: 0;
+    
+    width: 5em;
+    border-width: 0;
+    outline: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+
+    color: white;
+    transition: background-color .3s;
+}
+
+.list-requests .request button > * {
+    position: relative;
+}
+
+.list-requests .request .accept {
+    background-color: #8bc34a;
+}
+
+.list-requests .request .reject {
+    background-color: #f44336;
+}
+
+.list-requests .request .accept:hover, .list-requests .request .accept:focus {
+    background-color: #599713;
+}
+
+.list-requests .request .reject:hover, .list-requests .request .reject:focus {
+    background-color: #b61b10;
+}
