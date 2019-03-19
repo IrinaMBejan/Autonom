@@ -29,8 +29,9 @@ body {
 
 .base main {
     position: relative;
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 60px;
+    margin-top: 10px;
     min-height: 500px;
     flex: 1 0 auto;
 }
@@ -71,10 +72,32 @@ body {
 
 .base header .nav-placeholder section nav>ul>li a {
     display: block;
-    padding: 10px 10px 10px 10px;
-    background-color: rgb(210, 105, 30, 0.2);
+    background-color: #ffcc80;
     box-shadow: 0 0 3px rgb(0,0,0,0.1);
     border-radius: 0.7em;
+    font-size: 17px;
+    font-weight: 350;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: black;
+}
+
+.base header .nav-placeholder section nav>ul>li.dropdown a{
+    background-color:white;
+    box-shadow: none;
+}
+
+.base header .nav-placeholder section nav>ul>li a:hover,
+.dropdown-content a:hover,
+.dropdown:hover .dropbtn {
+    background-color: #d7ccc8;
+    color: #795548;
+}
+
+
+.base header .nav-placeholder section nav>ul>li a.active {
+    background-color: #f27d1c;
+    color: white;
 }
 
 a {
@@ -324,13 +347,7 @@ a {
 }
 
 
-.base-container {
-    padding-top: 0px !important;
-    margin-top: 10px !important;
-}
-
-.dropbtn {
-    background-color: #4CAF50;
+.dropdown-content .dropbtn {
     color: black;
     padding: 16px;
     font-size: 16px;
@@ -338,26 +355,32 @@ a {
     cursor: pointer;
 }
 
+.base header .nav-placeholder section nav>ul .dropbtn {
+    background-color: transparent;
+    box-shadow: none;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
-    font-size: 1.2em !important;
 }
 
 .dropdown-content {
+    background-color:white;
+    border-radius: 1em;
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    min-width: 200px;
     z-index: 1;
-    right: 0;
-        
+    right: 0;   
+}
+
+.dropdown-content i {
+    color:black;
 }
 
 .dropdown-content a {
     color: black;
-    /* padding: 0px 0px 0px 0px !important;  */
     margin: 10px 10px 10px 10px;
     text-decoration: none;
     display: block;
@@ -365,15 +388,10 @@ a {
     justify-content: space-between;
 }
 
-.dropdown-content a:hover { background-color: red !important;}
-
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: red;
-}
 
 @media (min-width: 200px) {
      .base header .nav-placeholder section:nth-child(1) {
