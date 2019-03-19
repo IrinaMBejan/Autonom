@@ -116,8 +116,8 @@
   
   .modal-header {
     padding: 2px 16px;
-    background-color:lightskyblue;
-    color: black;
+    background-color:#f27d1c;
+    color: white;
   }
   
   .modal-body {padding: 2px 16px;
@@ -126,8 +126,8 @@
   
   .modal-footer {
     padding: 2px 16px;
-    background-color: lightskyblue;
-    color: black;
+    background-color: #f27d1c;
+    color: white;
   }
   /* select modal body */
   .modal-body select {
