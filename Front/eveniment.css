@@ -54,6 +54,7 @@
 }
 .containerDetaliiEveniment ul:last-child li:hover {
     background-color: lightblue;
+    font-size: 130%;
 }
 
 /* modal window */
