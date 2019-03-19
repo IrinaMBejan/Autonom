@@ -11,7 +11,7 @@ function myFunction() {
 
 
     for (i = 0; i < li.length; i++) {
-        caut = li[i].querySelectorAll(".user, .camp, .modificare");
+        caut = li[i].querySelectorAll(".user, .field, .modification");
 
         dis = false;
 
