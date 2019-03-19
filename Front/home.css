@@ -242,6 +242,17 @@ a {
     transform: rotateY(180deg);
   }
 
+.activa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background-color: rgb(207, 200, 1); /* Fallback color */
+    background-color: rgb(210, 105, 30, 0.4); /* Black w/opacity/see-through */
+    transform: rotateY(180deg);
+    border: 3px solid #f1f1f1;
+}
+
 .base main .tags .tag-card-back {
     display: flex;
     align-items: center;
@@ -278,6 +289,58 @@ a {
     align-self: center;
     color:white;
 
+}
+
+
+.base-container {
+    padding-top: 0px !important;
+    margin-top: 10px !important;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: black;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-size: 1.2em !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+        
+}
+
+.dropdown-content a {
+    color: black;
+    /* padding: 0px 0px 0px 0px !important;  */
+    margin: 10px 10px 10px 10px;
+    text-decoration: none;
+    display: block;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.dropdown-content a:hover { background-color: red !important;}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: red;
 }
 
 @media (min-width: 200px) {

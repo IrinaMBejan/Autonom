@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
@@ -33,8 +33,8 @@
         <h1>Tags</h1>
         <br></br>
         <div class="actionbar"></div>
-        <div class="tags">
-            <div class="tag-card">
+        <div class="tags" >
+            <div class="tag-card" id="publicSpeaking" onclick="handleEvent('publicSpeaking')" >
                 <div class="tag-card-inner">
                     <div class="tag-card-front">
                         <h3>Public Speaking</h3>
@@ -76,6 +76,16 @@
             </div>
         </div>
     </main>
+    
+<script>
+
+    function handleEvent(id) {
+
+        var elem = document.getElementById(id);
+        elem.classList.add("activa");
+    }
+
+</script>
 
 </body>
 
