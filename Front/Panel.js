@@ -11,13 +11,12 @@ function myFunction() {
 
 
     for (i = 0; i < li.length; i++) {
-        caut = li[i].querySelectorAll(".user, .camp, .modificare");
+        caut = li[i].querySelectorAll(".user, .field, .modification");
 
         dis = false;
 
         for (j = 0; j < caut.length; j++) {
             txtValue = caut[j].textContent || caut[j].innerText;
-            console.log(txtValue);
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 dis = true;
             }
