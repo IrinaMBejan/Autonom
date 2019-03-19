@@ -1,14 +1,22 @@
 ﻿.requests-page {
     background-color: transparent;
-    border-radius: 10px;
-    padding-right: 30px;
-    padding-bottom: 20px;
 }
 
-.list-requests .request, .list-requests .table-header {
+.list-requests {
+    padding: 0;
+}
+
+#myInput {
+    /* position: absolute; */
+    transform: translate(250%, 20%);
+    border: 2px solid black;
+
+}
+
+.list-requests .request, .table-header {
     display: flex;
     padding: 20px 20px 20px 20px;
-    justify-content: space-around;
+    justify-content:space-between;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -17,7 +25,7 @@
     box-shadow: 0 0 3px rgb(0,0,0,0.4);
 }
 
-.list-requests .table-header{
+.table-header{
     background-color:white ;
 }
 
@@ -30,7 +38,7 @@
     width: 10em;
 }
 
-.list-requests .table-header .header-element {
+.table-header .header-element {
     padding: 3px 3px 3px 3px;
     align-content: flex-start;
 }
@@ -50,7 +58,7 @@
 
 .list-requests .request button {
     display: inline-block;
-    margin: 30px auto;
+    /* margin: 30px auto; */
     padding: 0;
     
     width: 5em;
