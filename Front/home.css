@@ -14,7 +14,7 @@ body {
 .base {
     position: relative;
     height: 100%;
-    background: #fff url(https://ideasphere.com/wp-content/uploads/2016/08/Savin-NY-Website-Background-Web-1.jpg) fixed center;
+    background: #fff url('Photos/Background.jpg') fixed center;
     background-size: cover;
     display: flex;
     flex-flow: column nowrap;
@@ -210,6 +210,38 @@ a {
     flex-flow: row wrap;
     margin-left: 30px;
     margin-right: 30px;
+}
+
+@keyframes fade-in {
+    from {opacity: 0; transform: scale(.7,.7)}
+    to {opacity: 1;}
+}
+
+@keyframes slide-in-blurred-bottom {
+    from {
+        transform: translateY(1000px);
+        transform-origin: 50% 100%;
+        filter: blur(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        transform-origin: 50% 50%;
+        filter: blur(0);
+        opacity: 1;
+    }
+  }
+
+.slide-in-bottom-animation {
+    animation: slide-in-blurred-bottom 1.5s cubic-bezier(0.230, 1.000, 0.320, 1.000) both;
+}
+
+.fade-animation {
+    animation: fade-in 1.4s;
+} 
+
+.animated-card {
+    opacity: 0;
 }
 
 .base main .tags .tag-card {
