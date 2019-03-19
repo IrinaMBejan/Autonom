@@ -17,7 +17,6 @@ function myFunction() {
 
         for (j = 0; j < caut.length; j++) {
             txtValue = caut[j].textContent || caut[j].innerText;
-            console.log(txtValue);
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 dis = true;
             }
