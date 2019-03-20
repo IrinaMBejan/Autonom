@@ -464,6 +464,10 @@ footer span {
         margin-top: 90px;
         margin-bottom: -50px;
     }
+    .base main .tags .tag-card {
+        width: 150px;
+        height: 150px;
+    }
 }
 
 @media (min-width: 576px) {
@@ -474,6 +478,12 @@ footer span {
     .base header .nav-placeholder section:nth-child(1) {
         margin-top: 90px;
         margin-bottom: -50px;
+    }
+
+    
+    .base main .tags .tag-card {
+        width: 160px;
+        height: 160px;
     }
 }
 
@@ -513,6 +523,11 @@ footer span {
     .base header .nav-placeholder section nav {
         display: block;
         width: 100%;
+    }
+
+    .base main .tags .tag-card {
+        width: 200px;
+        height: 200px;
     }
 }
 
