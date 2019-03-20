@@ -14,7 +14,7 @@ body {
 .base {
     position: relative;
     height: 100%;
-    background: #fff url('Photos/Background.jpg') fixed center;
+    background: #fff url('../Photos/Background.jpg') fixed center;
     background-size: cover;
     display: flex;
     flex-flow: column nowrap;
