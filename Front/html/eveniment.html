@@ -3,6 +3,8 @@
 <head>
   <link rel="stylesheet" type="text/css" href="../css/eveniment.css">
   <link rel="stylesheet" type="text/css" href="../css/home.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -14,14 +16,22 @@
       <div class="nav-placeholder">
           <section>
               <nav>
-                  <ul>
-                      <li>
-                          <a href="" title="Home">Home</a>
-                      </li>
-                      <li>
-                          <a href="" title="Tags">Tags</a>
-                      </li>
-                  </ul>
+                <ul>
+                  <li>
+                      <a href="../html/home.html" title="Home">Home</a>
+                  </li>
+                  <li>
+                      <a href="../html/tags.html" title="Tags">Tags</a>
+                  </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> Anca Popa <i class="fas fa-caret-down"></i> </a>
+                      <div class="dropdown-content">
+                          <a href="../html/home.html"><i class="fas fa-thumbtack lg"> </i> My Events </i></a>
+                          <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</i></a>
+                          <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</i></a>
+                      </div>
+                  </li>
+                </ul>
               </nav>
           </section>
       </div>
@@ -49,7 +59,7 @@
       <li>Numar maxim de locuri: 100 de locuri</li>
       <li>Categorie eveniment: tehnic</li>
       <li>Taguri: back-end</li>
-      <li>Sugereaza o modificare <input type="image" id="imageEdit" src="../Photos/edit.png" /></li>
+      <li>Sugereaza o modificare <i id="imageEdit" class="fas fa-edit"></i></li>
     </ul>
     </div>
 <!-- The Modal -->
