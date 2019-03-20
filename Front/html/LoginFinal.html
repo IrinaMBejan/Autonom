@@ -1,8 +1,12 @@
 ﻿<!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head>
+    <title>Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/login.css"/>
     <link rel="stylesheet" type="text/css" href="../css/home.css"/>
+
+
 </head>
 
 
@@ -10,28 +14,28 @@
 <div class="base">
     <div class="container-welcome">
         <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
-        <br></br>
+        <br/>
         <div class="signup">
-            <button onclick="document.getElementById(&#39;id01&#39;).style.display = &#39;block&#39;" style="width: auto;">Sign Up</button>
+            <button onclick="document.getElementById(&#39;signup-btn&#39;).style.display = &#39;block&#39;" style="width: auto;">Sign Up</button>
 
-            <div id="id01" class="modal">
-                <span onclick="document.getElementById(&#39;id01&#39;).style.display = &#39;none&#39;" class="close" title="Close Modal">×</span>
+            <div id="signup-btn" class="modal">
+                <span onclick="document.getElementById(&#39;signup-btn&#39;).style.display = &#39;none&#39;" class="close" title="Close Modal">×</span>
                 <form class="modal-content animate">
                     <div class="container">
                         <h1>Sign Up</h1>
                         <p>Please fill in this form to create an account.</p>
                         <hr>
                         <label for="email"><b>Email</b></label>
-                        <input type="text" placeholder="Enter Email" name="email" required="">
+                        <input type="text" id="email" placeholder="Enter Email" name="email" required=""  >
 
                         <label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="username" required="">
+                        <input type="text" id="uname" placeholder="Enter Username" name="username" required="">
 
                         <label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required="">
+                        <input type="password" id="psw" placeholder="Enter Password" name="psw" required="">
 
                         <label for="psw-repeat"><b>Repeat Password</b></label>
-                        <input type="password" placeholder="Repeat Password" name="psw-repeat" required="">
+                        <input type="password" id="psw-repeat" placeholder="Repeat Password" name="psw-repeat" required="">
 
                         <label>
                             <input type="checkbox" checked="checked" name="remember" style="margin-bottom: 15px"> Remember me
@@ -40,7 +44,7 @@
                         <p>By creating an account you agree to our <a href="" style="color: dodgerblue">Terms &amp; Privacy</a>.</p>
 
                         <div class="clearfix">
-                            <button type="button" onclick="document.getElementById(&#39;id01&#39;).style.display = &#39;none&#39;" class="cancelbtn">Cancel</button>
+                            <button type="button" onclick="document.getElementById(&#39;signup-btn&#39;).style.display = &#39;none&#39;" class="cancelbtn">Cancel</button>
                             <button type="submit" class="signupbtn">Sign Up</button>
                         </div>
                     </div>
@@ -51,11 +55,11 @@
 
         <div class="login">
 
-            <button onclick="document.getElementById(&#39;id02&#39;).style.display = &#39;block&#39;" style="width: auto;">Login</button>
+            <button onclick="document.getElementById(&#39;login-btn&#39;).style.display = &#39;block&#39;" style="width: auto;">Login</button>
 
-            <div id="id02" class="modal">
+            <div id="login-btn" class="modal">
 
-                <span onclick="document.getElementById(&#39;id02&#39;).style.display = &#39;none&#39;" class="close" title="Close Modal">×</span>
+                <span onclick="document.getElementById(&#39;login-btn&#39;).style.display = &#39;none&#39;" class="close" title="Close Modal">×</span>
 
                 <form class="modal-content animate">
 
@@ -65,11 +69,11 @@
 
                         <hr>
 
-                        <label for="uname"><b>Username</b></label>
-                        <input type="text" placeholder="Enter Username" name="uname" required="">
+                        <label for="luname"><b>Username</b></label>
+                       <input type="text" id="luname" placeholder="Enter Username" name="uname" required="">
 
-                        <label for="psw"><b>Password</b></label>
-                        <input type="password" placeholder="Enter Password" name="psw" required="">
+                        <label for="lpsw"><b>Password</b></label>
+                        <input type="password" id="lpsw" placeholder="Enter Password" name="psw" required="">
 
                         <button type="submit">Login</button>
                         <label>
@@ -84,21 +88,8 @@
     </div>
 
     </div>
-<script>
-            // Get the modal
-            var modal = document.getElementById('id02');
-            var modalS = document.getElementById('id01');
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-                if (event.target == modalS) {
-                    modalS.style.display = "none";
-                }
-            }
- </script>
 
-    
+
+<script src="../js/login.js"></script>
 
 </body></html>
