@@ -21,6 +21,11 @@ span.onclick = function() {
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+    var divToHide=document.getElementsByClassName("atentie")[0];
+divToHide.style.display="none";
+var divToHide=document.getElementsByClassName("atentie2")[0];
+divToHide.style.display="none";
+
   }
 }
 
