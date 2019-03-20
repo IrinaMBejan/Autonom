@@ -39,7 +39,7 @@ input[type=text] {
   font-size: 14px;
   position: absolute;
   left: 65%;
-  top: 38%;
+  top: 33%;
   display: none;
 }
 .atentie2 {
@@ -51,7 +51,7 @@ input[type=text] {
   font-size: 14px;
   position: absolute;
   left: 65%;
-  top: 65%;
+  top: 52%;
   display: none;
 }
 #addLink {

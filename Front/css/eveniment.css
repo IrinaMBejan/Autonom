@@ -40,6 +40,7 @@
     width: 2%;
     height: 2%;
     min-width: 15px;
+    cursor: pointer;
 }
 
 .containerDetaliiEveniment ul:last-child {
@@ -53,8 +54,9 @@
     border-radius: 5%; 
 }
 .containerDetaliiEveniment ul:last-child li:hover {
-    background-color: rgb(230, 212, 173);
+    /* background-color: rgb(230, 212, 173); */
     font-size: 130%;
+    opacity: 1;
 }
 
 /* modal window */

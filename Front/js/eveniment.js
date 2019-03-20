@@ -35,7 +35,7 @@ firstPhoto.onclick=function(){
   img.style.display="none";
   img=document.getElementsByClassName("imagineEveniment3")[0];
   img.style.display="none";
-  firstPhoto.style.backgroundColor = "blue";
+  firstPhoto.style.backgroundColor = "orange";
   secondPhoto.style.backgroundColor="gray";
   thirdPhoto.style.backgroundColor="gray";
 }
@@ -48,7 +48,7 @@ secondPhoto.onclick=function(){
   img.style.display="block";
   img=document.getElementsByClassName("imagineEveniment3")[0];
   img.style.display="none";
-  secondPhoto.style.backgroundColor = "blue";
+  secondPhoto.style.backgroundColor = "orange";
   firstPhoto.style.backgroundColor = "gray";
   thirdPhoto.style.backgroundColor="gray";
 
@@ -62,7 +62,7 @@ thirdPhoto.onclick=function(){
   img.style.display="none";
   img=document.getElementsByClassName("imagineEveniment3")[0];
   img.style.display="block";
-  thirdPhoto.style.backgroundColor="blue";
+  thirdPhoto.style.backgroundColor="orange";
   firstPhoto.style.backgroundColor="gray";
   secondPhoto.style.backgroundColor="gray";
 
