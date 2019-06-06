@@ -7,7 +7,6 @@ class Response(object):
         self.header_dict = { 
             "Content-Type": "application/json"
         }
-        self._headers = []
         self.status_code = status_code
 
     

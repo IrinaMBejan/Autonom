@@ -2,7 +2,7 @@ import json
 import sys
 
 from urllib.parse import parse_qsl
-from http_exception import HTTPException
+from .http_exception import HTTPException
 
 class Request(object):
     """
