@@ -1,2 +1,2 @@
 from .main import AutonomusAPI
-from .models import User, Token, Event
+from .models import Link, User, Token, Event

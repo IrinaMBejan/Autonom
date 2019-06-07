@@ -2,7 +2,6 @@ from autonomus.models import User, Token
 
 import uuid
 import hashlib
-import hug
 import jwt
 
 from datetime import datetime, timedelta
