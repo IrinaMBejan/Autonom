@@ -15,7 +15,8 @@ class Events(RequestHandler):
 
         for event in events:
             event_dict = {}
-
+            
+            event_dict["id"] = event.urlsafe
             event_dict["title"] = event.title
             event_dict["image_link"] = event.image_link
             event_dict["description"] = event.description
