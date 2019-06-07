@@ -14,6 +14,8 @@ class Login(RequestHandler):
         if not email or not password:
             raise HTTPException("400", "Please specify email and password")
 
+        print(email)
+        print(password)
         user = exists_user(email.lower(), password)
         if user != None:
             jwt_token = generate_token(user)

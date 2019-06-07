@@ -12,6 +12,8 @@ class Base(RequestHandler):
 
 
 class AutonomusAPI(API):
+    headers = [("Access-Control-Allow-Origin", "*"), ("Access-Control-Allow-Credentials", "true")]
+    
     routes = [
         ("/", Base()),
         ("/login",Login()),
