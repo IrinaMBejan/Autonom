@@ -135,4 +135,12 @@ def remove_token(urlsafe):
     if query_list:
         for token_entity in query_list:
             token_entity.remove()
-    
+
+
+def is_token_expired(token):
+    """Checks if given token is valid"""
+    try:
+        decoding = jwt.decode(token, config['jwt_secret'], config['jwt_algorithm'])
+        return False
+    except jwt.ExpiredSignatureError:
+        return True
