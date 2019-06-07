@@ -1,5 +1,6 @@
 from .utils import API, RequestHandler, HTTPException, role_admitted
 from .auth import Login, Register, Logout
+from .events import Events
 from .controllers import Roles
 
 class Base(RequestHandler):
@@ -18,5 +19,6 @@ class AutonomusAPI(API):
         ("/", Base()),
         ("/login",Login()),
         ("/register",Register()),
-        ('/logout', Logout())
+        ('/logout', Logout()),
+        ('/events',Events())
     ]
