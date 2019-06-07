@@ -1,6 +1,6 @@
 from .utils import RequestHandler, HTTPException, role_admitted
 from .controllers import Roles
-from .controllers import get_event, get_all_events
+from .controllers import get_event, get_all_events, update_event
 
 import json
 
@@ -28,8 +28,20 @@ class Events(RequestHandler):
         json_data = json.dumps(event_data)
         return json_data
 
+ 
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def post(self):
+        event_urlsafe = self.request.payload.get("event_id")
+        field_name = self.request.payload.get("field_name")
+        modification = self.request.payload.get("modification")
+
+        update_event(event_urlsafe, field_name, modification)
+ 
+        return {}
+
 
 class EventInfo(RequestHandler):
+
 
     @role_admitted(Roles.USER, Roles.ADMIN)
     def get(self):  
@@ -54,4 +66,3 @@ class EventInfo(RequestHandler):
         event_dict["tags"] = tag_names
 
         return event_dict
-
