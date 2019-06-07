@@ -9,7 +9,7 @@ class HTTPException(Exception):
 
     def response(self):
         return {
-            "status_code" : status_code,
-            "error": self.error_message,
+            "status" : self.status_code,
+            "message": self.error_message,
             "payload": self.payload
         }

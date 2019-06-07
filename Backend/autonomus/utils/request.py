@@ -34,12 +34,12 @@ class Request(object):
         """Returns JSON contained in the request body as dictionary."""
         if self._payload is not None:
             return self._payload
-    
-        if self.body:
+   
+        if self.environ['wsgi.input']:
             try:
-                self._payload = json.loads(__get_raw_input().decode('utf-8'))
+                self._payload = json.loads(self.__get_raw_input().decode('utf-8'))
             except Exception:
-                raise HTTPException(400, "No JSON given")
+                raise HTTPException("400", "No JSON given")
         else:
             self._payload = {}
 
@@ -54,7 +54,7 @@ class Request(object):
 
         self._headers = {}
         for key, value in self.environ.items():
-            self._headers[header] = value
+            self._headers[key] = value
         return self._headers
 
 

@@ -2,7 +2,7 @@ import json
 
 class Response(object):
 
-    
+     
     def __init__(self, status_code):
         self.header_dict = { 
             "Content-Type": "application/json"

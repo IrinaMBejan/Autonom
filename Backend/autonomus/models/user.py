@@ -9,5 +9,6 @@ class User(BaseModel):
     username = ndb.StringProperty()
     password = ndb.StringProperty()
     email = ndb.StringProperty()
+    type = ndb.StringProperty()
     tags = ndb.KeyProperty(kind=Tag, repeated=True)
     events = ndb.KeyProperty(kind=Event, repeated=True)
