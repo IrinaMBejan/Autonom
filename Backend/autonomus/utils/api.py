@@ -90,7 +90,11 @@ class API:
             handler.response = self.response
 
             # Looks for a match with the given path
+            print('^'+pattern+'$')
+            print(path)
+
             result = re.match('^' + pattern + '$', path)
+            print(result)
             if result:
                 # Retrieves all params matched
                 params = result.groups()
