@@ -1,15 +1,16 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/home.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/panel.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/home.css" />
+    <link rel="stylesheet" type="text/css" href="../css/panel.css" />
 
     <title>Requests</title>
-    
+
 
 </head>
 
@@ -30,15 +31,16 @@
                             <a href="../html/tags.html" title="Tags">Tags</a>
                         </li>
                         <li>
-                          <a href="../html/Panel.html" title="Requests" class="active">Requests</a>
+                            <a href="../html/Panel.html" title="Requests" class="active">Requests</a>
                         </li>
-          
+
                         <li>
-                          <a href="../html/link.html" title="Links">Links</a>
+                            <a href="../html/link.html" title="Links">Links</a>
                         </li>
-          
+
                         <li class="dropdown">
-                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> Admin <i class="fas fa-caret-down"></i> </a>
+                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> Admin <i
+                                    class="fas fa-caret-down"></i> </a>
                             <div class="dropdown-content">
                                 <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
                                 <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
@@ -54,7 +56,7 @@
         <h1>Change requests</h1>
 
         <div class="requests-page">
-            
+
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search..">
 
             <div class="table-header">
@@ -64,12 +66,12 @@
                 <span class="header-element">Action</span>
 
             </div>
-            
-            
+
+
 
             <ul class="list-requests">
 
-               
+
                 <li class="request">
                     <span class="user">Ionescu</span>
                     <span class="field">descriere</span>
@@ -106,12 +108,91 @@
                     <span class="field">fii practic-descriere</span>
                     <textarea class="modification" rows="4" cols="40">bla bla bla</textarea>
                     <div>
-                        <button type="button" class="accept"><span><i class="fas fa-check"></i></span> </button>
+                        <button type="button" class="accept"><span><i class="fas fa-check"></i></span>
+                        </button>
                         <button type="button" class="reject"><span><i class="fas fa-times"></i></span> </button>
                     </div>
                 </li>
             </ul>
-            </div>
+        </div>
     </main>
+    <script>
+        var parent = document.getElementsByClassName("list-requests")[0];
+        var li = document.createElement("li");
+        li.classList += "request";
+        parent.appendChild(li);
+        let span = document.createElement("span");
+        span.classList += "user";
+        li.appendChild(span);
+        span.innerHTML = "test";
+        span = document.createElement("span");
+        span.classList += "field";
+        span.innerHTML = "test";
+        li.appendChild(span);
+        var div = document.createElement("div");
+        // li.appendChild(div);
 
-</body></html>
+        let textarea = document.createElement("textarea");
+        li.appendChild(textarea);
+        li.appendChild(div);
+        textarea.classList += "modification";
+        textarea.setAttribute("rows", 4);
+        textarea.setAttribute("cols", 40);
+        textarea.innerHTML = "test";
+
+
+        let button = document.createElement("button");
+        button.type = "button";
+        button.classList += "accept";
+        button.id="testData";
+        div.appendChild(button);
+        span = document.createElement("span");
+        button.appendChild(span);
+        let i = document.createElement("i");
+        i.classList += "fas";
+        i.classList += " fa-check";
+        span.appendChild(i);
+
+        button = document.createElement("button");
+        button.type = "type";
+        button.classList += "reject";
+        div.appendChild(button);
+        span = document.createElement("span");
+        button.appendChild(span);
+        i = document.createElement("i");
+        i.classList += "fas";
+        i.classList += " fa-times";
+        span.appendChild(i);
+        li.dataset.id = "123";
+    </script>
+
+</body>
+<script>
+    var accept=document.getElementsByClassName("accept");
+    var reject=document.getElementsByClassName("reject");    
+    for(let i=0;i<accept.length;i++){
+    accept[i].addEventListener("click",handlerClickAccept);
+    reject[i].addEventListener("click",handlerClickReject);
+    
+    }
+    function handlerClickAccept(){
+        
+        if(event.target.nodeName==="BUTTON")
+        { console.log(event.target.parentNode.parentNode.dataset.id);}
+        else if(event.target.nodeName==="I")
+        {
+            console.log(event.target.parentNode.parentNode.parentNode.parentNode.dataset.id)
+        } 
+        else if(event.target.nodeName==="SPAN")
+        {
+            console.log(event.target.parentNode.parentNode.parentNode.dataset.id)
+        }
+        
+    }
+    function handlerClickReject(){
+        console.log(event.target.parentNode.parentNode.dataset);
+    }
+
+
+</script>
+</html>
