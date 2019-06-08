@@ -14,7 +14,7 @@ class Api_Requests (RequestHandler):
             last = []
             for r in req:
                 cerere = {}
-                cerere['id']=r.key
+                cerere['id']=r.urlsafe
                 utilizator= User.get( r.user )
                 eveniment = Event.get(r.event)
                 cerere['event']=eveniment.urlsafe
