@@ -28,7 +28,7 @@ class Links(RequestHandler):
                 dbLink.follow_link=nouLink;
                 dbLink.put()
                 return {
-                    'status': '200',
+                    'status': '201',
                     'message': 'Link succesfully added'
                 }
 
