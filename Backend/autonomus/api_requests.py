@@ -26,10 +26,8 @@ class Api_Requests (RequestHandler):
                 last.append( cerere)
 
 
-            return {
-                'status': '200',
-                'links':json.dumps(last)
-            }
+            return json.dumps(last)
+
 
 
     @role_admitted(Roles.ADMIN,Roles.USER)
