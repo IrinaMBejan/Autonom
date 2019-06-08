@@ -47,7 +47,7 @@ class Api_Requests (RequestHandler):
         if not modification:
             raise HTTPException("400", "Please specify the modification")
 
-        user_urlsafe = verify_token(user)
+        user_urlsafe =users_controller.verify_token(user)
         utilizator = User.get(user_urlsafe)
         if utilizator ==  None:
             raise HTTPException("400", "Wrong user")
