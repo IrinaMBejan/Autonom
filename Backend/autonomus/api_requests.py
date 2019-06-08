@@ -13,17 +13,18 @@ class Api_Requests (RequestHandler):
         else:
             last = []
             for r in req:
-                cerere = {}
-                cerere['id']=r.urlsafe
-                utilizator= User.get( r.user )
-                eveniment = Event.get(r.event)
-                cerere['event']=eveniment.urlsafe
-                cerere['user']= utilizator.username
-                cerere['field']=r.field
-                cerere['modification']=r.modification
-                cerere['state']=r.state
+                if r.state=="pending":
+                    cerere = {}
+                    cerere['id']=r.urlsafe
+                    utilizator= User.get( r.user )
+                    eveniment = Event.get(r.event)
+                    cerere['event']=eveniment.urlsafe
+                    cerere['user']= utilizator.username
+                    cerere['field']=r.field
+                    cerere['modification']=r.modification
 
-                last.append( cerere)
+
+                    last.append(cerere)
 
 
             return json.dumps(last)
