@@ -5,7 +5,7 @@ import json
 
 class Api_Requests (RequestHandler):
 
-    @role_admitted(Roles.ADMIN,Roles.USER)
+    @role_admitted(Roles.ADMIN)
     def get(self):
         req = list(RequestDB.all())
         if len(req) == 0:
@@ -71,7 +71,7 @@ class Api_Requests (RequestHandler):
             'message': 'Request succesfully added'
         }
 
-    @role_admitted(Roles.ADMIN,Roles.USER)
+    @role_admitted(Roles.ADMIN)
     def put(self):
         id = self.request.payload.get("id")
         newState = self.request.payload.get("state")
