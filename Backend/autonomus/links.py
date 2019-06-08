@@ -4,7 +4,7 @@ from .controllers import *
 from autonomus.models import Link
 from autonomus.controllers import links_controller as ctrl
 import json
-
+from .utils import populareAutomata
 
 
 class Links(RequestHandler):
@@ -23,12 +23,16 @@ class Links(RequestHandler):
         else:
             if ctrl.check_link(nouLink)== False:
                 raise HTTPException("400", "This link is invalid ")
+
             else:
+                if populareAutomata.scanLink(nouLink)==-1:
+                    raise HTTPException("400", "This link is invalid . We can't get events from this page")
+
                 dbLink=Link()
-                dbLink.follow_link=nouLink;
+                dbLink.follow_link=nouLink
                 dbLink.put()
                 return {
-                    'status': '200',
+                    'status': '201',
                     'message': 'Link succesfully added'
                 }
 

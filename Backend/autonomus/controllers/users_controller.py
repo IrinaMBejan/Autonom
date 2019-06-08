@@ -45,6 +45,19 @@ def exists_user(email, password):
             return ent
     return None
 
+def get_user(username):
+    """Verify if the user exists in the datastore"""
+    query = User.query()
+    query.add_filter('username', '=', username)
+    query_it = query.fetch()
+    for ent in query_it:
+        if ent is None:
+            return None
+        else:
+            return ent
+
+    return None
+
 
 def hash_password(password):
     """Encode password"""
