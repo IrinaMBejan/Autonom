@@ -17,7 +17,7 @@ class Api_Requests (RequestHandler):
                 cerere['id']=r.key
                 utilizator= User.get( r.user )
                 eveniment = Event.get(r.event)
-                cerere['event']=eveniment.key
+                cerere['event']=eveniment.urlsafe
                 cerere['user']= utilizator.username
                 cerere['field']=r.field
                 cerere['modification']=r.modification
