@@ -21,6 +21,6 @@ def get_Tags(text):
 
     for k,v in dictionar.items():
         if any(x in text for x in v):
-            listaTaguri.append(k)
+            listaTaguri.append( Tag.get( k) .key)
 
     return listaTaguri

@@ -8,7 +8,7 @@ class Event(BaseModel):
 
     title = ndb.StringProperty(required=True)
     image_link = ndb.StringProperty(required=True)
-    description = ndb.StringProperty()
+    description = ndb.StringProperty(indexed=False)
     location = ndb.StringProperty(required=True)
     date = ndb.DateTimeProperty(required=True)
     price = ndb.FloatProperty()

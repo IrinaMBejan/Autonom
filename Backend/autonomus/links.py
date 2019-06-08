@@ -23,9 +23,10 @@ class Links(RequestHandler):
         else:
             if ctrl.check_link(nouLink)== False:
                 raise HTTPException("400", "This link is invalid ")
+
             else:
                 dbLink=Link()
-                dbLink.follow_link=nouLink;
+                dbLink.follow_link=nouLink
                 dbLink.put()
                 return {
                     'status': '201',
