@@ -173,7 +173,7 @@ def scanMeetUpPage(url):
     return 0
 
 def scanEventBritePage(url):
-    return
+    return 0
 
 def scanAllLinks():
     links = Link.all()
@@ -189,10 +189,13 @@ def scanAllLinks():
 
 def scanLink(link):
         if 'meetup.com' in link:
-            scanMeetUpPage(link)
+            return scanMeetUpPage(link)
         elif 'eventbrite.com' in link:
-            scanEventBritePage(link)
+            return scanEventBritePage(link)
+        elif 'facebook.com' in link:
+            return 0
 
+        return -1
 
 def main():
 

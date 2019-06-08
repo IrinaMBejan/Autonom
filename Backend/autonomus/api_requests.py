@@ -14,8 +14,8 @@ class Api_Requests (RequestHandler):
             last = []
             for r in req:
                 cerere = {}
-                cerere['id']=r.urlsafe
-                utilizator= User.get(  r.user )
+                cerere['id']=r.key
+                utilizator= User.get( r.user )
                 eveniment = Event.get(r.event)
                 cerere['event']=eveniment.title
                 cerere['user']= utilizator.username
@@ -23,7 +23,7 @@ class Api_Requests (RequestHandler):
                 cerere['modification']=r.modification
                 cerere['state']=r.state
 
-                last.append(cerere)
+                last.append( cerere)
 
 
             return {
@@ -39,7 +39,6 @@ class Api_Requests (RequestHandler):
         field = self.request.payload.get("field")
         modification = self.request.payload.get("modification")
 
-
         if not user:
             raise HTTPException("400", "Please specify the user")
         if not event:
@@ -49,11 +48,12 @@ class Api_Requests (RequestHandler):
         if not modification:
             raise HTTPException("400", "Please specify the modification")
 
-        utilizator = users_controller.get_user(user)
+        user_urlsafe = verify_token(user)
+        utilizator = User.get(user_urlsafe)
         if utilizator ==  None:
             raise HTTPException("400", "Wrong user")
 
-        eveniment= events_controller.getEvent(event)
+        eveniment= Event.get(event)
         if eveniment ==None:
             raise HTTPException("400", "Wrong eveniment")
 
@@ -61,8 +61,8 @@ class Api_Requests (RequestHandler):
             raise HTTPException("400", "Wrong field")
 
         newRequest = RequestDB()
-        newRequest.user= utilizator.urlsafe
-        newRequest.event=eveniment.urlsafe
+        newRequest.user= utilizator.key
+        newRequest.event=eveniment.key
         newRequest.field=field
         newRequest.modification=modification
         newRequest.state='pending'
