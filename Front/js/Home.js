@@ -30,4 +30,4 @@ var animateHTML = function() {
       init: init
     };
   };
-  animateHTML().init();
+animateHTML().init();

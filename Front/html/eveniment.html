@@ -1,156 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <link rel="stylesheet" type="text/css" href="../css/eveniment.css">
   <link rel="stylesheet" type="text/css" href="../css/home.css">
   <link rel="stylesheet" type="text/css" href="../css/link.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
+
 <body class="base events-page">
   <header class="base-container">
-      <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
-      <div class="nav-placeholder">
-          <section>
-              <nav>
-                <ul>
-                  <li>
-                      <a href="../html/home.html" title="Home">Home</a>
-                  </li>
-                  <li>
-                      <a href="../html/tags.html" title="Tags">Tags</a>
-                  </li>
-                  <li class="dropdown">
-                      <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> Anca Popa <i class="fas fa-caret-down"></i> </a>
-                      <div class="dropdown-content">
-                          <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
-                          <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
-                          <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
-                      </div>
-                  </li>
-                </ul>
-              </nav>
-          </section>
-      </div>
+    <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
+    <div class="nav-placeholder">
+      <section>
+        <nav>
+          <ul>
+            <li>
+              <a href="../html/home.html" title="Home">Home</a>
+            </li>
+            <li>
+              <a href="../html/tags.html" title="Tags">Tags</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca Popa</i> <i
+                  class="fas fa-caret-down"></i> </a>
+              <div class="dropdown-content">
+                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
+                <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
+                <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </section>
+    </div>
   </header>
   <main class="base-container">
-    <h1>Nume Eveniment</h1>
+    <!-- <h1>Nume Eveniment</h1> -->
     <div class="containerDetaliiEveniment">
-        <img class="imagineEveniment" src="../Photos/event.jpg" alt="Event">
-        <img class="imagineEveniment2" src="../Photos/event2.jpg" alt="Event">
-        <img class="imagineEveniment3" src="../Photos/event3.jpg" alt="Event">
-        <!-- <button id="firstPhoto">Try it</button>
+      <img class="imagineEveniment" src="../Photos/event.jpg" alt="Event">
+      <img class="imagineEveniment2" src="../Photos/event2.jpg" alt="Event">
+      <img class="imagineEveniment3" src="../Photos/event3.jpg" alt="Event">
+      <!-- <button id="firstPhoto">Try it</button>
         <button id="secondPhoto">Try it</button>
         <button id="thirdPhoto">Try it</button> -->
-        <br>
-       <div class="meniuPhoto">
-         <div id="firstPhoto"> </div>
-         <div id="secondPhoto"> </div>
-         <div id="thirdPhoto"></div>
-       </div>
-        <ul>
-            <li id="date">Data:  23 mai  </li>
-            <li id="location">Locatia:  Hotel International</li>
+      <br>
+      <div class="meniuPhoto">
+        <div id="firstPhoto"> </div>
+        <div id="secondPhoto"> </div>
+        <div id="thirdPhoto"></div>
+      </div>
+      <ul>
+        <li id="date">Data: 23 mai </li>
+        <li id="location">Locatia: Hotel International</li>
         <li id="description">Descriere: Workshop de Java</li>
-    <li id="price">Pretul biletului: Intrarea gratuita</li>  
-      <li id="capacity">Numar maxim de locuri: 100 de locuri</li>
-      <li id="category">Categorie eveniment: tehnic</li>
-      <li id="tags">Taguri: back-end</li>
-      <li>Sugereaza o modificare <i id="imageEdit" class="fas fa-edit"></i></li>
-    </ul>
+        <li id="price">Pretul biletului: Intrarea gratuita</li>
+        <li id="capacity">Numar maxim de locuri: 100 de locuri</li>
+        <li id="category">Categorie eveniment: tehnic</li>
+        <li id="tags">Taguri: back-end</li>
+        <li>Sugereaza o modificare <i id="imageEdit" class="fas fa-edit"></i></li>
+      </ul>
     </div>
-<!-- The Modal -->
-<div id="myModal" class="modal">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
 
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Formular de modificare</h2>
-      </div>
-      <div class="modal-body">
-        <p>Completeaza formularul pentru a sugera o modificare administratorului!</p>
-        <form action="modificare.php" id="modificare">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Formular de modificare</h2>
+        </div>
+        <div class="modal-body">
+          <p>Completeaza formularul pentru a sugera o modificare administratorului!</p>
+          <form id="modificare">
 
-        <label >Alege informatia care trebuie schimbata:</label> <br>
-        <select>
-          <option value="data">Data</option>
-          <option value="locatia">Locatia</option>
-          <option value="descriere">Descriere</option>
-          <option value="pretul">Pretul</option>
-          <option value="nrLocrui">Numarul de locuri</option>
-          <option value="categorie">Categorie eveniment</option>
-          <option value="taguri">Taguri</option>
-        </select>
-        <br>
-        <h3>Informatia ta!</h3>
-        <textarea name="textarea" rows="5" cols="30" placeholder="Detaliaza modificarile!"></textarea>
-        <br>
-        <input type="submit" class="buttonModal buttonColor" value="Submit">
-        
-      </form>
+            <label>Alege informatia care trebuie schimbata:</label> <br>
+            <select id="domeniu">
+              <option value="date">Data</option>
+              <option value="location">Locatia</option>
+              <option value="description">Descriere</option>
+              <option value="price">Pretul</option>
+              <option value="capacity">Numarul de locuri</option>
+              <option value="tags">Taguri</option>
+              <option value="title">Titlu</option>
+              <option value="image_link">Imagine</option>
+            </select>
+            <br>
+            <h3>Informatia ta!</h3>
+            <textarea id="textModificare" name="textarea" rows="5" cols="30"
+              placeholder="Detaliaza modificarile!"></textarea>
+            <br>
+            <input type="submit" class="buttonModal buttonColor" value="Submit" id="submitChange">
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <h3>Agregator &copy; 2019 </h3>
+        </div>
       </div>
-      <div class="modal-footer">
-        <h3>Agregator &copy; 2019  </h3>
-      </div>
+
     </div>
-  
-  </div>
   </main>
   <script src="../js/eveniment.js"></script>
   <script>
-  document.addEventListener("DOMContentLoaded", function () {
-          const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-            
-            
-            // Handler when the DOM is fully loaded
-            event.preventDefault()
-            const url = "https://develop-dot-autonomus.appspot.com/" + "event/";
-            
-           
-          
-            
-                      
-                      var date=document.getElementById('date');
-                      date.innerHTML="test";
-                      var location=document.getElementById('location');
-                      location.innerHTML="test";
-                      var description=document.getElementById('description');
-                      description.innerHTML="test";
-                      var price=document.getElementById('price');
-                      price.innerHTML="test";
-                      var capacity=document.getElementById('capacity');
-                      capacity.innerHTML="test";
-                      var category=document.getElementById('category');
-                      category.innerHTML="test";
-                      var tags=document.getElementById('tags');
-                      var tagsText;
-                      // for(var i=0;i<data['tags'].length;i++)
-                      // {
-                      //   tagText+=" ";
-                      //   tagText+=data[tags][i];
-                      // }
-                      tags.innerHTML="test";
-                      
-                    
-               
-              
-        
-        
-           
-
-            
-
-
-            
+    document.addEventListener("DOMContentLoaded", function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = urlParams.get('id');
+      var userName = document.getElementById("user");
+      userName.innerHTML = sessionStorage.getItem("name");
+      // Handler when the DOM is fully loaded
+      const url = "https://develop-dot-autonomus.appspot.com/" + "events/details?event_id=" + id;
+      const proxy = "https://cors-anywhere.herokuapp.com/";
+      fetch(proxy + url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+      }).then((resp) => resp.json())
+        .then((resp) => {
+          var date = document.getElementById('date');
+          date.innerHTML = "Data:  " + resp.date;
+          var location = document.getElementById('location');
+          location.innerHTML = "Locatia:   " + resp.location;
+          var description = document.getElementById('description');
+          description.innerHTML = "Descrierea: " + resp.description;
+          var price = document.getElementById('price');
+          price.innerHTML = "Pretul:    -";
+          var capacity = document.getElementById('capacity');
+          capacity.innerHTML = "Capacitatea:  -";
+          var category = document.getElementById('category');
+          category.innerHTML = "Categoria:  -";
+          var tags = document.getElementById('tags');
+          tags.innerHTML = "Taguri:  " + resp.tags;
+          var imgDefault = "../Photos/event.jpg";
+          if (resp.image_link == "N/A") {
+            var photo1 = document.getElementsByClassName("imagineEveniment")[0];
+            photo1.src = imgDefault;
+            var photo2 = document.getElementsByClassName("imagineEveniment2")[0];
+            photo2.src = imgDefault;
+            var photo3 = document.getElementsByClassName("imagineEveniment3")[0];
+            photo3.src = imgDefault;
+          }
+          else {
+            var photo1 = document.getElementsByClassName("imagineEveniment")[0];
+            photo1.src = resp.image_link;
+            var photo2 = document.getElementsByClassName("imagineEveniment2")[0];
+            photo2.src = resp.image_link;
+            var photo3 = document.getElementsByClassName("imagineEveniment3")[0];
+            photo3.src = resp.image_link;
+          }
+          //change details
+          var button = document.getElementById("submitChange");
+          button.addEventListener("click", function () {
+            event.preventDefault();
+            var text = document.getElementById("textModificare").value;
+            var domeniu = document.getElementById("domeniu").value;
+            console.log(domeniu + ":" + text);
+            const urlModifica = "https://develop-dot-autonomus.appspot.com/" + "requests";
+            const proxy = "https://cors-anywhere.herokuapp.com/";
+            var data = { "user": sessionStorage.getItem("token"), "event": id, "field": domeniu, "modification": text };
+            console.log(sessionStorage.getItem("token") + "----" + id + "-----" + domeniu + "------" + text);
+            fetch(proxy + urlModifica, {
+              method: 'POST',
+              body: JSON.stringify(data),
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+              }
+            }).then((resp) => resp.json())
+              .then((resp) => {
+                console.log(resp);
+              });
+          });
         });
-  
-  
+    });
   </script>
+
 </body>
+
 </html>

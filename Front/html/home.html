@@ -25,7 +25,7 @@
                             <a href="../html/tags.html" title="Tags">Tags</a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> Anca Popa <i
+                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca Popa</i> <i
                                     class="fas fa-caret-down"></i> </a>
                             <div class="dropdown-content">
                                 <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
@@ -57,14 +57,14 @@
             </footer>
         </div>
     </main>
-    <script src="../js/Home.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Handler when the DOM is fully loaded
-            event.preventDefault()
             const url = "https://develop-dot-autonomus.appspot.com/" + "events";
             const urlLogOut = "https://develop-dot-autonomus.appspot.com/" + "logout";
             const proxy = "https://cors-anywhere.herokuapp.com/";
+            var userName = document.getElementById("user");
+      userName.innerHTML = sessionStorage.getItem("name");
             fetch(proxy + url, {
                 method: 'GET',
                 headers: {
@@ -83,7 +83,11 @@
                         var nodeDivTop = document.createElement("div");
                         nodeDivTop.className += "top";
                         var img = document.createElement("img");
-                        img.src = resp[element].image_link;
+                        console.log("img e " + resp[element].image_link);
+                        if (resp[element].image_link == "N/A")
+                            img.src = "../Photos/event.jpg";
+                        else
+                            img.src = resp[element].image_link;
                         img.setAttribute("alt", "eventImage");
                         nodeDivTop.appendChild(img);
                         var heart = document.createElement("input");
@@ -124,8 +128,9 @@
                         //div class=summary
                         var divSummary = document.createElement("div");
                         divSummary.className += "summary";
-                        var divSummaryText = document.createTextNode(resp[element].description);
-                        divSummary.appendChild(divSummaryText);
+                        //  var divSummaryText = document.createTextNode(resp[element].description);
+                        //  divSummary.appendChild(divSummaryText);
+                        divSummary.innerHTML = resp[element].description;
                         divBottom.appendChild(divSummary);
                         //nav class=article-nav
                         var nav = document.createElement("nav");
@@ -133,6 +138,7 @@
                         var aNav = document.createElement("a");
                         aNav.className += "btn";
                         aNav.className += " btn-sm";
+                        aNav.className += " readMoreButton";
                         var textNode = document.createTextNode("Read more            ");
                         aNav.appendChild(textNode);
                         //span eye
@@ -153,43 +159,40 @@
                         var parent = document.getElementsByClassName("events")[0];
                         parent.appendChild(nodeDiv);
                     }
-                });
-            //Read more
-            var readMore = document.getElementsByClassName("article-nav");
-            var i;
-            for (i = 0; i < readMore.length; i++) {
-
-                readMore[i].addEventListener('click', function (i, event) {
-
-                    var x = document.getElementsByClassName("event-card")[i].dataset.id;
-                    alert(x);
-                    window.location.href = "eveniment.html?id=123";
-
-                }.bind(event, i));
-            }
-        });
-        var logout = document.getElementById("logout");
-        const urlLogOut = "https://develop-dot-autonomus.appspot.com/" + "logout";
-        const proxy = "https://cors-anywhere.herokuapp.com/";
-        var token = sessionStorage.getItem('token');
-        console.log("tokenul e " + token);
-        logout.addEventListener("click", function () {
-            fetch(proxy + urlLogOut, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-                }
-            }).then((resp) => resp.json())
-                .then((resp) => {
-                    sessionStorage.removeItem('token');
-                    if (resp.status === "200") {
-                        console.log("sunt aici " + resp.message);
-                        window.location.href = "LoginFinal.html";
+                }).then(function () {
+                    var script = document.createElement('script');
+                    script.src = "../js/Home.js";
+                    var body = document.getElementsByTagName("body")[0];
+                    body.appendChild(script);
+                    var readMore = document.getElementsByClassName("readMoreButton");
+                    for (i = 0; i < readMore.length; i++) {
+                        readMore[i].addEventListener('click', function (i, event) {
+                            var x = document.getElementsByClassName("event-card")[i].dataset.id;
+                            window.location.href = "eveniment.html?id=" + x;
+                        }.bind(event, i));
                     }
                 });
-        })
+            var logout = document.getElementById("logout");
+            var token = sessionStorage.getItem('token');
+            logout.addEventListener("click", function () {
+                fetch(proxy + urlLogOut, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then((resp) => resp.json())
+                    .then((resp) => {
+                        sessionStorage.removeItem('token');
+                        if (resp.status === "200") {
+                            console.log("sunt aici " + resp.message);
+                            window.location.href = "LoginFinal.html";
+                        }
+                    });
+            });
+        });
     </script>
+
 </body>
 
 </html>

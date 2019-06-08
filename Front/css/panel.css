@@ -78,12 +78,21 @@
 .list-requests .request .accept {
     background-color: #8bc34a;
 }
+.list-requests .request .redirect {
+    background-color: #8bc34a;
+    position: absolute;
+    top:5%;
+    left:-50%;
+}
+.containerButoane{
+    position: relative;
+}
 
 .list-requests .request .reject {
     background-color: #f44336;
 }
 
-.list-requests .request .accept:hover, .list-requests .request .accept:focus {
+.list-requests .request .accept:hover, .list-requests .request .accept:focus, .list-requests .request .redirect:hover {
     background-color: #599713;
 }
 

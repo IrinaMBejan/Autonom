@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/login.css" />
     <link rel="stylesheet" type="text/css" href="../css/home.css" />
+<script>
+if(sessionStorage.getItem("token"))
+window.location.href = "home.html";
 
+</script>
 
 </head>
 
@@ -120,6 +124,7 @@
                 }).then((resp) => resp.json())
                     .then((resp) => {
                         sessionStorage.setItem('token', resp.token);
+                        sessionStorage.setItem('name',name);
                         // sessionStorage.setItem('id', resp.user_id);
                         console.log(resp.message + ":" + resp.status + ":" + resp.token);
                         if (resp.status === "200") { console.log("sunt aici"); window.location.href = "home.html"; }
