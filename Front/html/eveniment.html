@@ -53,13 +53,13 @@
          <div id="thirdPhoto"></div>
        </div>
         <ul>
-            <li>Data:  23 mai  </li>
-            <li>Locatia:  Hotel International</li>
-        <li>Descriere: Workshop de Java</li>
-    <li>Pretul biletului: Intrarea gratuita</li>  
-      <li>Numar maxim de locuri: 100 de locuri</li>
-      <li>Categorie eveniment: tehnic</li>
-      <li>Taguri: back-end</li>
+            <li id="date">Data:  23 mai  </li>
+            <li id="location">Locatia:  Hotel International</li>
+        <li id="description">Descriere: Workshop de Java</li>
+    <li id="price">Pretul biletului: Intrarea gratuita</li>  
+      <li id="capacity">Numar maxim de locuri: 100 de locuri</li>
+      <li id="category">Categorie eveniment: tehnic</li>
+      <li id="tags">Taguri: back-end</li>
       <li>Sugereaza o modificare <i id="imageEdit" class="fas fa-edit"></i></li>
     </ul>
     </div>
@@ -102,5 +102,55 @@
   </div>
   </main>
   <script src="../js/eveniment.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+          const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            
+            
+            // Handler when the DOM is fully loaded
+            event.preventDefault()
+            const url = "https://develop-dot-autonomus.appspot.com/" + "event/";
+            
+           
+          
+            
+                      
+                      var date=document.getElementById('date');
+                      date.innerHTML="test";
+                      var location=document.getElementById('location');
+                      location.innerHTML="test";
+                      var description=document.getElementById('description');
+                      description.innerHTML="test";
+                      var price=document.getElementById('price');
+                      price.innerHTML="test";
+                      var capacity=document.getElementById('capacity');
+                      capacity.innerHTML="test";
+                      var category=document.getElementById('category');
+                      category.innerHTML="test";
+                      var tags=document.getElementById('tags');
+                      var tagsText;
+                      // for(var i=0;i<data['tags'].length;i++)
+                      // {
+                      //   tagText+=" ";
+                      //   tagText+=data[tags][i];
+                      // }
+                      tags.innerHTML="test";
+                      
+                    
+               
+              
+        
+        
+           
+
+            
+
+
+            
+        });
+  
+  
+  </script>
 </body>
 </html>

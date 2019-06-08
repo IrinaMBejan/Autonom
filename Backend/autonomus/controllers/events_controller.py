@@ -29,3 +29,16 @@ def update_event(urlsafe, field_name, modification):
         event.tags.append(tag)
 
     event.put()
+
+
+def getEvent(title):
+    query = Event.query()
+    query.add_filter('title', '=', title)
+    query_it = query.fetch()
+    for ent in query_it:
+        if ent is None:
+            return None
+        else :
+            return ent
+
+    return None

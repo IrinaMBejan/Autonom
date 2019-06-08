@@ -6,4 +6,4 @@ from .event import Event
 from .link import Link
 from .user import User
 from .token import Token
-from .request import Request
+from .requestdb import RequestDB

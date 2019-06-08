@@ -3,6 +3,7 @@ from .auth import Login, Register, Logout
 from .events import Events, EventInfo
 from .controllers import Roles
 from .links import Links
+from .api_requests import Api_Requests
 
 
 class Base(RequestHandler):
@@ -27,5 +28,6 @@ class AutonomusAPI(API):
         ('/logout', Logout()),
         ('/events', Events()),
         ('/events/details', EventInfo()),
-        ('/links', Links())
+        ('/links', Links()),
+        ('/requests',Api_Requests())
     ]

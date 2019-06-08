@@ -31,6 +31,7 @@ divToHide.style.display="none";
 
 // add links
 function addLink(){
+  event.preventDefault();
     var linkText=document.getElementById("textLink").value;
     var tagText=document.getElementById("textTags").value;
     if ((linkText==='' || linkText==null) && (tagText==='' || tagText===null))

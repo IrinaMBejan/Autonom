@@ -17,19 +17,19 @@
 }
 .imagineEveniment{
     width: 30%;
-    height: 30%;
+    /* height: 30%; */
     min-width: 300px;
 }
 .imagineEveniment2{
   width: 30%;
-  height: 30%;
+  /* height: 30%; */
   min-width: 300px;
   max-height: 400px;
   display: none;
 }
 .imagineEveniment3{
   width: 30%;
-  height: 30%;
+  /* height: 30%; */
   min-width: 300px;
   display: none;
 }
