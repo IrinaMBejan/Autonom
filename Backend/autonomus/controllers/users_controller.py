@@ -21,7 +21,7 @@ class Roles(Enum):
     NEWBIE = 2
 
 
-def add_user(username, password, email):
+def add_user(username, password, email, phone_number):
     """Inserts new user to the database. Use for register purposes."""
     user = User(
             username=username, 
@@ -30,6 +30,10 @@ def add_user(username, password, email):
             type="user",
             tags=[],
             events=[])
+
+    if phone_number:
+        user.phone_numer = phone_number
+
     user.put()
 
 

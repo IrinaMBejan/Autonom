@@ -40,6 +40,7 @@ class Register(RequestHandler):
         email = self.request.payload.get("email")
         username = self.request.payload.get("username")
         confirmation_password = self.request.payload.get("confirmation_password")
+        phone_number = self.request.payload.get("phone_number")
         
         if not username or not password or not email or not confirmation_password:
             raise HTTPException("400", "Please specify all required fields")
@@ -61,7 +62,7 @@ class Register(RequestHandler):
                     )
         else:
             if exists_user(email, password) == None:
-                add_user(username, password, email)
+                add_user(username, password, email, phone_number)
                 return {'status': "200", 'message': "Succesfully registered user"}
             else:
                 raise HTTPException(
