@@ -6,9 +6,9 @@ from urllib.request import Request, urlopen
 from autonomus.models import Tag, Event, Link
 from google.cloud import datastore
 from dateutil import parser
-import os
 from autonomus.controllers import  tags_controller, events_controller
 import requests
+
 class JsonObject(object):
     def __init__(self, data):
         self.__dict__ = json.loads(data)

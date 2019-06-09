@@ -1,4 +1,4 @@
-from .utils import RequestHandler, HTTPException, role_admitted
+from .utils import RequestHandler, HTTPException, role_admitted, scanAllLinks
 from .controllers import Roles, add_event_to_user, verify_token, remove_event_from_user
 from .controllers import get_event, get_all_events, update_event, get_user_events
 import json
@@ -145,4 +145,8 @@ class MyEvents(RequestHandler):
         return json_data
 
 
+class EventsCrawl(RequestHandler):
 
+    def get(self):
+        scanAllLinks() 
+        return {}
