@@ -236,12 +236,3 @@ def scanAllLinks():
                         sms.send_sms(user.phone, "Did you see the "+event.title+ "It's on " +event.date.strftime("%Y-%m-%d %H:%M")+" at "+event.location+"! Join our platform, there are "+str(+ nrEvents)+" new events!")
                 return 'Mesaje trimise'
 
-def scanLink(link):
-        if 'meetup.com' in link:
-            return scanMeetUpPage(link)
-        elif 'eventbrite.com' in link:
-            return scanEventBritePage(link)
-        elif 'facebook.com' in link:
-            return 0
-
-        return -1

@@ -24,9 +24,6 @@ class Links(RequestHandler):
                 raise HTTPException("400", "This link is invalid ")
 
             else:
-                if populareAutomata.scanLink(nouLink)==-1:
-                    raise HTTPException("400", "This link is invalid . We can't get events from this page")
-
                 dbLink=Link()
                 dbLink.follow_link=nouLink
                 dbLink.put()
@@ -77,6 +74,4 @@ class LinksCleaner(RequestHandler):
         for one in Token.all():
            if not users_controller.is_token_expired(one.token):
                one.remove()
-
-
 
