@@ -59,6 +59,34 @@ def get_user(username):
     return None
 
 
+def add_tag_to_user(user_urlsafe, key):
+    user = User.get(user_urlsafe)
+    if key not in user.tags:
+        user.tags.append(key)
+    user.put()
+
+
+def remove_tag_from_user(user_urlsafe, key):
+    user = User.get(user_urlsafe)
+    if key in user.tags:
+        user.tags.remove(key)
+    user.put()
+
+
+def add_event_to_user(user_urlsafe, key):
+    user = User.get(user_urlsafe)
+    if key not in user.events:
+        user.events.append(key)
+    user.put()
+
+
+def remove_event_from_user(user_urlsafe, key):
+    user = User.get(user_urlsafe)
+    if key in user.events:
+        user.events.remove(key)
+    user.put()
+
+
 def hash_password(password):
     """Encode password"""
     salt = uuid.uuid4().hex

@@ -4,7 +4,7 @@ from .events import Events, EventInfo
 from .controllers import Roles
 from .links import Links
 from .api_requests import Api_Requests
-
+from .tags import Tags
 
 class Base(RequestHandler):
 
@@ -29,5 +29,6 @@ class AutonomusAPI(API):
         ('/events', Events()),
         ('/events/details', EventInfo()),
         ('/links', Links()),
-        ('/requests',Api_Requests())
+        ('/requests',Api_Requests()),
+        ('/tags', Tags())
     ]

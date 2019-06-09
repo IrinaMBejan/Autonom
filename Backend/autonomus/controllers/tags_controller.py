@@ -24,3 +24,11 @@ def get_Tags(text):
             listaTaguri.append( Tag.get( k) .key)
 
     return listaTaguri
+
+
+def get_all_tags():
+    return Tag.all()
+
+
+def get_tag(urlsafe):
+    return Tag.get(urlsafe)

@@ -33,13 +33,10 @@ class Api_Requests (RequestHandler):
 
     @role_admitted(Roles.ADMIN,Roles.USER)
     def post(self):
-        user = self.request.payload.get("user")
         event = self.request.payload.get("event")
         field = self.request.payload.get("field")
         modification = self.request.payload.get("modification")
 
-        if not user:
-            raise HTTPException("400", "Please specify the user")
         if not event:
             raise HTTPException("400", "Please specify the event")
         if not field:
@@ -47,7 +44,8 @@ class Api_Requests (RequestHandler):
         if not modification:
             raise HTTPException("400", "Please specify the modification")
 
-        user_urlsafe = users_controller.verify_token(' ' + user)
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = users_controller.verify_token(token)
 
         if user_urlsafe == None:
             raise HTTPException ("400", "Wrong user")
@@ -73,6 +71,7 @@ class Api_Requests (RequestHandler):
             'status': '201',
             'message': 'Request succesfully added'
         }
+
 
     @role_admitted(Roles.ADMIN)
     def put(self):

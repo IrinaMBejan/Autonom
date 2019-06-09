@@ -1,5 +1,5 @@
 from .utils import RequestHandler, HTTPException, role_admitted
-from .controllers import Roles
+from .controllers import Roles, add_event_to_user, verify_token, remove_event_from_user
 from .controllers import get_event, get_all_events, update_event
 
 import json
@@ -35,9 +35,44 @@ class Events(RequestHandler):
         field_name = self.request.payload.get("field_name")
         modification = self.request.payload.get("modification")
 
+        if not event_urlsafe or field_name or modification:
+            raise HTTPException("400", "Please specify all fields")
+
+
         update_event(event_urlsafe, field_name, modification)
  
         return {}
+
+  
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def put(self):
+        event_urlsafe = self.request.payload.get('event_id')
+  
+        if not event_urlsafe:
+            raise HTTPException("400", "Please specify event id")
+        event = get_event(event_urlsafe)
+        
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+
+        add_event_to_user(user_urlsafe, event.key)
+        return {'status':'200', 'message':'Event heart succesfully added'}
+
+
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def delete(self):
+        event_urlsafe = self.request.payload.get('event_id')
+  
+        if not event_urlsafe:
+            raise HTTPException("400", "Please specify event id")
+        event = get_event(event_urlsafe)
+        
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+
+        remove_event_from_user(user_urlsafe, event.key)
+        return {'status':'200', 'message':'Event heart succesfully removed'}
+
 
 
 class EventInfo(RequestHandler):
@@ -46,6 +81,10 @@ class EventInfo(RequestHandler):
     @role_admitted(Roles.USER, Roles.ADMIN)
     def get(self):  
         urlsafe = self.request.args["event_id"]
+        
+        if not urlsafe:
+            raise HTTPException("400", "Please specify event id")
+
         event = get_event(urlsafe)
         
         event_dict = {}
@@ -56,7 +95,17 @@ class EventInfo(RequestHandler):
         event_dict["description"] = event.description
         event_dict["location"] = event.location
         event_dict["date"] = event.date.strftime("%Y-%m-%d %H:%M")
-            
+        if event.price:
+            event_dict["price"] = event.price
+        else:
+            event_dict["price"] = "-"
+        
+        
+        if event.capacity:
+            event_dict["capacity"] = event.capacity
+        else:
+            event_dict["capacity"] = "-"
+
         tag_names = []
             
         for tag in event.tags:
