@@ -32,6 +32,6 @@ class AutonomusAPI(API):
         ('/links', Links()),
         ('/requests',Api_Requests()),
         ('/tags', Tags()),
-        ('/myevents',MyEvents())
+        ('/myevents',MyEvents()),
         ('/links/clean',LinksCleaner())
     ]
