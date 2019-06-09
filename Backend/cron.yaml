@@ -1,0 +1,4 @@
+cron:
+- description: "events gathering"
+  url: /events/crawl
+  schedule: every 2 hours
