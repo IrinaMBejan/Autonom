@@ -3,18 +3,16 @@ import pytz
 import json
 import string
 from urllib.request import Request, urlopen
-from autonomus.models import Tag, Event, Link
+from autonomus.models import Tag, Event, Link,User
 from dateutil import parser
-from autonomus.controllers import  tags_controller, events_controller
+from autonomus.controllers import tags_controller, events_controller
 import requests
 import re
-import os
-from google.cloud import datastore
+from autonomus.utils import sms
 
 class JsonObject(object):
     def __init__(self, data):
         self.__dict__ = json.loads(data)
-
 
 meetUpHeaders = {
         'Authorization': 'Bearer 48bafed7ddb40e635bf562959a48d0ba',
@@ -232,9 +230,11 @@ def scanAllLinks():
         allEvents= Event.all();
         for event in allEvents:
             if event.title != None and event.date!=None and event.location != None:
-                return "Did you see the "+event.title+ "It's on " +event.date.strftime("%Y-%m-%d %H:%M")+" at "+event.location+"! Join our platform, there are "+str(+ nrEvents)+" new events!"
-
-
+                users= User.all()
+                for user in users:
+                    if user.phone != None:
+                        sms.send_sms(user.phone, "Did you see the "+event.title+ "It's on " +event.date.strftime("%Y-%m-%d %H:%M")+" at "+event.location+"! Join our platform, there are "+str(+ nrEvents)+" new events!")
+                return 'Mesaje trimise'
 
 def scanLink(link):
         if 'meetup.com' in link:
@@ -245,10 +245,3 @@ def scanLink(link):
             return 0
 
         return -1
-
-if __name__ == '__main__':
-    global client
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/andrei/autonomus.json"
-    client = datastore.Client(project="autonomus", namespace="development")
-
-    print(scanAllLinks())
