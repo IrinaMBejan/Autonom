@@ -6,3 +6,4 @@ from .roles import role_admitted
 from .http_exception import HTTPException
 
 from .populareAutomata import scanAllLinks
+from .sms import send_sms
