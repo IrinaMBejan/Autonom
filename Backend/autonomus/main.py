@@ -2,7 +2,7 @@ from .utils import API, RequestHandler, HTTPException, role_admitted
 from .auth import Login, Register, Logout
 from .events import Events, EventInfo, MyEvents, EventsCrawl
 from .controllers import Roles
-from .links import Links
+from .links import *
 from .api_requests import Api_Requests
 from .tags import Tags
 
@@ -33,4 +33,5 @@ class AutonomusAPI(API):
         ('/requests',Api_Requests()),
         ('/tags', Tags()),
         ('/myevents',MyEvents())
+        ('/links/clean',LinksCleaner())
     ]

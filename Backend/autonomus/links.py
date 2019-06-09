@@ -1,11 +1,10 @@
 from .utils import RequestHandler, HTTPException, role_admitted
-from .controllers import Roles
 from .controllers import *
-from autonomus.models import Link
+from autonomus.models import Link,Token
 from autonomus.controllers import links_controller as ctrl
 import json
 from .utils import populareAutomata
-
+from autonomus.controllers import users_controller
 
 class Links(RequestHandler):
 
@@ -71,6 +70,13 @@ class Links(RequestHandler):
                 'links':json.dumps(last)
             }
 
+
+class LinksCleaner(RequestHandler):
+
+    def get(self):
+        for one in Token.all():
+           if not users_controller.is_token_expired(one.token):
+               one.remove()
 
 
 

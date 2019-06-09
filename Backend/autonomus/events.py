@@ -42,37 +42,6 @@ class Events(RequestHandler):
  
         return {}
 
-  
-    @role_admitted(Roles.USER, Roles.ADMIN)
-    def put(self):
-        event_urlsafe = self.request.payload.get('event_id')
-  
-        if not event_urlsafe:
-            raise HTTPException("400", "Please specify event id")
-        event = get_event(event_urlsafe)
-        
-        token = self.request.headers['HTTP_AUTHORIZATION']
-        user_urlsafe = verify_token(token)
-
-        add_event_to_user(user_urlsafe, event.key)
-        return {'status':'200', 'message':'Event heart succesfully added'}
-
-
-    @role_admitted(Roles.USER, Roles.ADMIN)
-    def delete(self):
-        event_urlsafe = self.request.payload.get('event_id')
-  
-        if not event_urlsafe:
-            raise HTTPException("400", "Please specify event id")
-        event = get_event(event_urlsafe)
-        
-        token = self.request.headers['HTTP_AUTHORIZATION']
-        user_urlsafe = verify_token(token)
-
-        remove_event_from_user(user_urlsafe, event.key)
-        return {'status':'200', 'message':'Event heart succesfully removed'}
-
-
 
 class EventInfo(RequestHandler):
 
@@ -143,6 +112,36 @@ class MyEvents(RequestHandler):
 
         json_data = json.dumps(event_data)
         return json_data
+
+
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def put(self):
+        event_urlsafe = self.request.payload.get('event_id')
+  
+        if not event_urlsafe:
+            raise HTTPException("400", "Please specify event id")
+        event = get_event(event_urlsafe)
+        
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+
+        add_event_to_user(user_urlsafe, event.key)
+        return {'status':'200', 'message':'Event heart succesfully added'}
+
+
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def delete(self):
+        event_urlsafe = self.request.payload.get('event_id')
+  
+        if not event_urlsafe:
+            raise HTTPException("400", "Please specify event id")
+        event = get_event(event_urlsafe)
+        
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+
+        remove_event_from_user(user_urlsafe, event.key)
+        return {'status':'200', 'message':'Event heart succesfully removed'}
 
 
 class EventsCrawl(RequestHandler):
