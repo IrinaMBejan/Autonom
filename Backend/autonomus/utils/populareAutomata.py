@@ -4,14 +4,15 @@ import json
 import string
 from urllib.request import Request, urlopen
 from autonomus.models import Tag, Event, Link
-from google.cloud import datastore
 from dateutil import parser
 from autonomus.controllers import  tags_controller, events_controller
 import requests
+import re
 
 class JsonObject(object):
     def __init__(self, data):
         self.__dict__ = json.loads(data)
+
 
 meetUpHeaders = {
         'Authorization': 'Bearer 48bafed7ddb40e635bf562959a48d0ba',
@@ -24,62 +25,63 @@ eventBrideHeaders = {
 }
 
 def addEventBrite(event):
-    newEveniment = Event()
 
-    if 'start' in event and type(event['start']) is dict and 'utc' in event['start']:
-        newEveniment.date = parser.parse(event['start']['utc'])
-        utc = pytz.UTC
-        if datetime.datetime.now().replace(tzinfo=utc) < newEveniment.date.replace(tzinfo=utc):
-            if 'name' in event:
-                if type(event['name']) is dict and 'text' in event['name']:
-                    if not events_controller.getEvent(event['name']['text']):
-                        newEveniment.title = event['name']['text']
-                        newEveniment.tags = tags_controller.get_Tags(newEveniment.title)
 
-                        if 'description' in event:
-                            if 'text' in event['description']:
-                                description = event['description']['text']
+        newEveniment = Event()
+        if 'start' in event and type(event['start']) is dict and 'utc' in event['start']:
+            newEveniment.date = parser.parse(event['start']['utc'])
+            utc = pytz.UTC
+            if datetime.datetime.now().replace(tzinfo=utc) < newEveniment.date.replace(tzinfo=utc):
+                if 'name' in event:
+                    if type(event['name']) is dict and 'text' in event['name']:
+                        if not events_controller.getEvent(event['name']['text']):
+                            newEveniment.title = event['name']['text']
+                            newEveniment.tags = tags_controller.get_Tags(newEveniment.title)
 
-                                newEveniment.description = description
-                                newEveniment.tags += tags_controller.get_Tags(description)
+                            if 'description' in event:
+                                if 'text' in event['description']:
+                                    description = event['description']['text']
 
-                        newEveniment.image_link = 'N/A'
-                        if 'logo' in event:
-                            if type(event['logo']) is dict:
-                                if 'url' in event['logo']:
-                                    newEveniment.image_link = event['logo']['url']
+                                    newEveniment.description = description
+                                    newEveniment.tags += tags_controller.get_Tags(description)
 
-                        # if 'capacity' in event:
-                        #     capacity = event['capacity']
-                        #     if(capacity==None):
-                        #         capacity=0
-                        #     newEveniment.capacity=capacity
+                            newEveniment.image_link = 'N/A'
+                            if 'logo' in event:
+                                if type(event['logo']) is dict:
+                                    if 'url' in event['logo']:
+                                        newEveniment.image_link = event['logo']['url']
 
-                        if 'is_free' in event:
-                            if event['is_free']:
-                                newEveniment.price = 0.0
-                            else:
-                                newEveniment.price = 1.0
+                            # if 'capacity' in event:
+                            #     capacity = event['capacity']
+                            #     if(capacity==None):
+                            #         capacity=0
+                            #     newEveniment.capacity=capacity
 
-                        newEveniment.location = 'N/A'
-                        if 'venue' in event:
-                            if type(event['venue']) is dict:
-                                if 'address' in event['venue']:
-                                    if 'localized_address_display' in event['venue']['address']:
-                                        newEveniment.location = event['venue']['address'][
-                                            'localized_address_display']
-                                    elif 'localized_area_display' in event['venue']['address']:
-                                        newEveniment.location = event['venue']['address'][
-                                            'localized_area_display']
-                                    elif 'address_1' in event['venue']['address']:
-                                        newEveniment.location = event['venue']['address']['address_1']
+                            if 'is_free' in event:
+                                if event['is_free']:
+                                    newEveniment.price = 0.0
+                                else:
+                                    newEveniment.price = 1.0
 
-                        # print(newEveniment.location)
+                            newEveniment.location = 'N/A'
+                            if 'venue' in event:
+                                if type(event['venue']) is dict:
+                                    if 'address' in event['venue']:
+                                        if 'localized_address_display' in event['venue']['address']:
+                                            newEveniment.location = event['venue']['address'][
+                                                'localized_address_display']
+                                        elif 'localized_area_display' in event['venue']['address']:
+                                            newEveniment.location = event['venue']['address'][
+                                                'localized_area_display']
+                                        elif 'address_1' in event['venue']['address']:
+                                            newEveniment.location = event['venue']['address']['address_1']
 
-                        if 'category_id' in event and event['category_id'] != None:
-                            newEveniment.tags += tags_controller.get_Tags(event['category_id'])
+                            # print(newEveniment.location)
 
-                        newEveniment.put()
+                            if 'category_id' in event and event['category_id'] != None:
+                                newEveniment.tags += tags_controller.get_Tags(event['category_id'])
+
+                            newEveniment.put()
 
 def eventBrite():
 
@@ -173,6 +175,32 @@ def scanMeetUpPage(url):
     return 0
 
 def scanEventBritePage(url):
+    if 'eventbrite.com' in url:
+        request = requests.get(url, headers=eventBrideHeaders)
+
+        links= re.findall(r'(https?://\S+)', request.text)
+
+        res = [k for k in links if 'eventbrite.com' in k]
+        util = False
+        for el in res:
+            sp= el.split('?aff')
+            eventLink= sp[0].split('"')
+            eventNr= eventLink[0].rsplit('-',1)
+            if len(eventNr) > 1:
+                    if eventNr[1].isdigit():
+                        util=True
+                        request = requests.get('https://www.eventbriteapi.com/v3/events/'+eventNr[1]+'/?expand=venue' ,
+                            headers=eventBrideHeaders)
+
+                        response_body = request.text
+                        addEventBrite(dict(json.loads (response_body)))
+
+
+        if util:
+            return 1
+
+        return -1
+
     return 0
 
 def scanAllLinks():
@@ -197,19 +225,3 @@ def scanLink(link):
 
         return -1
 
-def main():
-
-
-    global client
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/andrei/autonomus.json"
-    client = datastore.Client(project="autonomus", namespace="development")
-
-
-    # eventBrite()
-    # meetUp()
-    scanLink('https://www.meetup.com/DotNetIasi/')
-
-
-
-if __name__ == '__main__':
-    main()
