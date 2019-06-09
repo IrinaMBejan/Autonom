@@ -8,6 +8,8 @@ from dateutil import parser
 from autonomus.controllers import  tags_controller, events_controller
 import requests
 import re
+import os
+from google.cloud import datastore
 
 class JsonObject(object):
     def __init__(self, data):
@@ -25,7 +27,6 @@ eventBrideHeaders = {
 }
 
 def addEventBrite(event):
-
 
         newEveniment = Event()
         if 'start' in event and type(event['start']) is dict and 'utc' in event['start']:
@@ -51,11 +52,6 @@ def addEventBrite(event):
                                     if 'url' in event['logo']:
                                         newEveniment.image_link = event['logo']['url']
 
-                            # if 'capacity' in event:
-                            #     capacity = event['capacity']
-                            #     if(capacity==None):
-                            #         capacity=0
-                            #     newEveniment.capacity=capacity
 
                             if 'is_free' in event:
                                 if event['is_free']:
@@ -82,6 +78,9 @@ def addEventBrite(event):
                                 newEveniment.tags += tags_controller.get_Tags(event['category_id'])
 
                             newEveniment.put()
+                            return True
+
+        return False
 
 def eventBrite():
 
@@ -142,6 +141,9 @@ def addMeetUpEvent(event):
                     microsecond=event['time'] % 1000 * 1000)
 
             newEvent.put()
+            return True
+
+    return False
 
 def meetUp():
 
@@ -168,9 +170,12 @@ def scanMeetUpPage(url):
 #         linkul este corect , colectam evenimente
         request = requests.get('https://api.meetup.com/' + groupName + '/events?&sign=true&photo-host=public&page=200000000', headers=meetUpHeaders)
         events= request.json()
+        nrEvenimenteAdaugate = 0
         for event in events:
-            addMeetUpEvent(event)
-        return  1
+            if addMeetUpEvent(event):
+                nrEvenimenteAdaugate += 1
+
+        return nrEvenimenteAdaugate
 
     return 0
 
@@ -181,6 +186,7 @@ def scanEventBritePage(url):
         links= re.findall(r'(https?://\S+)', request.text)
 
         res = [k for k in links if 'eventbrite.com' in k]
+        nrEvenimenteAdaugate=0
         util = False
         for el in res:
             sp= el.split('?aff')
@@ -188,16 +194,17 @@ def scanEventBritePage(url):
             eventNr= eventLink[0].rsplit('-',1)
             if len(eventNr) > 1:
                     if eventNr[1].isdigit():
-                        util=True
+                        util = True
                         request = requests.get('https://www.eventbriteapi.com/v3/events/'+eventNr[1]+'/?expand=venue' ,
-                            headers=eventBrideHeaders)
+                            headers = eventBrideHeaders)
 
                         response_body = request.text
-                        addEventBrite(dict(json.loads (response_body)))
+                        if addEventBrite(dict(json.loads (response_body))):
+                            nrEvenimenteAdaugate += 1
 
 
         if util:
-            return 1
+            return nrEvenimenteAdaugate
 
         return -1
 
@@ -205,14 +212,28 @@ def scanEventBritePage(url):
 
 def scanAllLinks():
     links = Link.all()
+    nrEvents = 0
     for l in links:
         if 'meetup.com' in l.follow_link:
-            if scanMeetUpPage(l.follow_link) ==-1:
+            nrEvenimenteAdaugate = scanMeetUpPage(l.follow_link)
+            if nrEvenimenteAdaugate == -1:
                 l.remove()
+            else:
+                nrEvents+=nrEvenimenteAdaugate
 
         elif 'eventbrite.com' in l.follow_link:
-             if scanEventBritePage(l.follow_link) ==-1:
+            nrEvenimenteAdaugate = scanEventBritePage(l.follow_link)
+            if nrEvenimenteAdaugate==-1:
                 l.remove()
+            else:
+                nrEvents+=nrEvenimenteAdaugate
+
+    if nrEvents >1:
+        allEvents= Event.all();
+        for event in allEvents:
+            if event.title != None and event.date!=None and event.location != None:
+                return "Did you see the "+event.title+ "It's on " +event.date.strftime("%Y-%m-%d %H:%M")+" at "+event.location+"! Join our platform, there are "+str(+ nrEvents)+" new events!"
+
 
 
 def scanLink(link):
@@ -225,3 +246,9 @@ def scanLink(link):
 
         return -1
 
+if __name__ == '__main__':
+    global client
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/andrei/autonomus.json"
+    client = datastore.Client(project="autonomus", namespace="development")
+
+    print(scanAllLinks())
