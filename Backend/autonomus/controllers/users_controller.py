@@ -59,6 +59,11 @@ def get_user(username):
     return None
 
 
+def get_user_events(urlsafe):
+    user = User.get(urlsafe)
+    return user.events
+
+
 def add_tag_to_user(user_urlsafe, key):
     user = User.get(user_urlsafe)
     if key not in user.tags:

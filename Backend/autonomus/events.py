@@ -1,7 +1,6 @@
 from .utils import RequestHandler, HTTPException, role_admitted
 from .controllers import Roles, add_event_to_user, verify_token, remove_event_from_user
-from .controllers import get_event, get_all_events, update_event
-
+from .controllers import get_event, get_all_events, update_event, get_user_events
 import json
 
 
@@ -115,3 +114,35 @@ class EventInfo(RequestHandler):
         event_dict["tags"] = tag_names
 
         return event_dict
+
+
+class MyEvents(RequestHandler):
+
+    
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def get(self):
+        event_data = []
+        
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+        events = get_user_events(user_urlsafe)
+
+        for event_key in events:
+
+            event = event_key.get()
+            event_dict = {}
+            
+            event_dict["id"] = event.urlsafe
+            event_dict["title"] = event.title
+            event_dict["image_link"] = event.image_link
+            event_dict["description"] = event.description
+            event_dict["location"] = event.location
+            event_dict["date"] = event.date.strftime("%Y-%m-%d %H:%M")
+
+            event_data.append(event_dict)
+
+        json_data = json.dumps(event_data)
+        return json_data
+
+
+
