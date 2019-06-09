@@ -33,13 +33,13 @@ divToHide.style.display="none";
 function addLink(){
   event.preventDefault();
     var linkText=document.getElementById("textLink").value;
-    var tagText=document.getElementById("textTags").value;
-    if ((linkText==='' || linkText==null) && (tagText==='' || tagText===null))
+    // var tagText=document.getElementById("textTags").value;
+    if ((linkText==='' || linkText==null) ) //&& (tagText==='' || tagText===null))
     {
       var divToShow=document.getElementsByClassName("atentie")[0];
       divToShow.style.display="block";
-      var divToShow2=document.getElementsByClassName("atentie2")[0];
-      divToShow2.style.display="block";
+      // var divToShow2=document.getElementsByClassName("atentie2")[0];
+      // divToShow2.style.display="block";
 
     }
     else if(linkText==='' || linkText===null)
@@ -48,16 +48,16 @@ function addLink(){
       var divToShow=document.getElementsByClassName("atentie")[0];
       divToShow.style.display="block";
   }
-   else if (tagText==='' || tagText===null)
-   {
-    var divToShow=document.getElementsByClassName("atentie2")[0];
-    divToShow.style.display="block";
-   }
+  //  else if (tagText==='' || tagText===null)
+  //  {
+  //   var divToShow=document.getElementsByClassName("atentie2")[0];
+  //   divToShow.style.display="block";
+  //  }
     else {
       var divToHide=document.getElementsByClassName("atentie")[0];
       divToHide.style.display="none";
-      var divToHide=document.getElementsByClassName("atentie2")[0];
-      divToHide.style.display="none";
+      // var divToHide=document.getElementsByClassName("atentie2")[0];
+      // divToHide.style.display="none";
       var requestArray=document.getElementsByClassName("request");
       var node = document.createElement("LI");
       node.classList.add("request");
@@ -88,7 +88,7 @@ function addLink(){
 function hide(){
 var divToHide=document.getElementsByClassName("atentie")[0];
 divToHide.style.display="none";
-var divToHide=document.getElementsByClassName("atentie2")[0];
-divToHide.style.display="none";
+// var divToHide=document.getElementsByClassName("atentie2")[0];
+// divToHide.style.display="none";
 
 }

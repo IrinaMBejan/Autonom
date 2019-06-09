@@ -131,9 +131,9 @@
           var description = document.getElementById('description');
           description.innerHTML = "Descrierea: " + resp.description;
           var price = document.getElementById('price');
-          price.innerHTML = "Pretul:    -";
+          price.innerHTML = "Pretul:    "+resp.price;
           var capacity = document.getElementById('capacity');
-          capacity.innerHTML = "Capacitatea:  -";
+          capacity.innerHTML = "Capacitatea:  "+resp.capacity;
           var category = document.getElementById('category');
           category.innerHTML = "Categoria:  -";
           var tags = document.getElementById('tags');
@@ -164,7 +164,7 @@
             console.log(domeniu + ":" + text);
             const urlModifica = "https://develop-dot-autonomus.appspot.com/" + "requests";
             const proxy = "https://cors-anywhere.herokuapp.com/";
-            var data = { "user": sessionStorage.getItem("token"), "event": id, "field": domeniu, "modification": text };
+            var data = {  "event": id, "field": domeniu, "modification": text };
             console.log(sessionStorage.getItem("token") + "----" + id + "-----" + domeniu + "------" + text);
             fetch(proxy + urlModifica, {
               method: 'POST',
@@ -176,6 +176,7 @@
             }).then((resp) => resp.json())
               .then((resp) => {
                 console.log(resp);
+                alert("Cerere trimisa cu succes!");
               });
           });
         });

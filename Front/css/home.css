@@ -397,7 +397,7 @@ a {
 }
 
 .heart {
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/heart.png");
+    /* background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/heart.png"); */
     background-size: 100%;
     background-repeat: no-repeat;
     display: inline-block;

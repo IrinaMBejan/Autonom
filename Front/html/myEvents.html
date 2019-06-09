@@ -1,6 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Home</title>
@@ -11,60 +16,57 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
-<body class="base events-page">
-    <header class="base-container">
-        <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
-        <div class="nav-placeholder">
-            <section>
-                <nav>
-                    <ul>
-                        <li>
-                            <a href="" title="Home" class="active">Home</a>
-                        </li>
-                        <li>
-                            <a href="../html/tags.html" title="Tags">Tags</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca
-                                    Popa</i> <i class="fas fa-caret-down"></i> </a>
-                            <div class="dropdown-content">
-                                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
-                                <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
-                                <a id="logout"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </section>
-        </div>
-    </header>
-    <main class="base-container">
-        <h1>Events</h1>
-        <div class="actionbar"></div>
-        <div class="events">
+<body>
 
-        </div>
-        <div class="small-notice">
-            <footer>
-                <div class="feed-end">
-                    <p class="strike-behind"></p>
-                    <span>
-                        <i class="far fa-check-circle fa-2x"></i>
-                    </span>
-                    <p class="strike-behind"></p>
-                </div>
-                <span id="emptyText">You're All Caught Up</span>
-            </footer>
-        </div>
-    </main>
+    <body class="base events-page">
+        <header class="base-container">
+            <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
+            <div class="nav-placeholder">
+                <section>
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="" title="Home" class="active">Home</a>
+                            </li>
+                            <li>
+                                <a href="../html/tags.html" title="Tags">Tags</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca
+                                        Popa</i> <i class="fas fa-caret-down"></i> </a>
+                                <div class="dropdown-content">
+                                    <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
+                                    <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
+                                    <a id="logout"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
+            </div>
+        </header>
+        <main class="base-container">
+            <h1>My Events</h1>
+            <div class="actionbar"></div>
+            <div class="events">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const url = "https://develop-dot-autonomus.appspot.com/" + "events";
-            const urlLogOut = "https://develop-dot-autonomus.appspot.com/" + "logout";
+            </div>
+            <div class="small-notice">
+                <footer>
+                    <div class="feed-end">
+                        <p class="strike-behind"></p>
+                        <span>
+                            <i class="far fa-check-circle fa-2x"></i>
+                        </span>
+                        <p class="strike-behind"></p>
+                    </div>
+                    <span id="emptyText">You're All Caught Up</span>
+                </footer>
+            </div>
+        </main>
+        <script>
             const proxy = "https://cors-anywhere.herokuapp.com/";
-            var userName = document.getElementById("user");
-            userName.innerHTML = sessionStorage.getItem("name");
+            const url = "https://develop-dot-autonomus.appspot.com/" + "myevents";
             fetch(proxy + url, {
                 method: 'GET',
                 headers: {
@@ -73,6 +75,7 @@
                 }
             }).then((resp) => resp.json())
                 .then((resp) => {
+                    console.log(resp);
                     var length = resp.length;
                     console.log(length);
                     for (var element = 0; element < length; element++) {
@@ -93,7 +96,7 @@
                         var heart = document.createElement("input");
                         heart.setAttribute("type", "image");
                         heart.className += "heart";
-                        heart.src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/heart.png";
+                        heart.src = "https://img.icons8.com/color/48/000000/cancel.png";
                         heart.setAttribute("alt", "Submit");
                         nodeDivTop.appendChild(heart);
                         nodeDiv.appendChild(nodeDivTop);
@@ -159,7 +162,9 @@
                         var parent = document.getElementsByClassName("events")[0];
                         parent.appendChild(nodeDiv);
                     }
-                }).then(function () {
+
+                }).then(function(){
+
                     var script = document.createElement('script');
                     script.src = "../js/Home.js";
                     var body = document.getElementsByTagName("body")[0];
@@ -172,13 +177,12 @@
                         }.bind(event, i));
                     }
                     var heart = document.getElementsByClassName('heart');
-                    const urlPut="https://develop-dot-autonomus.appspot.com/" + "myevents";
                     for (i = 0; i < heart.length; i++) {
                         heart[i].addEventListener('click', function (i, event) {
 
                             var x = document.getElementsByClassName("event-card")[i].dataset.id;
                             var data = { "event_id": x };
-                            fetch(proxy + urlPut, {
+                            fetch(proxy + url, {
                                 method: 'PUT',
                                 body: JSON.stringify(data),
                                 headers: {
@@ -191,32 +195,27 @@
                                 });
                         }.bind(event, i));
                     }
-                });
-            var logout = document.getElementById("logout");
-            var token = sessionStorage.getItem('token');
-            logout.addEventListener("click", function () {
-                fetch(proxy + urlLogOut, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    var heart = document.getElementsByClassName('heart');
+                    const urlPut="https://develop-dot-autonomus.appspot.com/" + "myevents";
+                    for (i = 0; i < heart.length; i++) {
+                        heart[i].addEventListener('click', function (i, event) {
+                       var x = document.getElementsByClassName("event-card")[i].dataset.id;
+                            var data = { "event_id": x };
+                            fetch(proxy + urlPut, {
+                                method: 'DELETE',
+                                body: JSON.stringify(data),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                }
+                            }).then((resp) => resp.json())
+                                .then((resp) => {
+                                    console.log(resp);
+                                    location.reload();
+                                });
+                        }.bind(event, i));
                     }
-                }).then((resp) => resp.json())
-                    .then((resp) => {
-                        sessionStorage.removeItem('token');
-                        if (resp.status === "200") {
-                            console.log("sunt aici " + resp.message);
-                            window.location.href = "LoginFinal.html";
-                        }
-                    });
-            });
-
-
-
-
-        });
-    </script>
-
-</body>
-
+                });
+        </script>
+    </body>
 </html>

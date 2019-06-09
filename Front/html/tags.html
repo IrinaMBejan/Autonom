@@ -42,7 +42,7 @@
         <h1>Tags</h1>
         <div class="actionbar"></div>
         <div class="tags">
-            <div class="tag-card" id="card1" onclick="handleEvent(this.id)">
+            <!-- <div class="tag-card" id="card1" onclick="handleEvent(this.id)">
                 <div class="tag-card-inner">
                     <div class="tag-card-front">
                         <h3>Public Speaking</h3>
@@ -151,13 +151,106 @@
                         <span class="far fa-heart fa-2x"></span>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const url = "https://develop-dot-autonomus.appspot.com/" + "tags";
+            const proxy = "https://cors-anywhere.herokuapp.com/";
+            fetch(proxy + url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            }).then((resp) => resp.json())
+                .then((resp) => {
+                    var parent = document.getElementsByClassName("tags")[0];
+                    for (var indice = 0; indice < resp.length; indice++) {
+                        var div = document.createElement("div");
+                        div.classList += " tag-card";
+                        div.dataset.id = resp[indice].id;
+                        parent.appendChild(div);
+                        var div2 = document.createElement('div');
+                        div2.classList += " tag-card-inner";
+                        div.appendChild(div2);
+                        var div3 = document.createElement('div');
+                        div3.classList += " tag-card-front";
+                        div2.appendChild(div3);
+                        var h3 = document.createElement("h3");
+                        h3.innerHTML = resp[indice].name;
+                        div3.appendChild(h3);
+                        var div4 = document.createElement("div");
+                        div2.appendChild(div4);
+                        div4.classList += " tag-card-back";
+                        h3 = document.createElement("h3");
+                        h3.innerHTML = resp[indice].name;
+                        div4.appendChild(h3);
+                        var span = document.createElement('span');
+                        span.classList += " far";
+                        span.classList += " fa-heart";
+                        span.classList += " fa-2x";
+                        div4.appendChild(span);
+                        if (resp[indice].selected == "true") {
+                            handleEvent(div.dataset.id);
+                        }
+                        div.addEventListener('click', function (indice, event) {
+                            var element = document.getElementsByClassName('tag-card')[indice];
+                            var style = element.getElementsByClassName('tag-card-inner')[0].style;
+                            var id = document.getElementsByClassName('tag-card')[indice].dataset.id;
+                            var data = { "tag_id": id };
+                            const url = "https://develop-dot-autonomus.appspot.com/" + "tags";
+                            const proxy = "https://cors-anywhere.herokuapp.com/";
+                            if (style.transform == "rotateY(180deg)") {
+                                style.transform = "none";
+                            }
+                            else {
+                                style.transform = "rotateY(180deg)";
+                            }
+                            if (style.transform == "none") {
+                                fetch(proxy + url, {
+                                    method: 'DELETE',
+                                    body: JSON.stringify(data),
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                    }
+                                }).then((resp) => resp.json())
+                                    .then((resp) => {
+                                        console.log(resp);
 
+                                    });
+
+
+                            } else {
+                                fetch(proxy + url, {
+                                    method: 'PUT',
+                                    body: JSON.stringify(data),
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                                    }
+                                }).then((resp) => resp.json())
+                                    .then((resp) => {
+                                        console.log(resp);
+
+                                    });
+                            }
+
+
+                        }.bind(event, indice));
+
+                    }
+                });
+
+
+        });
+    </script>
     <script>
         function handleEvent(id) {
-            var style = document.getElementById(id).getElementsByClassName('tag-card-inner')[0].style;
+            var element = document.querySelectorAll('[data-id~=' + id + ']');
+            var style = element[0].getElementsByClassName('tag-card-inner')[0].style;
             if (style.transform == "rotateY(180deg)") {
                 style.transform = "none";
             }
