@@ -75,7 +75,7 @@ class LinksCleaner(RequestHandler):
     def get(self):
         tokens = Token.all()
         if tokens != None:
-            for one in Token.all():
+            for one in tokens:
                 if not users_controller.is_token_expired(one.token):
                     one.remove()
         return {
