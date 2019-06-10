@@ -3,7 +3,6 @@ from .controllers import *
 from autonomus.models import Link,Token
 from autonomus.controllers import links_controller as ctrl
 import json
-from .utils import populareAutomata
 from autonomus.controllers import users_controller
 
 class Links(RequestHandler):
@@ -20,13 +19,13 @@ class Links(RequestHandler):
         if ExistLink != None:
             raise HTTPException("409", "This link already exist ")
         else:
+            if  'meetup.com/' not in nouLink and   'eventbrite.com' not in nouLink  and 'facebook.com' not in nouLink:
+                raise HTTPException("400", "We can't get events from this link")
+
             if ctrl.check_link(nouLink)== False:
                 raise HTTPException("400", "This link is invalid ")
 
             else:
-                if populareAutomata.scanLink(nouLink)==-1:
-                    raise HTTPException("400", "This link is invalid . We can't get events from this page")
-
                 dbLink=Link()
                 dbLink.follow_link=nouLink
                 dbLink.put()
@@ -57,7 +56,7 @@ class Links(RequestHandler):
     @role_admitted(Roles.ADMIN)
     def get(self):
 
-        linkuri = list(Link.all())
+        linkuri = Link.all()
         if len(linkuri) == 0:
             raise HTTPException("204", "No links")
         else:
@@ -67,16 +66,18 @@ class Links(RequestHandler):
 
             return {
                 'status': '200',
-                'links':json.dumps(last)
+                'links':last
             }
 
 
 class LinksCleaner(RequestHandler):
 
     def get(self):
-        for one in Token.all():
-           if not users_controller.is_token_expired(one.token):
-               one.remove()
-
-
-
+        tokens = Token.all()
+        if tokens != None:
+            for one in tokens:
+                if not users_controller.is_token_expired(one.token):
+                    one.remove()
+        return {
+            'status': '200'
+        }
