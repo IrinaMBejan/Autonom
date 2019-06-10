@@ -1,4 +1,4 @@
-from .utils import RequestHandler, HTTPException, role_admitted, scanAllLinks
+from .utils import RequestHandler, HTTPException, role_admitted, scanAllLinks, export
 from .controllers import Roles, add_event_to_user, verify_token, remove_event_from_user
 from .controllers import get_event, get_all_events, update_event, get_user_events
 import json
@@ -143,6 +143,19 @@ class MyEvents(RequestHandler):
         remove_event_from_user(user_urlsafe, event.key)
         return {'status':'200', 'message':'Event heart succesfully removed'}
 
+
+class Calendar(RequestHandler):
+    
+    
+    @role_admitted(Roles.USER, Roles.ADMIN)
+    def get(self):
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+   
+        data = export(user_urlsafe)
+        return {'status':'200',
+                'ical': data }
+        
 
 class EventsCrawl(RequestHandler):
 

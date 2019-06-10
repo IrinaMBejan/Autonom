@@ -1,6 +1,6 @@
 from .utils import API, RequestHandler, HTTPException, role_admitted
 from .auth import Login, Register, Logout
-from .events import Events, EventInfo, MyEvents, EventsCrawl
+from .events import Events, EventInfo, Calendar, MyEvents, EventsCrawl
 from .controllers import Roles
 from .links import *
 from .api_requests import Api_Requests
@@ -29,9 +29,10 @@ class AutonomusAPI(API):
         ('/events', Events()),
         ('/events/details', EventInfo()),
         ('/events/crawl', EventsCrawl()),
+        ('/calendar', Calendar()),
         ('/links', Links()),
         ('/requests',Api_Requests()),
         ('/tags', Tags()),
         ('/myevents',MyEvents()),
-        ('/links/clean',LinksCleaner())
+        ('/links/clean', LinksCleaner())
     ]
