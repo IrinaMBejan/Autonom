@@ -3,7 +3,6 @@ from .controllers import *
 from autonomus.models import Link,Token
 from autonomus.controllers import links_controller as ctrl
 import json
-from .utils import populareAutomata
 from autonomus.controllers import users_controller
 
 class Links(RequestHandler):
@@ -54,7 +53,7 @@ class Links(RequestHandler):
     @role_admitted(Roles.ADMIN)
     def get(self):
 
-        linkuri = list(Link.all())
+        linkuri = Link.all()
         if len(linkuri) == 0:
             raise HTTPException("204", "No links")
         else:

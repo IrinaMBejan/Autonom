@@ -15,8 +15,12 @@ def exists_link(data_link):
     return None
 
 def check_link(data_link):
-    request = requests.get(data_link)
-    if request.status_code == 200:
-        return True
-    else:
+
+    try:
+        request = requests.get(data_link)
+        if request.status_code == 200:
+            return True
+        else:
+            return False
+    except:
         return False
