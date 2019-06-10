@@ -1,9 +1,7 @@
 import json
 import re
 
-from xml.etree.ElementTree import Element
-from xml.etree import ElementTree
- 
+
 from .http_exception import HTTPException
 from .request import Request
 from .response import Response
@@ -35,8 +33,8 @@ class API:
 
         self.environ = environ
         self.start = start_response
-          
- 
+       
+           
     def __remove_last_slash(self, path):
         """Removes the last slash if it exists"""
         if len(path) > 1 and path.endswith("/"):
@@ -50,17 +48,13 @@ class API:
 
         if 'CONTENT_TYPE' in self.environ:
             headers = [("Content-Type", self.environ['CONTENT_TYPE'])]
-
-            if "xml" in self.environ['CONTENT_TYPE']:
+            if self.environ['CONTENT_TYPE'].contains('xml'):
                 type = 'xml'
         else:
             headers = [("Content-Type", "application/json")]
-
         if self.headers:
             headers += self.headers
-        
-        print(type)
-
+            
         try:
             resp = self.run_match()
             self.start(str(self.response.status_code), headers)
@@ -73,39 +67,9 @@ class API:
             
             self.start("500", headers)
             resp = { "error": "Internal server error :(." }
-
-        if type == 'xml':
-            return self.__to_iterable_xml(resp)
-
-        return self.__to_iterable_json(resp)
+        return self.__to_iterable_json(resp, )
 
 
-    def __to_iterable_xml(self, resp):
-        """Converts existing response to an iterable object""" 
-        
-        resp_to_xml = lambda r: ElementTree.tostring(self.dict_to_xml("root", r), encoding='utf8', method='xml')
-        
-        try:
-            xml_res = resp_to_xml(resp)
-        except Exception as err:
-            msg = "Something crashed, we don't know what >.<."
-            response = {"error": msg}
-            xml_res = resp_to_xml(response)
-        
-        return iter([xml_res])
-
-
-    def dict_to_xml(self, tag, d):
-        """ Convert dict to XML """
-
-        elem = Element(tag)
-        for key, val in d.items():
-            child = Element(key)
-            child.text = str(val)
-            elem.append(child)
-        return elem
-
-    
     def __to_iterable_json(self, resp):
         """Converts existing response to an iterable object"""
         
