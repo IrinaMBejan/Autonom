@@ -73,7 +73,11 @@ class Links(RequestHandler):
 class LinksCleaner(RequestHandler):
 
     def get(self):
-        for one in Token.all():
-           if not users_controller.is_token_expired(one.token):
-               one.remove()
-
+        tokens = Token.all()
+        if tokens != None:
+            for one in Token.all():
+                if not users_controller.is_token_expired(one.token):
+                    one.remove()
+        return {
+            'status': '200'
+        }
