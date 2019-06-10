@@ -19,6 +19,9 @@ class Links(RequestHandler):
         if ExistLink != None:
             raise HTTPException("409", "This link already exist ")
         else:
+            if  'meetup.com/' not in nouLink and   'eventbrite.com' not in nouLink  and 'facebook.com' not in nouLink:
+                raise HTTPException("400", "We can't get events from this link")
+
             if ctrl.check_link(nouLink)== False:
                 raise HTTPException("400", "This link is invalid ")
 
@@ -63,7 +66,7 @@ class Links(RequestHandler):
 
             return {
                 'status': '200',
-                'links':json.dumps(last)
+                'links':last
             }
 
 
