@@ -1,7 +1,7 @@
 from autonomus.models import Event
 from dateutil import parser
 from webbot import Browser
-from autonomus.controllers import tags_controller
+from autonomus.controllers import tags_controller, links_controller
 from autonomus.models import Link
 import os
 from google.cloud import datastore
@@ -87,13 +87,8 @@ def main():
 
     # scanFacebookPage('https://www.facebook.com/events/discovery/?city_id=101882609853782')
     # scanFacebookPage('https://www.facebook.com/directory/events_links/city/101882609853782/')
-    # scanLinksOnFacebook()
-    nrEvents =10
-    if nrEvents >0:
-        for event in Event.all():
-            if event.title != None and event.date!=None and event.location != None:
-                print( "Did you see the "+event.title+ "It's on " +event.date.strftime("%Y-%m-%d %H:%M")+" at "+event.location+"! Join our platform, there are "+str(+ nrEvents)+" new events!")
-                break
+    scanLinksOnFacebook()
+
 
 if __name__ == '__main__':
     main()

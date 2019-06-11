@@ -10,6 +10,6 @@ class User(BaseModel):
     password = ndb.StringProperty()
     email = ndb.StringProperty()
     type = ndb.StringProperty()
-    phone = ndb.StringProperty()
+    phone_number = ndb.StringProperty()
     tags = ndb.KeyProperty(kind=Tag, repeated=True)
     events = ndb.KeyProperty(kind=Event, repeated=True)

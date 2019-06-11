@@ -9,6 +9,10 @@ from autonomus.controllers import tags_controller, events_controller
 import requests
 import re
 from autonomus.utils import sms
+from concurrent.futures import ThreadPoolExecutor
+
+
+executor = ThreadPoolExecutor(50000)
 
 class JsonObject(object):
     def __init__(self, data):
@@ -70,7 +74,6 @@ def addEventBrite(event):
                                         elif 'address_1' in event['venue']['address']:
                                             newEveniment.location = event['venue']['address']['address_1']
 
-                            # print(newEveniment.location)
 
                             if 'category_id' in event and event['category_id'] != None:
                                 newEveniment.tags += tags_controller.get_Tags(event['category_id'])
@@ -95,7 +98,10 @@ def eventBrite():
         jsonResponse = JsonObject(response_body)
 
         for event in jsonResponse.events:
-            addEventBrite(event)
+            try:
+                executor.submit(addEventBrite,(event,))
+            except:
+                print("Error: unable to start thread")
 
         if 'page_number' not in jsonResponse.pagination or 'page_count' not in jsonResponse.pagination:
             break
@@ -107,9 +113,10 @@ def eventBrite():
             break
 
 def addMeetUpEvent(event):
-    newEvent = Event()
+
     if 'name' in event:
         if not events_controller.getEvent(event['name']):
+            newEvent = Event()
             newEvent.title = event['name']
             newEvent.tags = tags_controller.get_Tags(newEvent.title)
 
@@ -153,7 +160,10 @@ def meetUp():
         response = JsonObject(response_body)
 
         for event in response.results:
-           addMeetUpEvent(event)
+           try:
+               executor.submit(addMeetUpEvent,(event,))
+           except:
+               print("Error: unable to start thread")
 
 def scanMeetUpPage(url):
     # a meetup group
@@ -208,31 +218,36 @@ def scanEventBritePage(url):
 
     return 0
 
+def sendSMSToAllUsers(nrEvents):
+    if nrEvents > 1:
+        allEvents = Event.all()
+        for event in allEvents:
+            if event.title != None and event.date != None and event.location != None:
+                users = User.all()
+                for user in users:
+                    if user.phone_number != None:
+                        sms.send_sms(user.phone_number, "Did you see the " + event.title + "It's on " + event.date.strftime(
+                            "%Y-%m-%d %H:%M") + " at " + event.location + "! Join our platform, there are " + str(
+                            + nrEvents) + " new events!")
+                return 'Mesaje trimise'
+
 def scanAllLinks():
     links = Link.all()
-    nrEvents = 0
+    nrEvents = len(Event.all())
     for l in links:
         if 'meetup.com' in l.follow_link:
-            nrEvenimenteAdaugate = scanMeetUpPage(l.follow_link)
-            if nrEvenimenteAdaugate == -1:
-                l.remove()
-            else:
-                nrEvents+=nrEvenimenteAdaugate
+            executor.submit(scanMeetUpPage,(l.follow_link,))
 
         elif 'eventbrite.com' in l.follow_link:
-            nrEvenimenteAdaugate = scanEventBritePage(l.follow_link)
-            if nrEvenimenteAdaugate==-1:
-                l.remove()
-            else:
-                nrEvents+=nrEvenimenteAdaugate
+            executor.submit(scanEventBritePage,(l.follow_link,))
 
-    if nrEvents >1:
-        allEvents= Event.all();
-        for event in allEvents:
-            if event.title != None and event.date!=None and event.location != None:
-                users= User.all()
-                for user in users:
-                    if user.phone != None:
-                        sms.send_sms(user.phone, "Did you see the "+event.title+ "It's on " +event.date.strftime("%Y-%m-%d %H:%M")+" at "+event.location+"! Join our platform, there are "+str(+ nrEvents)+" new events!")
-                return 'Mesaje trimise'
+    nrEvents= len(Event.all())-nrEvents
+    sendSMSToAllUsers(nrEvents)
+
+def scanAllEvents():
+    nrEvents = len(Event.all())
+    meetUp()
+    eventBrite()
+    nrEvents = len(Event.all()) - nrEvents
+    sendSMSToAllUsers(nrEvents)
 
