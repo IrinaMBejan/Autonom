@@ -153,9 +153,8 @@ class Calendar(RequestHandler):
         user_urlsafe = verify_token(token)
    
         data = export(user_urlsafe)
-        return {'status':'200',
-                'ical': data }
-        
+        return data.encode('utf-8')
+
 
 class EventsCrawl(RequestHandler):
 

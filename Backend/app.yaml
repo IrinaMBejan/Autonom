@@ -1,2 +1,2 @@
 runtime: python37
-entrypoint: gunicorn autonomus.main:AutonomusAPI
+entrypoint: gunicorn autonomus.main:AutonomusAPI --timeout 120

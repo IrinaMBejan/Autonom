@@ -53,6 +53,8 @@ class API:
 
             if "xml" in self.environ['CONTENT_TYPE']:
                 type = 'xml'
+            elif "calendar" in self.environ['CONTENT_TYPE']:
+                type = 'calendar'
         else:
             headers = [("Content-Type", "application/json")]
 
@@ -76,7 +78,8 @@ class API:
 
         if type == 'xml':
             return self.__to_iterable_xml(resp)
-
+        elif type == 'calendar':
+            return iter([resp])
         return self.__to_iterable_json(resp)
 
 
@@ -89,7 +92,7 @@ class API:
             xml_res = resp_to_xml(resp)
         except Exception as err:
             msg = "Something crashed, we don't know what >.<."
-            response = {"error": msg}
+            response = {"error": str(err)}
             xml_res = resp_to_xml(response)
         
         return iter([xml_res])
