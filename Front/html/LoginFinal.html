@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/login.css" />
     <link rel="stylesheet" type="text/css" href="../css/home.css" />
-<script>
-if(sessionStorage.getItem("token"))
-window.location.href = "home.html";
+    <script>
+        if (sessionStorage.getItem("token"))
+            window.location.href = "home.html";
 
-</script>
+    </script>
 
 </head>
 
@@ -124,9 +124,11 @@ window.location.href = "home.html";
                 }).then((resp) => resp.json())
                     .then((resp) => {
                         sessionStorage.setItem('token', resp.token);
-                        sessionStorage.setItem('name',name);
-                        // sessionStorage.setItem('id', resp.user_id);
+                        sessionStorage.setItem('name', name);
+                        sessionStorage.setItem('type', resp.type);
+                        alert(resp.type);
                         console.log(resp.message + ":" + resp.status + ":" + resp.token);
+                        console.log(resp);
                         if (resp.status === "200") { console.log("sunt aici"); window.location.href = "home.html"; }
                     });
             }
