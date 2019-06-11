@@ -23,7 +23,8 @@ class Login(RequestHandler):
             return {
                 'status': '200',
                 'message': 'Succesfully logged in',
-                'token': jwt_token.decode("utf-8")
+                'token': jwt_token.decode("utf-8"),
+                'type': user.type
                 }
         else:
             raise HTTPException("401", "Invalid email or pass")
