@@ -3,8 +3,7 @@ from dateutil import parser
 from webbot import Browser
 from autonomus.controllers import tags_controller, links_controller
 from autonomus.models import Link
-import os
-from google.cloud import datastore
+
 
 
 def getEvent(url):
@@ -79,16 +78,7 @@ def scanLinksOnFacebook():
             scanFacebookPage(l.follow_link)
 
 
-def main():
 
-    global client
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/andrei/autonomus.json"
-    client = datastore.Client(project="autonomus", namespace="development")
-
-    # scanFacebookPage('https://www.facebook.com/events/discovery/?city_id=101882609853782')
-    # scanFacebookPage('https://www.facebook.com/directory/events_links/city/101882609853782/')
-    scanLinksOnFacebook()
+scanLinksOnFacebook()
 
 
-if __name__ == '__main__':
-    main()
