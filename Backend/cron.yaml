@@ -1,7 +1,0 @@
-cron:
-- description: "events gathering"
-  url: /events/crawl
-  schedule: every 3 hours
-- description: "token cleaning"
-  url: /links/clean
-  schedule: every 30 minutes
