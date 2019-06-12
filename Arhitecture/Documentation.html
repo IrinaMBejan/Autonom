@@ -1,0 +1,548 @@
+<!DOCTYPE HTML><html><head><title>Autonomus 2.0 API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 7.4.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+  $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+
+  $('[data-toggle]').click(function() {
+    var selector = $(this).data('target') + ' pre code';
+    $(selector).each(function(i, block) {
+      hljs.highlightBlock(block);
+    });
+  });
+
+  // open modal on hashes like #_action_get
+  $(window).bind('hashchange', function(e) {
+    var anchor_id = document.location.hash.substr(1); //strip #
+    var element = $('#' + anchor_id);
+
+    // do we have such element + is it a modal?  --> show it
+    if (element.length && element.hasClass('modal')) {
+      element.modal('show');
+    }
+  });
+
+  // execute hashchange on first page load
+  $(window).trigger('hashchange');
+
+  // remove url fragment on modal hide
+  $('.modal').on('hidden.bs.modal', function() {
+    try {
+      if (history && history.replaceState) {
+          history.replaceState({}, '', '#');
+      }
+    } catch(e) {}
+  });
+});
+    </script><style>
+      .hljs {
+  background: transparent;
+}
+.parent {
+  color: #999;
+}
+.list-group-item > .badge {
+  float: none;
+  margin-right: 6px;
+}
+.panel-title > .methods {
+  float: right;
+}
+.badge {
+  border-radius: 0;
+  text-transform: uppercase;
+  width: 70px;
+  font-weight: normal;
+  color: #f3f3f6;
+  line-height: normal;
+}
+.badge_get {
+  background-color: #63a8e2;
+}
+.badge_post {
+  background-color: #6cbd7d;
+}
+.badge_put {
+  background-color: #22bac4;
+}
+.badge_delete {
+  background-color: #d26460;
+}
+.badge_patch {
+  background-color: #ccc444;
+}
+.list-group,
+.panel-group {
+  margin-bottom: 0;
+}
+.panel-group .panel+.panel-white {
+  margin-top: 0;
+}
+.panel-group .panel-white {
+  border-bottom: 1px solid #F5F5F5;
+  border-radius: 0;
+}
+.panel-white:last-child {
+  border-bottom-color: white;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.panel-white .panel-heading {
+  background: white;
+}
+.tab-pane ul {
+  padding-left: 2em;
+}
+.tab-pane h1 {
+  font-size: 1.3em;
+}
+.tab-pane h2 {
+  font-size: 1.2em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #ddd;
+}
+.tab-pane h3 {
+  font-size: 1.1em;
+}
+.tab-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+#sidebar {
+  margin-top: 30px;
+  padding-right: 5px;
+  overflow: auto;
+  height: 90%;
+}
+.top-resource-description {
+  border-bottom: 1px solid #ddd;
+  background: #fcfcfc;
+  padding: 15px 15px 0 15px;
+  margin: -15px -15px 10px -15px;
+}
+.resource-description {
+  border-bottom: 1px solid #fcfcfc;
+  background: #fcfcfc;
+  padding: 15px 15px 0 15px;
+  margin: -15px -15px 10px -15px;
+}
+.resource-description p:last-child {
+  margin: 0;
+}
+.list-group .badge {
+  float: left;
+}
+.method_description {
+  margin-left: 85px;
+}
+.method_description p:last-child {
+  margin: 0;
+}
+.list-group-item {
+  cursor: pointer;
+}
+.list-group-item:hover {
+  background-color: #f5f5f5;
+}
+pre code {
+  overflow: auto;
+  word-wrap: normal;
+  white-space: pre;
+}
+.items {
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.42857143;
+}
+.examples {
+  margin-left: 0.5em;
+}
+.resource-modal li > ul {
+  margin-bottom: 1em;
+}
+.required {
+  color: #f00;
+}
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>Autonomus 2.0 API documentation <small>version v1</small></h1><p>http://develop-dot-autonomus.appspot.com/</p><p>Our project for web technologies 2019</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="login" class="panel-title">Login</h3></div><div class="panel-body"><div class="top-resource-description"><p>Login point</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_login"><span class="parent"></span>/login</a> <span class="methods"><a href="#login_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_login" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#login_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Login for user or admin</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="login_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/login</h4></div><div class="modal-body"><div class="alert alert-info"><p>Login for user or admin</p></div><ul class="nav nav-tabs"><li class="active"><a href="#login_post_request" data-toggle="tab">Request</a></li><li><a href="#login_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="login_post_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>:</p><pre><code>{
+    "type": "object",
+    "required": true,
+    "properties": 
+      {
+        "email": "string",       
+        "password": "string"
+      }
+}
+</code></pre><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+    "email": "irina453orufs@gmail.com",
+    "password": "irin349824"
+}
+</code></pre></div></div><div class="tab-pane" id="login_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "200",
+  "message": "Succesfully logged in",
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX3VybCI6ImFnbGhkWFJ2Ym05dGRYTnlFUXNTQkZWelpYSVlnSUNBMk1Ud2t3b01vZ0VMWkdWMlpXeHZjRzFsYm5RIiwiZXhwIjoxNTYwMzMzMzk4fQ.sEMsuIyvf2VsnCJz6I-B6JCszd6Ns8odMFiYPkp25Ok",
+  "type": "user"
+
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+      "status": "400",
+      "message": "Please specify email and password",
+      "payload": null
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "data": {
+    "user_id": ""
+  },
+  "success": false,
+  "status": 404
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="register" class="panel-title">Register</h3></div><div class="panel-body"><div class="top-resource-description"><p>Registration point</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_register"><span class="parent"></span>/register</a> <span class="methods"><a href="#register_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_register" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#register_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Register new user</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="register_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/register</h4></div><div class="modal-body"><div class="alert alert-info"><p>Register new user</p></div><ul class="nav nav-tabs"><li class="active"><a href="#register_post_request" data-toggle="tab">Request</a></li><li><a href="#register_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="register_post_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>:</p><pre><code>{
+  "email": "string",       
+  "password": "string",
+  "confirmation_password": "string",
+  "username": "string"
+}
+</code></pre><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+    "email": "irinam.bejan@gmail.com",
+    "password": "irinabejan",
+    "confirmation_password": "irinabejan",
+    "username": "Irina Bejan"
+}
+</code></pre></div></div><div class="tab-pane" id="register_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Succesfully registered user",
+  "status": 201
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "The password and the confirmation password don&#39;t match.",
+  "payload": null
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "409",
+  "message": "The email is already in our database",
+  "payload": null
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="logout" class="panel-title">Logout current user</h3></div><div class="panel-body"><div class="top-resource-description"><p>Logout possibility for client</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_logout"><span class="parent"></span>/logout</a> <span class="methods"><a href="#logout_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_logout" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#logout_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Logs out a user</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="logout_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/logout</h4></div><div class="modal-body"><div class="alert alert-info"><p>Logs out a user</p></div><ul class="nav nav-tabs"><li class="active"><a href="#logout_post_request" data-toggle="tab">Request</a></li><li><a href="#logout_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="logout_post_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="logout_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "message": "Logged out succesfully",
+  "status": "200"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="events" class="panel-title">Events</h3></div><div class="panel-body"><div class="top-resource-description"><p>Information and methods to handle events</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_events"><span class="parent"></span>/events</a> <span class="methods"><a href="#events_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_events" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#events_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves all events that fits in user tags</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="events_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/events</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves all events that fits in user tags</p></div><ul class="nav nav-tabs"><li class="active"><a href="#events_get_request" data-toggle="tab">Request</a></li><li><a href="#events_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="events_get_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="events_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[{
+    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50",
+    "title": "Ferestroika- The Museum of Family Life during Communism",
+    "image_link": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51883595%2F279149198159%2F1%2Foriginal.jpg?h=200&amp;w=450&amp;auto=compress&amp;rect=0%2C54%2C674%2C337&amp;s=a9b11e6571907962222abf54e02a1f55",
+    "description": "Go back in time in a one-of-a-kind authentic &amp; interactive experience by...",
+    "location": "Strada Ion Manolescu, București",
+    "date": "2019-06-12 13:30"
+},
+{
+    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgJjV_MUIDKIBC2RldmVsb3BtZW50",
+    "title": "Labirintul relațiilor toxice",
+    "image_link": "https://scontent-otp1-1.xx.fbcdn.net/v/t1.0-0/s526x296/58441206_581011342410363_9168252943428747264_n.jpg?_nc_cat=111&amp;_nc_ht=scontent-otp1-1.xx&amp;oh=6c6d64bca820fd2c9e2b1dc8aa986f02&amp;oe=5D8CD488",
+    "description": "Cum să controlezi și să ai puterea autentică sau cum să evadezi și să te vindeci ...",
+    "location": "\nPsychology Center Iasi\nSos. Pacurari, Iasi, Romania",
+    "date": "2019-07-17 15:00"
+}]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_events_details"><span class="parent">/events</span>/details</a> <span class="methods"><a href="#events_details_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_events_details" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Treats the details of event</p></div><div class="list-group"><div onclick="window.location.href = '#events_details_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves the details regarding an event</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="events_details_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/events</span>/details</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves the details regarding an event</p></div><ul class="nav nav-tabs"><li class="active"><a href="#events_details_get_request" data-toggle="tab">Request</a></li><li><a href="#events_details_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="events_details_get_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Query Parameters</h3><ul><li><strong>event_id</strong>: <em><span class="required">required</span>(string)</em><p>The id of an event previously sent</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50</code></pre></div></li></ul></div><div class="tab-pane" id="events_details_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50",
+  "title": "Ferestroika- The Museum of Family Life during Communism",
+  "image_link": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51883595%2F279149198159%2F1%2Foriginal.jpg?h=200&amp;w=450&amp;auto=compress&amp;rect=0%2C54%2C674%2C337&amp;s=a9b11e6571907962222abf54e02a1f55",
+  "description": "Go back in time in a one-of-a-kind authentic &amp; interactive experience by visiting the apartment of a real Romanian family from the 1980&#39;s, brought to life with our unique Touch - Taste - Learn concept:\n\nTouch the exhibits - fun challenges, picture oportunities and many other things you can&#39;t do in an ordinary museum.\nTaste snacks &amp; beverages - typical delicacies of the 80`s.\nLearn facts about the daily life in the 80&#39;s - you won&#39;t find this in the history books. \n\nSmall groups only with english speaking guide- we limit the maximum number of guests to 6/visit so you can enjoy a quality experience.\nConversations, historical facts, unique insights, pictures and footage will open a window to the past and giving you a deep knowledge about this historical period and how it still influences the daily life of Romanians.\n",
+  "location": "Strada Ion Manolescu, București",
+  "date": "2019-06-12 13:30",
+  "price": 1,
+  "capacity": "-",
+  "tags": [
+      "Family &amp; Education",
+      "Family &amp; Education"]
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Give all query params!",
+  "payload": null
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_events_crawl"><span class="parent">/events</span>/crawl</a> <span class="methods"><a href="#events_crawl_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_events_crawl" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Private part of API that can be used by scheduled tasks</p></div><div class="list-group"><div onclick="window.location.href = '#events_crawl_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves events from all over</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="events_crawl_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/events</span>/crawl</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves events from all over</p></div><ul class="nav nav-tabs"><li class="active"><a href="#events_crawl_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="events_crawl_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+    "status": "200"
+    "message": "Retrieved all good articles out there"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="myevents" class="panel-title">Retrieves events</h3></div><div class="panel-body"><div class="top-resource-description"><p>Events hearted by users</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_myevents"><span class="parent"></span>/myevents</a> <span class="methods"><a href="#myevents_get"><span class="badge badge_get">get</span></a> <a href="#myevents_put"><span class="badge badge_put">put</span></a> <a href="#myevents_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_myevents" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#myevents_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Logs out a user</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#myevents_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Adds given event to my &#39;favourite events&#39;</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#myevents_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Removes given event to my &#39;favourite events&#39;</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="myevents_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/myevents</h4></div><div class="modal-body"><div class="alert alert-info"><p>Logs out a user</p></div><ul class="nav nav-tabs"><li class="active"><a href="#myevents_get_request" data-toggle="tab">Request</a></li><li><a href="#myevents_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="myevents_get_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="myevents_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[{
+    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50",
+    "title": "Ferestroika- The Museum of Family Life during Communism",
+    "image_link": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51883595%2F279149198159%2F1%2Foriginal.jpg?h=200&amp;w=450&amp;auto=compress&amp;rect=0%2C54%2C674%2C337&amp;s=a9b11e6571907962222abf54e02a1f55",
+    "description": "Go back in time in a one-of-a-kind authentic &amp; interactive experience by...",
+    "location": "Strada Ion Manolescu, București",
+    "date": "2019-06-12 13:30"
+},
+{
+    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgJjV_MUIDKIBC2RldmVsb3BtZW50",
+    "title": "Labirintul relațiilor toxice",
+    "image_link": "https://scontent-otp1-1.xx.fbcdn.net/v/t1.0-0/s526x296/58441206_581011342410363_9168252943428747264_n.jpg?_nc_cat=111&amp;_nc_ht=scontent-otp1-1.xx&amp;oh=6c6d64bca820fd2c9e2b1dc8aa986f02&amp;oe=5D8CD488",
+    "description": "Cum să controlezi și să ai puterea autentică sau cum să evadezi și să te vindeci ...",
+    "location": "\nPsychology Center Iasi\nSos. Pacurari, Iasi, Romania",
+    "date": "2019-07-17 15:00"
+}]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="myevents_put"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/myevents</h4></div><div class="modal-body"><div class="alert alert-info"><p>Adds given event to my &#39;favourite events&#39;</p></div><ul class="nav nav-tabs"><li class="active"><a href="#myevents_put_request" data-toggle="tab">Request</a></li><li><a href="#myevents_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="myevents_put_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "event_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+}
+</code></pre></div></div><div class="tab-pane" id="myevents_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"status": "200",
+"message": "Event heart succesfully added"       
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify event id"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="myevents_delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/myevents</h4></div><div class="modal-body"><div class="alert alert-info"><p>Removes given event to my &#39;favourite events&#39;</p></div><ul class="nav nav-tabs"><li class="active"><a href="#myevents_delete_request" data-toggle="tab">Request</a></li><li><a href="#myevents_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="myevents_delete_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "event_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+}
+</code></pre></div></div><div class="tab-pane" id="myevents_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"status": "200",
+"message": "Event heart succesfully removed"       
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify event id"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="calendar" class="panel-title">calendar</h3></div><div class="panel-body"><div class="top-resource-description"><p>Functionality to extract iCal data</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_calendar"><span class="parent"></span>/calendar</a> <span class="methods"><a href="#calendar_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_calendar" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#calendar_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="calendar_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/calendar</h4></div><div class="modal-body"><ul class="nav nav-tabs"><li class="active"><a href="#calendar_get_request" data-toggle="tab">Request</a></li><li><a href="#calendar_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="calendar_get_request"><h3>Headers</h3><ul><li><strong>Content-Type</strong>: <em><span class="required">required</span>(string)</em><p>calendar type</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="calendar_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: text/calendar</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+       "data": "BEGIN:VCALENDAR
+  PRODID:ics.py - http://git.io/lLljaA
+  VERSION:2.0
+  BEGIN:VEVENT
+  DTSTAMP:20190610T220947Z
+  DTSTART:20190613T153000Z
+  SUMMARY:Cenușăreasa
+  DESCRIPTION:Stimați spectatori, Ca urmare a succesului extraordinar avut de baletul Cenușăreasa, de Serghei Prokofiev, care a avut premiera în luna aprilie, pe 13 iunie a fost o programată o nouă reprezentație.  Amalia Mîndruțiu sem
+  LOCATION:\nOpera Nationala Romana Iasi\nStrada Agatha Barsescu nr 18, 700074 Iasi, Romania
+  TRANSP:OPAQUE
+  UID:bf9f5f79-962a-4e2d-8964-c8259addb44e@bf9f.org
+  END:VEVENT
+  END:VCALENDAR"
+}
+</code></pre></div><p><strong>Media type</strong>: application/xml</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>"&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;
+&lt;root&gt;
+    &lt;status&gt;200&lt;/status&gt;
+    &lt;ical&gt;BEGIN:VCALENDAR
+PRODID:ics.py - http://git.io/lLljaA
+VERSION:2.0
+BEGIN:VEVENT
+DTSTAMP:20190610T220947Z
+DTSTART:20190613T153000Z
+SUMMARY:Cenușăreasa
+DESCRIPTION:Stimați spectatori\,\nCa urmare a succesului extraordinar avut de baletul Cenușăreasa\, de Serghei Prokofiev\, care a avut premiera în luna aprilie\, pe 13 iunie a fost o programată o nouă reprezentație.  Amalia Mîndruțiu semnează coregrafia spectacolului\, iar decorul și costumele sunt realizate de Adriana Urmuzescu și Maria Eșanu.\nInterpretează baletul și orchestra Operei ieșene\, sub bagheta dirijorului Leonard Boga.\nSpectacolul are o pauză și durează până la ora 20.30.\n\nDistribuție\nCenușăreasa –  Georgiana Dimitrescu - debut\nPrinț – Bogdan Cănilă – invitat\nZâna – Mizuka Okamoto\nMamă vitregă – Alexandru Sebeși\nSurori vitrege – Maria Sole Bartolini – debut\n                       –  Kim Eunjeong – debut    \nTată – Cătălin Ailiesei\nProfesor de dans  – Juan Cruz Luque\nBufon  – Hirohito Ikeuchi\nDoi cavaleri  – Elvis Gache\n                     – Mălin Galan – debut
+LOCATION:\nOpera Nationala Romana Iasi\nStrada Agatha Barsescu nr 18\, 700074 Iasi\, Romania
+TRANSP:OPAQUE
+UID:bf9f5f79-962a-4e2d-8964-c8259addb44e@bf9f.org
+END:VEVENT
+END:VCALENDAR&lt;/ical&gt;
+&lt;/root&gt;"
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="requests" class="panel-title">requests</h3></div><div class="panel-body"><div class="top-resource-description"><p>Handles requests</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_requests"><span class="parent"></span>/requests</a> <span class="methods"><a href="#requests_get"><span class="badge badge_get">get</span></a> <a href="#requests_post"><span class="badge badge_post">post</span></a> <a href="#requests_put"><span class="badge badge_put">put</span></a></span></h4></div><div id="panel_requests" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#requests_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves all requests</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#requests_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Publish a modification by accepting it</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#requests_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Apply a modification select to the event</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="requests_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/requests</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves all requests</p></div><ul class="nav nav-tabs"><li class="active"><a href="#requests_get_request" data-toggle="tab">Request</a></li><li><a href="#requests_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="requests_get_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="requests_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[{
+      "id": "aglhdXRvbm9tdXNyFgsSCVJlcXVlc3REQhiAgIC4ifeQCQyiAQtkZXZlbG9wbWVudA",
+      "event": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPj_h5cJDKIBC2RldmVsb3BtZW50",
+      "user": "mihaibotez",
+      "field": "price",
+      "modification": "10"
+  },
+  {
+      "id": "aglhdXRvbm9tdXNyFgsSCVJlcXVlc3REQhiAgIC4ifeQCQyiAQtkZXZlbG9wbWVudA",
+      "event": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPj_h5cJDKIBC2RldmVsb3BtZW50",
+      "user": "mihaibotez",
+      "field": "price",
+      "modification": "10"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "204",
+  "message": "No data found",
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="requests_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/requests</h4></div><div class="modal-body"><div class="alert alert-info"><p>Publish a modification by accepting it</p></div><ul class="nav nav-tabs"><li class="active"><a href="#requests_post_request" data-toggle="tab">Request</a></li><li><a href="#requests_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="requests_post_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Query Parameters</h3><ul><li><strong>event</strong>: <em><span class="required">required</span>(string)</em><p>Describes the url of an event</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>udasui357ifhdfhbsdfiuwe</code></pre></div></li><li><strong>field</strong>: <em><span class="required">required</span>(string)</em><p>the field name you intend to modify</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>title</code></pre></div></li><li><strong>modification</strong>: <em><span class="required">required</span>(string)</em><p>The modification that is to be applied upon</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>Ana are mere</code></pre></div></li></ul></div><div class="tab-pane" id="requests_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"status": "201",
+"message": "Succesfully submited a modification"       
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify event id"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="requests_put"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/requests</h4></div><div class="modal-body"><div class="alert alert-info"><p>Apply a modification select to the event</p></div><ul class="nav nav-tabs"><li class="active"><a href="#requests_put_request" data-toggle="tab">Request</a></li><li><a href="#requests_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="requests_put_request"><h3>Headers</h3><ul><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li></ul><h3>Query Parameters</h3><ul><li><strong>id</strong>: <em><span class="required">required</span>(string)</em><p>Describes the url of an event</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>udasui357ifhdfhbsdfiuwe</code></pre></div></li><li><strong>state</strong>: <em><span class="required">required</span>(string)</em><p>the current field state</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>title</code></pre></div></li></ul></div><div class="tab-pane" id="requests_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"status": "200,
+"message": "Job Done"       
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify id"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="tags" class="panel-title">tags</h3></div><div class="panel-body"><div class="top-resource-description"><p>Handles interaction with all tags</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_tags"><span class="parent"></span>/tags</a> <span class="methods"><a href="#tags_get"><span class="badge badge_get">get</span></a> <a href="#tags_put"><span class="badge badge_put">put</span></a> <a href="#tags_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_tags" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#tags_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves all tags</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#tags_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Adds tag to the users&#39; collection</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#tags_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Removes tag from the users&#39; collection</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="tags_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/tags</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves all tags</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tags_get_request" data-toggle="tab">Request</a></li><li><a href="#tags_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tags_get_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="tags_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>[
+  {
+      "id": "aglhdXRvbm9tdXNyEAsSA1RhZxiAgICYp7yeCgyiAQtkZXZlbG9wbWVudA",
+      "name": "Ballet",
+      "selected": "true"
+  },
+  {
+      "id": "aglhdXRvbm9tdXNyEAsSA1RhZxiAgIDot5CwCwyiAQtkZXZlbG9wbWVudA",
+      "name": "School Activities",
+      "selected": "true"
+  },
+  {
+      "id": "aglhdXRvbm9tdXNyEAsSA1RhZxiAgIC40YfKCQyiAQtkZXZlbG9wbWVudA",
+      "name": "Hobbies &amp; Special Interest",
+      "selected": "false"
+  }
+]
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "204",
+  "message": "No tags found"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="tags_put"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/tags</h4></div><div class="modal-body"><div class="alert alert-info"><p>Adds tag to the users&#39; collection</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tags_put_request" data-toggle="tab">Request</a></li><li><a href="#tags_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tags_put_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "tag_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+}
+</code></pre></div></div><div class="tab-pane" id="tags_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"status": "200",
+"message": "Tag succesfully added"       
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify tag id"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="tags_delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/tags</h4></div><div class="modal-body"><div class="alert alert-info"><p>Removes tag from the users&#39; collection</p></div><ul class="nav nav-tabs"><li class="active"><a href="#tags_delete_request" data-toggle="tab">Request</a></li><li><a href="#tags_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="tags_delete_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "tag_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+}
+</code></pre></div></div><div class="tab-pane" id="tags_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"status": "200",
+"message": "Event heart succesfully removed"       
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify tag id"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="links" class="panel-title">links</h3></div><div class="panel-body"><div class="top-resource-description"><p>Handles all links from pages that are followed</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_links"><span class="parent"></span>/links</a> <span class="methods"><a href="#links_get"><span class="badge badge_get">get</span></a> <a href="#links_post"><span class="badge badge_post">post</span></a> <a href="#links_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_links" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#links_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Retrieves all links</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#links_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Inserts new link</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#links_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Deletes the given tag</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="links_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/links</h4></div><div class="modal-body"><div class="alert alert-info"><p>Retrieves all links</p></div><ul class="nav nav-tabs"><li class="active"><a href="#links_get_request" data-toggle="tab">Request</a></li><li><a href="#links_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="links_get_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul></div><div class="tab-pane" id="links_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "200",
+  "links": [
+      "https://www.eventbrite.com/e/queer-eyes-tan-france-tickets-56007547081",
+      "https://www.eventbrite.co.uk/d/ca--san-francisco/events--this-month/",
+      "https://www.meetup.com/IASI-AI/",
+      "https://www.eventbrite.co.uk/o/how-to-web-15193741875",
+      "https://www.eventbrite.com/o/frontend-hub-17826270478",
+      "https://www.meetup.com/The-Bucharest-Agile-Software-Meetup-Group/",
+      "https://www.eventbrite.com/d/germany/all-events/",
+      "https://www.eventbrite.com/d/spain/all-events/",
+      "https://www.meetup.com/RoPython_Iasi/",
+      "https://www.meetup.com/HR-for-IT-Iasi-Meetup",
+      "https://www.eventbrite.com/d/france/all-events/",
+      "https://www.eventbrite.com/d/romania/all-events/",
+      "https://www.eventbrite.com/d/romania--cluj-napoca/all-events/",
+      "https://www.eventbrite.com/d/romania--bucuresti--85687595/all-events/",
+      "https://www.meetup.com/Product-School-Bucharest/",
+      "https://www.meetup.com/UiPath-RPA-Bucharest/",
+      "https://www.meetup.com/AsociatiaBlockchainRomania/",
+      "https://www.meetup.com/bucharest-software-craftsmanship-community/",
+      "https://www.meetup.com/Software-Professionals-in-town-having-coffee/",
+      "https://www.facebook.com/directory/events_links/city/101882609853782/"
+  ]
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "204",
+  "message": "No links"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="links_post"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/links</h4></div><div class="modal-body"><div class="alert alert-info"><p>Inserts new link</p></div><ul class="nav nav-tabs"><li class="active"><a href="#links_post_request" data-toggle="tab">Request</a></li><li><a href="#links_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="links_post_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "Link":"www.eventbrite.com/...."
+}
+</code></pre></div></div><div class="tab-pane" id="links_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "201",
+  "message": "Link succesfully added"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="links_delete"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/links</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes the given tag</p></div><ul class="nav nav-tabs"><li class="active"><a href="#links_delete_request" data-toggle="tab">Request</a></li><li><a href="#links_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="links_delete_request"><h3>Headers</h3><ul><li><strong>Content-type</strong>: <em>(string)</em><p>either xml or json</p></li><li><strong>Authorization</strong>: <em><span class="required">required</span>(string)</em><p>Basic authentication base 64 encoded string</p></li></ul><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+"Link":"www.meetup.com/..."
+}
+</code></pre></div></div><div class="tab-pane" id="links_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "201",
+  "message": "Link removed"
+}   
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "400",
+  "message": "Please specify the link"
+}
+</code></pre></div><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{
+  "status": "401",
+  "message": "You don&#39;t have enough rights to do this operation",
+  "payload": null
+  }
+</code></pre></div></div></div></div></div></div></div></div><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_links_clean"><span class="parent">/links</span>/clean</a> <span class="methods"><a href="#links_clean_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_links_clean" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Private part of API that can be used by scheduled tasks to removed unused tags</p></div><div class="list-group"><div onclick="window.location.href = '#links_clean_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Triggers the script that eliminated the scheduled tasks</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="links_clean_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/links</span>/clean</h4></div><div class="modal-body"><div class="alert alert-info"><p>Triggers the script that eliminated the scheduled tasks</p></div><ul class="nav nav-tabs"><li class="active"><a href="#links_clean_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="links_clean_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{}</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="newsletter" class="panel-title">/newsletter</h3></div><div class="panel-body"><div class="top-resource-description"><p>Private part of API that can be used by scheduled tasks to send newsletters</p></div><div class="panel-group"><div class="panel panel-white resource-modal"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_newsletter"><span class="parent"></span>/newsletter</a> <span class="methods"><a href="#newsletter_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_newsletter" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#newsletter_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Triggers the script that sends and populates the newsletters with data</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="newsletter_get"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/newsletter</h4></div><div class="modal-body"><div class="alert alert-info"><p>Triggers the script that sends and populates the newsletters with data</p></div><ul class="nav nav-tabs"><li class="active"><a href="#newsletter_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="newsletter_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media type</strong>: application/json</p><p><strong>Type</strong>: any</p><p><strong>Example</strong>:</p><div class="examples"><pre><code>{}</code></pre></div></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#login">Login</a></li><li><a href="#register">Register</a></li><li><a href="#logout">Logout current user</a></li><li><a href="#events">Events</a></li><li><a href="#myevents">Retrieves events</a></li><li><a href="#calendar">calendar</a></li><li><a href="#requests">requests</a></li><li><a href="#tags">tags</a></li><li><a href="#links">links</a></li><li><a href="#newsletter">/newsletter</a></li></ul></div></div></div></div></body></html>

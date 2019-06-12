@@ -5,65 +5,73 @@ baseUri: http://develop-dot-autonomus.appspot.com/
 mediaType: application/json
 description: Our project for web technologies 2019
 traits: 
-  hasHeaders: 
+  hasAuth: 
     headers: 
       Authorization: 
         displayName: Authorization
         description: Basic authentication base 64 encoded string
         type: string
         required: true
+    responses:
+      401:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": "401",
+                  "message": "You don't have enough rights to do this operation",
+                  "payload": null
+                  }
+  basic:
+    headers:
       Content-type: 
         displayName: Content-type
         description: either xml or json
         type: string
         required: false
+  calendar:
+    headers:
+      Content-Type:
+        displayName: Content-type
+        description: calendar type
+        type: string
+        required: true
 
 /login:
+  description: Login point
   displayName: Login
   post:
-    is: ["hasHeaders"]
+    is: ["basic"]
     description: Login for user or admin
-    queryParameters:
-      username:
-        displayName: email
-        type: string
-        description: Email of an existing user
-        example: ifjkghd@gmail.com
-        required: true
-      password:
-        displayName: password
-        type: string
-        description: Password of the user willing to log in
-        example: anaremere1
-        required: true
-    body:
+    body: 
       application/json:
-         type: |
-      {
-	"type": "object",
-        "required": true,
-        "properties": {
-	        "email": "string",       
-		"password": "string",
-        }
-      }
-    example: |
-      {
-	"email": "irina453orufs@gmail.com",
- 	"password": "irin349824"
-      }
+        type: |
+          {
+              "type": "object",
+              "required": true,
+              "properties": 
+                {
+                  "email": "string",       
+                  "password": "string"
+                }
+          }
+        example: |
+          {
+              "email": "irina453orufs@gmail.com",
+              "password": "irin349824"
+          }
     responses:
+      
         200:
           body:
             application/json:
               example: |
                 {
-                  "data": {
-                    "user_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                    "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM"
-                  },
-                  "success": true,
-                  "status": 200
+                  "status": "200",
+                  "message": "Succesfully logged in",
+                  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX3VybCI6ImFnbGhkWFJ2Ym05dGRYTnlFUXNTQkZWelpYSVlnSUNBMk1Ud2t3b01vZ0VMWkdWMlpXeHZjRzFsYm5RIiwiZXhwIjoxNTYwMzMzMzk4fQ.sEMsuIyvf2VsnCJz6I-B6JCszd6Ns8odMFiYPkp25Ok",
+                  "type": "user"
+
                 }
         404:
           body:
@@ -76,49 +84,45 @@ traits:
                   "success": false,
                   "status": 404
                 }
-	400:
-	  body:
-	    application/json:
- 	      example: {
-    		"status": "400",
-  		"message": "Please specify email and password",
-    		"payload": null
-		}
+        400:
+          body: 
+            application/json:
+              example: | 
+                {
+                      "status": "400",
+                      "message": "Please specify email and password",
+                      "payload": null
+                }
       
 /register:
+  description: Registration point
   displayName: Register
   post:
+    is: ["basic"]
     description: Register new user
-    queryParameters:
-      username:
-        displayName: Username
-        type: string
-        description: Username of user willing to register
-        example: AndreeaB
-        required: true
-      password:
-        displayName: Password
-        type: string
-        description: Password of user willing to register
-        example: anaaremare1
-        required: true
-        minLength: 8
-      email:
-        displayName: Email
-        type: string
-        description: Email of user willing to register
-        example: andreeab@gmail.com
-        required: true
+    body: 
+      application/json:
+        type: |
+          {
+            "email": "string",       
+            "password": "string",
+            "confirmation_password": "string",
+            "username": "string"
+          }
+        example: |
+          {
+              "email": "irinam.bejan@gmail.com",
+              "password": "irinabejan",
+              "confirmation_password": "irinabejan",
+              "username": "Irina Bejan"
+          }
     responses:
         201:
           body:
             application/json:
               example: |
                 {
-                  "data": {
-                    "user_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
+                  "message": "Succesfully registered user",
                   "status": 201
                 }
         400:
@@ -126,634 +130,548 @@ traits:
             application/json:
               example: |
                 {
-                  "data": {
-                    "user_id": ""
-                  },
-                  "success": false,
-                  "status": 400
+                  "status": "400",
+                  "message": "The password and the confirmation password don't match.",
+                  "payload": null
+                }
+        409:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": "409",
+                  "message": "The email is already in our database",
+                  "payload": null
+                }
+
+/logout:
+  description: Logout possibility for client
+  displayName: Logout current user
+  post:
+    is: ["basic", "hasAuth"]
+    description: Logs out a user
+    responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "Logged out succesfully",
+                  "status": "200"
                 }
                 
-/users:
-  /{user_id}/{event_id}:
-    displayName: User events
-    uriParameters:
-      user_id:
-        displayName: User Id
-        example: ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ
-        description: Url safe for user
-      event_id:
-        displayName: Event Id
-        example: ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ
-        description: Url safe for event
-    put:
-      description: Adds new event to going list of given user
-      queryParameters: 
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-      responses:
-        201:
-          body:
-            application/json:
-              example: |
-                {
-                  "success": true,
-                  "status": 201
-                }
-        404:
-          body:
-            application/json:
-              example: |
-                {
-                  "success": false,
-                  "status": 404
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "success": false,
-                  "status": 401
-                }
 /events:
+  description: Information and methods to handle events
   displayName: Events
   get:
-    description: Retrieves all events
-    queryParameters:
-      access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
+    is: ["basic", "hasAuth"]
+    description: Retrieves all events that fits in user tags
+    responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [{
+                    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50",
+                    "title": "Ferestroika- The Museum of Family Life during Communism",
+                    "image_link": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51883595%2F279149198159%2F1%2Foriginal.jpg?h=200&w=450&auto=compress&rect=0%2C54%2C674%2C337&s=a9b11e6571907962222abf54e02a1f55",
+                    "description": "Go back in time in a one-of-a-kind authentic & interactive experience by...",
+                    "location": "Strada Ion Manolescu, București",
+                    "date": "2019-06-12 13:30"
+                },
+                {
+                    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgJjV_MUIDKIBC2RldmVsb3BtZW50",
+                    "title": "Labirintul relațiilor toxice",
+                    "image_link": "https://scontent-otp1-1.xx.fbcdn.net/v/t1.0-0/s526x296/58441206_581011342410363_9168252943428747264_n.jpg?_nc_cat=111&_nc_ht=scontent-otp1-1.xx&oh=6c6d64bca820fd2c9e2b1dc8aa986f02&oe=5D8CD488",
+                    "description": "Cum să controlezi și să ai puterea autentică sau cum să evadezi și să te vindeci ...",
+                    "location": "\nPsychology Center Iasi\nSos. Pacurari, Iasi, Romania",
+                    "date": "2019-07-17 15:00"
+                }]
+                
+
+  /details:
+    description: Treats the details of event
+    get:
+      is: ["basic", "hasAuth"]
+      description: Retrieves the details regarding an event
+      queryParameters: 
+        event_id:
+          displayName: Event id
+          description: The id of an event previously sent
+          example: "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
           required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50",
+                  "title": "Ferestroika- The Museum of Family Life during Communism",
+                  "image_link": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51883595%2F279149198159%2F1%2Foriginal.jpg?h=200&w=450&auto=compress&rect=0%2C54%2C674%2C337&s=a9b11e6571907962222abf54e02a1f55",
+                  "description": "Go back in time in a one-of-a-kind authentic & interactive experience by visiting the apartment of a real Romanian family from the 1980's, brought to life with our unique Touch - Taste - Learn concept:\n\nTouch the exhibits - fun challenges, picture oportunities and many other things you can't do in an ordinary museum.\nTaste snacks & beverages - typical delicacies of the 80`s.\nLearn facts about the daily life in the 80's - you won't find this in the history books. \n\nSmall groups only with english speaking guide- we limit the maximum number of guests to 6/visit so you can enjoy a quality experience.\nConversations, historical facts, unique insights, pictures and footage will open a window to the past and giving you a deep knowledge about this historical period and how it still influences the daily life of Romanians.\n",
+                  "location": "Strada Ion Manolescu, București",
+                  "date": "2019-06-12 13:30",
+                  "price": 1,
+                  "capacity": "-",
+                  "tags": [
+                      "Family & Education",
+                      "Family & Education"]
+                }
+        400:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": "400",
+                  "message": "Give all query params!",
+                  "payload": null
+                }
+  /crawl:
+    description: Private part of API that can be used by scheduled tasks
+    get:
+      description: Retrieves events from all over
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                    "status": "200"
+                    "message": "Retrieved all good articles out there"
+                }
+
+/myevents:
+  description: Events hearted by users
+  displayName: Retrieves events
+  get:
+    is: ["basic", "hasAuth"]
+    description: Logs out a user
+    responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [{
+                    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50",
+                    "title": "Ferestroika- The Museum of Family Life during Communism",
+                    "image_link": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F51883595%2F279149198159%2F1%2Foriginal.jpg?h=200&w=450&auto=compress&rect=0%2C54%2C674%2C337&s=a9b11e6571907962222abf54e02a1f55",
+                    "description": "Go back in time in a one-of-a-kind authentic & interactive experience by...",
+                    "location": "Strada Ion Manolescu, București",
+                    "date": "2019-06-12 13:30"
+                },
+                {
+                    "id": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgJjV_MUIDKIBC2RldmVsb3BtZW50",
+                    "title": "Labirintul relațiilor toxice",
+                    "image_link": "https://scontent-otp1-1.xx.fbcdn.net/v/t1.0-0/s526x296/58441206_581011342410363_9168252943428747264_n.jpg?_nc_cat=111&_nc_ht=scontent-otp1-1.xx&oh=6c6d64bca820fd2c9e2b1dc8aa986f02&oe=5D8CD488",
+                    "description": "Cum să controlezi și să ai puterea autentică sau cum să evadezi și să te vindeci ...",
+                    "location": "\nPsychology Center Iasi\nSos. Pacurari, Iasi, Romania",
+                    "date": "2019-07-17 15:00"
+                }]
+                
+  put:
+    is: ["basic","hasAuth"]
+    description: Adds given event to my 'favourite events'
+    body: 
+      application/json:
+        example: |
+          {
+            "event_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+          }
     responses:
       200:
         body:
           application/json:
-            example: |
+            example: | 
               {
-                "events": [
-                {
-                  "event_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "title": "Stiff: The Curious Lives of Human Cadavers",
-                  "description": null,
-                  "location": "Fab Lab",
-                  "date": "05/21/2019 8:00PM",
-                  "price": "10 RON",
-                  "image_link": "https://www.pexhttps://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
-                  "capacity": 200,
-                  "tags": ["Web", "Public Speaking", "Flying"]
-                },
-                {
-                  "event_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "title": "Stiff: The Curious Lives of Human Cadavers",
-                  "description": null,
-                  "location": "Fab Lab",
-                  "date": "05/21/2019 8:00PM",
-                  "price": "10 RON",
-                  "image_link": "https://www.pexhttps://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
-                  "capacity": 100,
-                  "tags": ["Web", "Public Speaking", "Flying"]
-                }],
-                "success": true,
-                "status": 200
+              "status": "200",
+              "message": "Event heart succesfully added"       
               }
-      204:
+      400:
         body:
           application/json:
             example: |
               {
-                "events": [],
-                "success": true,
-                "status": 204
+                "status": "400",
+                "message": "Please specify event id"
               }
+      
+  delete:
+    is: ["basic","hasAuth"]
+    description: Removes given event to my 'favourite events'
+    body: 
+      application/json:
+        example: |
+          {
+            "event_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+          }
+    responses:
       401:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": "401",
+                  "message": "You don't have enough rights to do this operation",
+                  "payload": null
+                }
+      200:
+        body:
+          application/json:
+            example: | 
+              {
+              "status": "200",
+              "message": "Event heart succesfully removed"       
+              }
+      400:
         body:
           application/json:
             example: |
               {
-                "events": [],
-                "success": false,
-                "status": 401
+                "status": "400",
+                "message": "Please specify event id"
               }
-  /{event_id}/{field_name}:
-    uriParameters:
-      field_name:
-        displayName: Field name
-        example: title
-        description: Name of the field being modified
-      event_id:
-        displayName: Event Id
-        example: ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ
-        description: Url safe for event
-    put:
-      description: Updates data stored in given field for the given event
-      queryParameters:
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-        modification:
-          displayName: Modification
-          type: string
-          description: Modification that is to be applied to the given field
-          example: This is a meetup event!
-          required: true
-      responses:
-        200:
+            
+/calendar:
+  displayName: calendar
+  description: Functionality to extract iCal data
+  get:
+     is: ["calendar", "hasAuth"]
+     responses: 
+      200:
           body:
-            application/json:
+            text/calendar:
               example: |
                 {
-                  "success": true,
-                  "status": 200
+                       "data": "BEGIN:VCALENDAR
+                  PRODID:ics.py - http://git.io/lLljaA
+                  VERSION:2.0
+                  BEGIN:VEVENT
+                  DTSTAMP:20190610T220947Z
+                  DTSTART:20190613T153000Z
+                  SUMMARY:Cenușăreasa
+                  DESCRIPTION:Stimați spectatori, Ca urmare a succesului extraordinar avut de baletul Cenușăreasa, de Serghei Prokofiev, care a avut premiera în luna aprilie, pe 13 iunie a fost o programată o nouă reprezentație.  Amalia Mîndruțiu sem
+                  LOCATION:\nOpera Nationala Romana Iasi\nStrada Agatha Barsescu nr 18, 700074 Iasi, Romania
+                  TRANSP:OPAQUE
+                  UID:bf9f5f79-962a-4e2d-8964-c8259addb44e@bf9f.org
+                  END:VEVENT
+                  END:VCALENDAR"
                 }
-        404:
-          body:
-            application/json:
-              example: |
-                {
-                  "success": false,
-                  "status": 404
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "success": false,
-                  "status": 401
-                }
-  /{tag_id}:
-    uriParameters:
-      tag_id:
-        displayName: Tag Id
-        example: ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ
-        description: Url safe for tag
-    get:
-      description: Retrieves all events with given tag
-      queryParameters: 
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                {
-                  "events": [
-                  {
-                    "event_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                    "title": "Stiff: The Curious Lives of Human Cadavers",
-                    "description": null,
-                    "location": "Fab Lab",
-                    "date": "05/21/2019 8:00PM",
-                    "price": "10 RON",
-                    "image_link": "https://www.pexhttps://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
-                    "capacity": 200,
-                    "tags": ["Web", "Public Speaking", "Flying"]
-                  },
-                  {
-                    "event_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                    "title": "Stiff: The Curious Lives of Human Cadavers",
-                    "description": null,
-                    "location": "Fab Lab",
-                    "date": "05/21/2019 8:00PM",
-                    "price": "10 RON",
-                    "image_link": "https://www.pexhttps://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg",
-                    "capacity": 100,
-                    "tags": ["Web", "Public Speaking", "Flying"]
-                  }],
-                  "success": true,
-                  "status": 200
-                }
-        204:
-          body:
-            application/json:
-              example: |
-                {
-                  "events": [],
-                  "success": true,
-                  "status": 204
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "events": [],
-                  "success": false,
-                  "status": 401
-                }
+            application/xml:
+              example: | 
+                "<?xml version='1.0' encoding='utf8'?>
+                <root>
+                    <status>200</status>
+                    <ical>BEGIN:VCALENDAR
+                PRODID:ics.py - http://git.io/lLljaA
+                VERSION:2.0
+                BEGIN:VEVENT
+                DTSTAMP:20190610T220947Z
+                DTSTART:20190613T153000Z
+                SUMMARY:Cenușăreasa
+                DESCRIPTION:Stimați spectatori\,\nCa urmare a succesului extraordinar avut de baletul Cenușăreasa\, de Serghei Prokofiev\, care a avut premiera în luna aprilie\, pe 13 iunie a fost o programată o nouă reprezentație.  Amalia Mîndruțiu semnează coregrafia spectacolului\, iar decorul și costumele sunt realizate de Adriana Urmuzescu și Maria Eșanu.\nInterpretează baletul și orchestra Operei ieșene\, sub bagheta dirijorului Leonard Boga.\nSpectacolul are o pauză și durează până la ora 20.30.\n\nDistribuție\nCenușăreasa –  Georgiana Dimitrescu - debut\nPrinț – Bogdan Cănilă – invitat\nZâna – Mizuka Okamoto\nMamă vitregă – Alexandru Sebeși\nSurori vitrege – Maria Sole Bartolini – debut\n                       –  Kim Eunjeong – debut    \nTată – Cătălin Ailiesei\nProfesor de dans  – Juan Cruz Luque\nBufon  – Hirohito Ikeuchi\nDoi cavaleri  – Elvis Gache\n                     – Mălin Galan – debut
+                LOCATION:\nOpera Nationala Romana Iasi\nStrada Agatha Barsescu nr 18\, 700074 Iasi\, Romania
+                TRANSP:OPAQUE
+                UID:bf9f5f79-962a-4e2d-8964-c8259addb44e@bf9f.org
+                END:VEVENT
+                END:VCALENDAR</ical>
+                </root>"
+                
 /requests:
+  description: Handles requests
   displayName: requests
   get:
+    is: ["basic", "hasAuth"]
     description: Retrieves all requests
-    queryParameters: 
-      access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
     responses:
       200:
         body:
           application/json:
             example: |
-              {
-                "requests": [
-                {
-                  "request_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "field_name": "title",
-                  "modification": "A new title"
+              [{
+                    "id": "aglhdXRvbm9tdXNyFgsSCVJlcXVlc3REQhiAgIC4ifeQCQyiAQtkZXZlbG9wbWVudA",
+                    "event": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPj_h5cJDKIBC2RldmVsb3BtZW50",
+                    "user": "mihaibotez",
+                    "field": "price",
+                    "modification": "10"
                 },
                 {
-                  "request_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "field_name": "price",
-                  "modification": "20 RON"
-                }],
-                "success": true,
-                "status": 200
-              }
+                    "id": "aglhdXRvbm9tdXNyFgsSCVJlcXVlc3REQhiAgIC4ifeQCQyiAQtkZXZlbG9wbWVudA",
+                    "event": "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPj_h5cJDKIBC2RldmVsb3BtZW50",
+                    "user": "mihaibotez",
+                    "field": "price",
+                    "modification": "10"
+                }
+              ]
       204:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": "204",
+                  "message": "No data found",
+                }
+  post:
+    is: ["basic", "hasAuth"]
+    description: Publish a modification by accepting it
+    queryParameters: 
+      event:
+        example: "udasui357ifhdfhbsdfiuwe"
+        description: Describes the url of an event
+      field:
+        example: title
+        description: the field name you intend to modify
+      modification:
+        example: "Ana are mere"
+        description: The modification that is to be applied upon 
+    responses:
+      201:
+        body:
+          application/json:
+            example: | 
+              {
+              "status": "201",
+              "message": "Succesfully submited a modification"       
+              }
+      400:
         body:
           application/json:
             example: |
               {
-                "requests": [],
-                "success": true,
-                "status": 204
+                "status": "400",
+                "message": "Please specify event id"
               }
-      401:
+  
+  put:
+    is: ["hasAuth", "basic"]
+    description: Apply a modification select to the event
+    queryParameters: 
+      id:
+        example: "udasui357ifhdfhbsdfiuwe"
+        description: Describes the url of an event
+      state:
+        example: title
+        description: the current field state
+    responses:
+      200:
+        body:
+          application/json:
+            example: | 
+              {
+              "status": "200,
+              "message": "Job Done"       
+              }
+      400:
         body:
           application/json:
             example: |
               {
-                "requests": [],
-                "success": false,
-                "status": 401
+                "status": "400",
+                "message": "Please specify id"
               }
-  /{event_id}:
-    uriParameters:
-      event_id:
-        displayName: Event Id
-        example: ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ
-        description: Url safe for event
-    post:
-      description: Inserts new change request
-      queryParameters:
-        username:
-          displayName: Username
-          type: string
-          description: Username of user submitting the change
-          example: AndreeaB
-          required: true
-        field_name:
-          displayName: Field name
-          type: string
-          description: Field of the event to be updated
-          example: title
-          required: true
-        modification:
-          displayName: Modification
-          type: string
-          description: Modification that is to be applied to the given field
-          example: This is the new title!
-          required: true
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-      responses:
-        201:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": 
-                  {
-                    "request_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
-                  "status": 201
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 401
-                }  
-    put:
-      description: Accepts or denies a change requests
-      queryParameters:
-        state:
-          displayName: State
-          example: Accepted
-          enum:
-            - Accepted
-            - Denied
-          description: The new state of the request
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-      responses:
-        200:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": 
-                  {
-                    "request_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
-                  "status": 200
-                }
-        404:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 404
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 401
-                }  
-    
+              
 /tags:
   displayName: tags
+  description: Handles interaction with all tags
   get:
+    is: ["basic", "hasAuth"]
     description: Retrieves all tags
-    queryParameters: 
-      access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                    "id": "aglhdXRvbm9tdXNyEAsSA1RhZxiAgICYp7yeCgyiAQtkZXZlbG9wbWVudA",
+                    "name": "Ballet",
+                    "selected": "true"
+                },
+                {
+                    "id": "aglhdXRvbm9tdXNyEAsSA1RhZxiAgIDot5CwCwyiAQtkZXZlbG9wbWVudA",
+                    "name": "School Activities",
+                    "selected": "true"
+                },
+                {
+                    "id": "aglhdXRvbm9tdXNyEAsSA1RhZxiAgIC40YfKCQyiAQtkZXZlbG9wbWVudA",
+                    "name": "Hobbies & Special Interest",
+                    "selected": "false"
+                }
+              ]
+      204:
+        body:
+          application/json:
+            example: |
+              {
+                "status": "204",
+                "message": "No tags found"
+              }
+  put:
+    is: ["basic","hasAuth"]
+    description: Adds tag to the users' collection
+    body: 
+      application/json:
+        example: |
+          {
+            "tag_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+          }
+    responses:
+      200:
+        body:
+          application/json:
+            example: | 
+              {
+              "status": "200",
+              "message": "Tag succesfully added"       
+              }
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "status": "400",
+                "message": "Please specify tag id"
+              }
+      
+  delete:
+    is: ["basic","hasAuth"]
+    description: Removes tag from the users' collection
+    body: 
+      application/json:
+        example: |
+          {
+            "tag_id" : "aglhdXRvbm9tdXNyEgsSBUV2ZW50GICAgPjDy4IKDKIBC2RldmVsb3BtZW50"
+          }
+    responses:
+      401:
+          body:
+            application/json:
+              example: |
+                {
+                  "status": "401",
+                  "message": "You don't have enough rights to do this operation",
+                  "payload": null
+                }
+      200:
+        body:
+          application/json:
+            example: | 
+              {
+              "status": "200",
+              "message": "Event heart succesfully removed"       
+              }
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "status": "400",
+                "message": "Please specify tag id"
+              }
+/links:
+  description: Handles all links from pages that are followed
+  displayName: links
+  get:
+    is: ["basic", "hasAuth"]
+    description: Retrieves all links
     responses:
       200:
         body:
           application/json:
             example: |
               {
-                "tags": [
-                {
-                  "tag_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "tag_name": "Web"          
-                },
-                {
-                  "tag_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "tag_name": "AI"
-               }],
-                "success": true,
-                "status": 200
+                "status": "200",
+                "links": [
+                    "https://www.eventbrite.com/e/queer-eyes-tan-france-tickets-56007547081",
+                    "https://www.eventbrite.co.uk/d/ca--san-francisco/events--this-month/",
+                    "https://www.meetup.com/IASI-AI/",
+                    "https://www.eventbrite.co.uk/o/how-to-web-15193741875",
+                    "https://www.eventbrite.com/o/frontend-hub-17826270478",
+                    "https://www.meetup.com/The-Bucharest-Agile-Software-Meetup-Group/",
+                    "https://www.eventbrite.com/d/germany/all-events/",
+                    "https://www.eventbrite.com/d/spain/all-events/",
+                    "https://www.meetup.com/RoPython_Iasi/",
+                    "https://www.meetup.com/HR-for-IT-Iasi-Meetup",
+                    "https://www.eventbrite.com/d/france/all-events/",
+                    "https://www.eventbrite.com/d/romania/all-events/",
+                    "https://www.eventbrite.com/d/romania--cluj-napoca/all-events/",
+                    "https://www.eventbrite.com/d/romania--bucuresti--85687595/all-events/",
+                    "https://www.meetup.com/Product-School-Bucharest/",
+                    "https://www.meetup.com/UiPath-RPA-Bucharest/",
+                    "https://www.meetup.com/AsociatiaBlockchainRomania/",
+                    "https://www.meetup.com/bucharest-software-craftsmanship-community/",
+                    "https://www.meetup.com/Software-Professionals-in-town-having-coffee/",
+                    "https://www.facebook.com/directory/events_links/city/101882609853782/"
+                ]
               }
       204:
         body:
           application/json:
             example: |
               {
-                "tags": [],
-                "success": true,
-                "status": 204
-              }
-      401:
-        body:
-          application/json:
-            example: |
-              {
-                "tags": null,
-                "success": false,
-                "status": 401
+                "status": "204",
+                "message": "No links"
               }
   post:
-    description: Inserts new tag
-    queryParameters: 
-      tag_name:
-        displayName: Tag Name
-        type: string
-        description: The tag being added to the tags list
-        example: Web
-        required: true
-      access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
+    is: ["basic", "hasAuth"]
+    description: Inserts new link
+    body:
+      application/json:
+        example: |
+          {
+            "Link":"www.eventbrite.com/...."
+          }
     responses:
         201:
           body:
             application/json:
               example: |
                 {
-                  "data": 
-                  {
-                    "tag_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
-                  "status": 201
+                  "status": "201",
+                  "message": "Link succesfully added"
                 }
-        401:
+  delete:
+    is: ["basic", "hasAuth"]
+    description: Deletes the given tag
+    body:
+      application/json:
+        example: | 
+          {
+          "Link":"www.meetup.com/..."
+          }
+    responses: 
+      400:
+        body:
+          application/json:
+            example: |
+              {
+                "status": "400",
+                "message": "Please specify the link"
+              }
+      201:
           body:
             application/json:
               example: |
                 {
-                  "data": null,
-                  "success": false,
-                  "status": 401
-                }
-  /{tag_id}/{user_id}:
-    put:
-      description: Adds given tag to the given user
-      queryParameters: 
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
+                  "status": "201",
+                  "message": "Link removed"
+                }   
+  /clean:
+    description: Private part of API that can be used by scheduled tasks to removed unused tags
+    get:
+      description: Triggers the script that eliminated the scheduled tasks
       responses:
         200:
           body:
             application/json:
-              example: |
-                {
-                  "data": 
-                  {
-                    "tag_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
-                  "status": 200
-                }
-        404:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 404
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 401
-                }
-/links:
-  displayName: links
-  get:
-    description: Retrieves all links
-    queryParameters: 
-      access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              {
-                "links": [
-                {
-                  "link_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "tag_name": "Web"          
-                },
-                {
-                  "link_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ",
-                  "tag_name": "AI"
-               }],
-                "success": true,
-                "status": 200
-              }
-      204:
-        body:
-          application/json:
-            example: |
-              {
-                "links": [],
-                "success": true,
-                "status": 204
-              }
-      401:
-        body:
-          application/json:
-            example: |
-              {
-                "links": null,
-                "success": false,
-                "status": 401
-              }
-  post:
-    description: Inserts new link
-    queryParameters: 
-      link:
-        displayName: Link
-        description: New link to be crawled
-        example: https://facebook.com/FabLabIasi
-        required: true
-        type: string
-      access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
-    responses:
-        201:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": 
-                  {
-                    "link_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
-                  "status": 201
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 401
-                }
-  /{link_id}:
-    delete:
-      description: Removes a link
-      queryParameters: 
-        access_token:
-          displayName: Access Token
-          type: string
-          description: Token to authorize the operation
-          required: true
-          example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJiMDhmODZhZi0zNWRhLTQ4ZjItOGZhYi1jZWYzOTA0NjYwYmQifQ.-xN_h82PHVTCMA9vdoHrcZxH-x5mb11y1537t3rGzcM
+              example: {}
+              
+/newsletter:
+    description: Private part of API that can be used by scheduled tasks to send newsletters
+    get:
+      description: Triggers the script that sends and populates the newsletters with data
       responses:
-        201:
+        200:
           body:
             application/json:
-              example: |
-                {
-                  "data": 
-                  {
-                    "tag_id": "ag1lfmZpaS1zdHVkZW50chMLEgZDb3Vyc2UYgICAhOzMwAgMogELZGV2ZWxvcG1lbnQ"
-                  },
-                  "success": true,
-                  "status": 201
-                }
-        404:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 404
-                }
-        401:
-          body:
-            application/json:
-              example: |
-                {
-                  "data": null,
-                  "success": false,
-                  "status": 401
-                }
+              example: {} 
