@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
 </head>
 
 <body class="base events-page">
@@ -18,6 +19,12 @@
             <section>
                 <nav>
                     <ul>
+                            <li>
+                                    <a href="../html/aboutProject.html"  class="active">About project</a>
+                                </li>
+                                <li>
+                                        <a href="../html/useManual.html" class="active">Use manual</a>
+                                    </li>
                         <li>
                             <a href="" title="Home" class="active">Home</a>
                         </li>
@@ -59,7 +66,8 @@
             </footer>
         </div>
     </main>
-
+<script>
+</script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const url = "https://develop-dot-autonomus.appspot.com/" + "events";
@@ -67,6 +75,11 @@
             const proxy = "https://cors-anywhere.herokuapp.com/";
             var userName = document.getElementById("user");
             userName.innerHTML = sessionStorage.getItem("name");
+            var logo=document.getElementsByClassName("logo")[0];
+            logo.addEventListener('click',function(){
+
+                window.location.href="home.html";
+            });
             fetch(proxy + url, {
                 method: 'GET',
                 headers: {
@@ -231,11 +244,6 @@
                     iddown.href = url;
                 })
             });
-
-
-
-
-
         });
         if (sessionStorage.getItem('type') === "admin") {
             var meniu = document.getElementsByTagName("nav")[0];

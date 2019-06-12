@@ -20,6 +20,12 @@
       <section>
         <nav>
           <ul>
+              <li>
+                  <a href="../html/aboutProject.html"  class="active">About project</a>
+              </li>
+              <li>
+                      <a href="../html/useManual.html" class="active">Use manual</a>
+                  </li>
             <li>
               <a href="../html/home.html" title="Home">Home</a>
             </li>
@@ -32,7 +38,7 @@
               <div class="dropdown-content">
                 <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
                 <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
-                <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+                <a  id="logout"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
               </div>
             </li>
           </ul>
@@ -109,6 +115,26 @@
   <script src="../js/eveniment.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+      const urlLogOut = "https://develop-dot-autonomus.appspot.com/" + "logout";
+            
+      var logout = document.getElementById("logout");
+            var token = sessionStorage.getItem('token');
+            logout.addEventListener("click", function () {
+                fetch(proxy + urlLogOut, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then((resp) => resp.json())
+                    .then((resp) => {
+                        sessionStorage.removeItem('token');
+                        if (resp.status === "200") {
+                            console.log("sunt aici " + resp.message);
+                            window.location.href = "LoginFinal.html";
+                        }
+                    });
+            });
       const urlParams = new URLSearchParams(window.location.search);
       const id = urlParams.get('id');
       var userName = document.getElementById("user");
