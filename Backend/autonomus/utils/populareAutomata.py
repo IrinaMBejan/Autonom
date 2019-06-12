@@ -260,4 +260,3 @@ def scanAllEvents():
     sendSMSToAllUsers(nrEvents)
 
 
-scanAllLinks()
