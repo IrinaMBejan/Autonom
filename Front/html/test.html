@@ -1,12 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        .pagination a.active {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <h2>Pagination</h2>
+    <p>Responsive pagination with hover effects:</p>
+
+    <div class="pagination">
+
+        <!-- <a href="#">1</a>
+  <a class="active" href="#">2</a>
+  <a href="#">3</a>
+  <a href="#">4</a>
+  <a href="#">5</a>
+  <a href="#">6</a> -->
+
+    </div>
+
+    <script>
+        // var parent = document.getElementsByClassName("pagination")[0];
+        // var tablou = getPagination(2);
+        // for (i = 1; i < tablou.length; i++) {
+        //     var a = document.createElement("a");
+        //     a.className += "page";
+        //     a.innerHTML = tablou[i];
+        //     parent.appendChild(a);
+        // }
+        // var page = document.getElementsByClassName("page");
+        // for (i = 0; i < page.length; i++) {
+        //     if (page[i].textContent != "...")
+        //         page[i].addEventListener('click', function (i, event) {
+        //             nr=document.getElementsByClassName('page')[i].textContent;
+        //             var tablou = getPagination(nr);
+        //             for (i = 0; i < tablou.length; i++) {
+        //                 var a = document.createElement("a");
+        //                 a.className += "page";
+        //                 a.innerHTML = tablou[i];
+        //                 parent.appendChild(a);
+        //             }
+
+        //         }.bind(event, i));
+
+        // }
+        // function getPagination(i) {
+        //     var pages = [];
+        //     pages[0] = 1;
+        //     pages[50] = 50;
+        //     pages[i - 1] = i - 1;
+        //     pages[i] = i;
+        //     pages[i + 1] = i + 1;
+        //     if (isNaN(pages[i - 2]) == true)
+        //         pages[i - 2] = "...";
+        //     if (isNaN(pages[i + 2]) == true)
+        //         pages[i + 2] = "...";
+        //     var real = [];
+        //     for (var j = 0; j < pages.length; j++)
+        //         if (pages[j] != undefined)
+        //             real.push(pages[j]);
+        //     console.log(real);
+        //     return real;
+        // }
+
+var parent = document.getElementsByClassName("pagination")[0];
+        var tablou = pagination(1,50);
+        for (i = 0; i < tablou.length; i++) {
+            var a = document.createElement("a");
+            a.className += "page";
+            a.innerHTML = tablou[i];
+            parent.appendChild(a);
+        }
+
+        var page = document.getElementsByClassName("page");
+        for (i = 0; i < page.length; i++) {
+            
+                page[i].addEventListener('click', function (i, event) {
+                    var nr=document.getElementsByClassName('page')[i].textContent;
+                    
+                    var tablou=pagination(parseInt(nr),50);
+                    console.log(tablou);
+                    for (j = 0; j < tablou.length; j++) {
+                        var a = document.createElement("a");
+                        a.className += "page";
+                        a.innerHTML = tablou[j];
+                        parent.appendChild(a);
+                    }
+
+                }.bind(event, i));
+             
+        }
+        
+
+
+
+
+        function pagination(c, m) {
+            var current = c,
+                last = m,
+                delta = 2,
+                left = current - delta,
+                right = current + delta + 1,
+                range = [],
+                rangeWithDots = [],
+                l;
+
+            for (let i = 1; i <= last; i++) {
+                if (i == 1 || i == last || i >= left && i < right) {
+                    range.push(i);
+                }
+            }
+
+            for (let i of range) {
+                if (l) {
+                    if (i - l === 2) {
+                        rangeWithDots.push(l + 1);
+                    } else if (i - l !== 1) {
+                        rangeWithDots.push('...');
+                    }
+                }
+                rangeWithDots.push(i);
+                l = i;
+            }
+
+            return rangeWithDots;
+        }
+    </script>
 </body>
+
 </html>
