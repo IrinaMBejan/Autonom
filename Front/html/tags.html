@@ -25,10 +25,10 @@
                             <a href="" title="Tags" class="active">Tags</a>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> Anca Popa <i
-                                    class="fas fa-caret-down"></i> </a>
+                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user"> Anca
+                                    Popa</i> <i class="fas fa-caret-down"></i> </a>
                             <div class="dropdown-content">
-                                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
+                                <a href="../html/myEvents.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
                                 <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
                                 <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
                             </div>
@@ -53,105 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tag-card" id="card2" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Web Technologies</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Web Technologies</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card3" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Frontend</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Frontend</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card4" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Social</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Social</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card5" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Politics</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Politics</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card6" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Religion</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Religion</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card7" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Volunteering</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Volunteering</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card8" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>VR</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>VR</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card9" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Artifical Intelligence</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Artifical Intelligence</h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="tag-card" id="card10" onclick="handleEvent(this.id)">
-                <div class="tag-card-inner">
-                    <div class="tag-card-front">
-                        <h3>Chinese Community</h3>
-                    </div>
-                    <div class="tag-card-back">
-                        <h3>Chinese Community </h3>
-                        <span class="far fa-heart fa-2x"></span>
-                    </div>
-                </div>
-            </div> -->
+        -->
         </div>
     </main>
     <script>
@@ -166,6 +68,8 @@
                 }
             }).then((resp) => resp.json())
                 .then((resp) => {
+                    var userName = document.getElementById("user");
+                    userName.innerHTML = sessionStorage.getItem("name");
                     var parent = document.getElementsByClassName("tags")[0];
                     for (var indice = 0; indice < resp.length; indice++) {
                         var div = document.createElement("div");
@@ -243,9 +147,35 @@
 
                     }
                 });
-
-
         });
+        if (sessionStorage.getItem('type') === "admin") {
+            var meniu = document.getElementsByTagName("nav")[0];
+            var string = `<ul>
+                        <li>
+                            <a href="../html/home.html" title="Home">Home</a>
+                        </li>
+                        <li>
+                            <a href="../html/tags.html" title="Tags">Tags</a>
+                        </li>
+                        <li>
+                            <a href="../html/Panel.html" title="Requests" class="active">Requests</a>
+                        </li>
+
+                        <li>
+                            <a href="../html/link.html" title="Links">Links</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Admin</i> <i
+                                    class="fas fa-caret-down"></i> </a>
+                            <div class="dropdown-content">
+                                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
+                                <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
+                                <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+                            </div>
+                        </li>
+                    </ul>`;
+            meniu.innerHTML = string;
+        }
     </script>
     <script>
         function handleEvent(id) {

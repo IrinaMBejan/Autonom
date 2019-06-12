@@ -67,6 +67,8 @@
         <script>
             const proxy = "https://cors-anywhere.herokuapp.com/";
             const url = "https://develop-dot-autonomus.appspot.com/" + "myevents";
+            var userName = document.getElementById("user");
+            userName.innerHTML = sessionStorage.getItem("name");
             fetch(proxy + url, {
                 method: 'GET',
                 headers: {
@@ -163,7 +165,7 @@
                         parent.appendChild(nodeDiv);
                     }
 
-                }).then(function(){
+                }).then(function () {
 
                     var script = document.createElement('script');
                     script.src = "../js/Home.js";
@@ -196,10 +198,10 @@
                         }.bind(event, i));
                     }
                     var heart = document.getElementsByClassName('heart');
-                    const urlPut="https://develop-dot-autonomus.appspot.com/" + "myevents";
+                    const urlPut = "https://develop-dot-autonomus.appspot.com/" + "myevents";
                     for (i = 0; i < heart.length; i++) {
                         heart[i].addEventListener('click', function (i, event) {
-                       var x = document.getElementsByClassName("event-card")[i].dataset.id;
+                            var x = document.getElementsByClassName("event-card")[i].dataset.id;
                             var data = { "event_id": x };
                             fetch(proxy + urlPut, {
                                 method: 'DELETE',
@@ -218,4 +220,5 @@
                 });
         </script>
     </body>
+
 </html>

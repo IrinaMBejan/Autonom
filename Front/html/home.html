@@ -28,8 +28,9 @@
                             <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca
                                     Popa</i> <i class="fas fa-caret-down"></i> </a>
                             <div class="dropdown-content">
-                                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
-                                <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
+                                <a href="../html/myEvents.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
+                                <a href="#" id="export" download="calendar"><i class="fas fa-calendar-alt lg"></i>
+                                    Export Calendar</a>
                                 <a id="logout"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
                             </div>
                         </li>
@@ -38,6 +39,7 @@
             </section>
         </div>
     </header>
+    <div class="testLoad"></div>
     <main class="base-container">
         <h1>Events</h1>
         <div class="actionbar"></div>
@@ -172,7 +174,7 @@
                         }.bind(event, i));
                     }
                     var heart = document.getElementsByClassName('heart');
-                    const urlPut="https://develop-dot-autonomus.appspot.com/" + "myevents";
+                    const urlPut = "https://develop-dot-autonomus.appspot.com/" + "myevents";
                     for (i = 0; i < heart.length; i++) {
                         heart[i].addEventListener('click', function (i, event) {
 
@@ -210,11 +212,60 @@
                         }
                     });
             });
+            var idExport = document.getElementById("export");
+            idExport.addEventListener('click', function () {
+                fetch(proxy + "https://develop-dot-autonomus.appspot.com/calendar", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'text/calendar',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                }).then((resp) => {
+                    return resp.text();
+                }).then((resp) => {
+                    console.log(resp);
+                    var text = resp;
+                    var data = new Blob([text], { type: 'text/calendar' });
+                    var url = window.URL.createObjectURL(data);
+                    var iddown = document.getElementById("export");
+                    iddown.href = url;
+                })
+            });
+
 
 
 
 
         });
+        if (sessionStorage.getItem('type') === "admin") {
+            var meniu = document.getElementsByTagName("nav")[0];
+            var string = `<ul>
+                        <li>
+                            <a href="../html/home.html" title="Home">Home</a>
+                        </li>
+                        <li>
+                            <a href="../html/tags.html" title="Tags">Tags</a>
+                        </li>
+                        <li>
+                            <a href="../html/Panel.html" title="Requests" class="active">Requests</a>
+                        </li>
+
+                        <li>
+                            <a href="../html/link.html" title="Links">Links</a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Admin</i> <i
+                                    class="fas fa-caret-down"></i> </a>
+                            <div class="dropdown-content">
+                                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
+                                <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
+                                <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+                            </div>
+                        </li>
+                    </ul>`;
+            meniu.innerHTML = string;
+        }
     </script>
 
 </body>

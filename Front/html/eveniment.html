@@ -119,25 +119,29 @@
       fetch(proxy + url, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/xml',
           'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         }
-      }).then((resp) => resp.json())
+      }).then((resp) => resp.text())
         .then((resp) => {
+          var text = resp;
+          parser = new DOMParser();
+          xmlDoc = parser.parseFromString(text, "text/xml");
+          console.log(xmlDoc);
           var date = document.getElementById('date');
-          date.innerHTML = "Data:  " + resp.date;
+          date.innerHTML = "Data:  " + xmlDoc.getElementsByTagName("date")[0].childNodes[0].nodeValue;
           var location = document.getElementById('location');
-          location.innerHTML = "Locatia:   " + resp.location;
+          location.innerHTML = "Locatia:   " + xmlDoc.getElementsByTagName("location")[0].childNodes[0].nodeValue;
           var description = document.getElementById('description');
-          description.innerHTML = "Descrierea: " + resp.description;
+          description.innerHTML = "Descrierea: " + xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;;
           var price = document.getElementById('price');
-          price.innerHTML = "Pretul:    "+resp.price;
+          price.innerHTML = "Pretul:    " + xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;;
           var capacity = document.getElementById('capacity');
-          capacity.innerHTML = "Capacitatea:  "+resp.capacity;
+          capacity.innerHTML = "Capacitatea:  " + xmlDoc.getElementsByTagName("capacity")[0].childNodes[0].nodeValue;;
           var category = document.getElementById('category');
           category.innerHTML = "Categoria:  -";
           var tags = document.getElementById('tags');
-          tags.innerHTML = "Taguri:  " + resp.tags;
+          tags.innerHTML = "Taguri:  " + xmlDoc.getElementsByTagName("tags")[0].childNodes[0].nodeValue;;
           var imgDefault = "../Photos/event.jpg";
           if (resp.image_link == "N/A") {
             var photo1 = document.getElementsByClassName("imagineEveniment")[0];
@@ -149,11 +153,11 @@
           }
           else {
             var photo1 = document.getElementsByClassName("imagineEveniment")[0];
-            photo1.src = resp.image_link;
+            photo1.src = xmlDoc.getElementsByTagName("image_link")[0].childNodes[0].nodeValue;;
             var photo2 = document.getElementsByClassName("imagineEveniment2")[0];
-            photo2.src = resp.image_link;
+            photo2.src = xmlDoc.getElementsByTagName("image_link")[0].childNodes[0].nodeValue;
             var photo3 = document.getElementsByClassName("imagineEveniment3")[0];
-            photo3.src = resp.image_link;
+            photo3.src = xmlDoc.getElementsByTagName("image_link")[0].childNodes[0].nodeValue;
           }
           //change details
           var button = document.getElementById("submitChange");
@@ -164,7 +168,7 @@
             console.log(domeniu + ":" + text);
             const urlModifica = "https://develop-dot-autonomus.appspot.com/" + "requests";
             const proxy = "https://cors-anywhere.herokuapp.com/";
-            var data = {  "event": id, "field": domeniu, "modification": text };
+            var data = { "event": id, "field": domeniu, "modification": text };
             console.log(sessionStorage.getItem("token") + "----" + id + "-----" + domeniu + "------" + text);
             fetch(proxy + urlModifica, {
               method: 'POST',
