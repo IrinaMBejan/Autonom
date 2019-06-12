@@ -8,7 +8,8 @@ def export_events_ical(events):
     
     for event_key in events:
         event = event_key.get()
-
+        if event is None:
+            continue
         e = Event()
         e.name = event.title
         e.begin = event.date

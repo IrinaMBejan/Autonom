@@ -1,4 +1,5 @@
 import datetime
+
 import pytz
 import json
 import string
@@ -144,7 +145,7 @@ def addMeetUpEvent(event):
             if 'time' in event:
                 newEvent.date = datetime.datetime.utcfromtimestamp(event['time'] // 1000).replace(
                     microsecond=event['time'] % 1000 * 1000)
-
+            print(newEvent)
             newEvent.put()
             return True
 
@@ -158,7 +159,7 @@ def meetUp():
         request = Request('https://api.meetup.com/2/open_events?&sign=true&photo-host=public&text='+caract+'&page=200000000',headers=meetUpHeaders)
         response_body = urlopen(request).read()
         response = JsonObject(response_body)
-
+        print(response)
         for event in response.results:
            try:
                executor.submit(addMeetUpEvent,(event,))
@@ -167,6 +168,7 @@ def meetUp():
 
 def scanMeetUpPage(url):
     # a meetup group
+    url = url[0]
     if 'meetup.com' in url:
         groupName= url.split('meetup.com/')[1].replace('/',"")
 #         verificam daca este un grup valid, daca nu este marcam acest link pentru stergere
@@ -188,12 +190,18 @@ def scanMeetUpPage(url):
     return 0
 
 def scanEventBritePage(url):
-    if 'eventbrite.com' in url:
+
+    url = url[0]
+
+    print(url)
+    if 'eventbrite' in url:
+        print('do-req')
         request = requests.get(url, headers=eventBrideHeaders)
-
+        print(request)   
         links= re.findall(r'(https?://\S+)', request.text)
-
+        print(links)
         res = [k for k in links if 'eventbrite.com' in k]
+        print(res)
         nrEvenimenteAdaugate=0
         util = False
         for el in res:
@@ -251,3 +259,5 @@ def scanAllEvents():
     nrEvents = len(Event.all()) - nrEvents
     sendSMSToAllUsers(nrEvents)
 
+
+scanAllLinks()

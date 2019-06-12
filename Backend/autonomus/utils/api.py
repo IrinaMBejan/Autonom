@@ -79,6 +79,7 @@ class API:
         if type == 'xml':
             return self.__to_iterable_xml(resp)
         elif type == 'calendar':
+            print(resp)
             return iter([resp])
         return self.__to_iterable_json(resp)
 
