@@ -63,6 +63,10 @@ def get_user(username):
     return None
 
 
+def get_users():
+    return User.all()
+
+
 def get_user_events(urlsafe):
     user = User.get(urlsafe)
     return user.events
@@ -157,6 +161,10 @@ def get_user_role(urlsafe):
 
     return Roles.NEWBIE
  
+
+def get_user_tags(urlsafe):
+    user = User.get(urlsafe)
+    return user.tags
 
 
 def update_token(jwt_token, user):

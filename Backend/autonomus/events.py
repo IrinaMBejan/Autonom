@@ -1,6 +1,6 @@
 from .utils import RequestHandler, HTTPException, role_admitted, scanAllLinks, export
 from .controllers import Roles, add_event_to_user, verify_token, remove_event_from_user
-from .controllers import get_event, get_all_events, update_event, get_user_events
+from .controllers import get_event, get_all_events, update_event, get_user_events, get_user_tags
 import json
 
 
@@ -9,8 +9,12 @@ class Events(RequestHandler):
 
     @role_admitted(Roles.USER, Roles.ADMIN)
     def get(self):
-        events = get_all_events()
+        token = self.request.headers['HTTP_AUTHORIZATION']
+        user_urlsafe = verify_token(token)
+        user_tags = get_user_tags(user_urlsafe)
         event_data = []
+
+        events = get_all_events(user_tags)
 
         for event in events:
             event_dict = {}

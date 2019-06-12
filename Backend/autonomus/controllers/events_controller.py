@@ -2,10 +2,21 @@ from autonomus.models import Event
 from .tags_controller import add_tag
 
 
-def get_all_events():
+def get_all_events(tags=None):
     events = Event.all()
+    
+    if tags is None:
+        return events
+    
+    print(tags)
+    events_returned = []
+    for event in events:
+        for tag in event.tags:
+            if tag in tags:
+                events_returned.append(event)
+                break
 
-    return events
+    return events_returned
 
 
 def get_event(urlsafe):
@@ -42,3 +53,22 @@ def getEvent(title):
             return ent
 
     return None
+
+def get_events_next_days():
+    date_now = datetime.datetime.now()
+    limit = 2
+
+    events_gather = []
+
+    events = Event.all()
+    for event in events:
+        diff = date_now - event.date
+        days, seconds = diff.days, diff.seconds
+        hours = days * 24 + seconds // 3600
+
+        if hours < 60:
+            events_gather.append(event)
+            limit = limit -1 
+        
+        if limit <= 0:
+            return events_gather

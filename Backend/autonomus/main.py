@@ -5,6 +5,7 @@ from .controllers import Roles
 from .links import *
 from .api_requests import Api_Requests
 from .tags import Tags
+from .newsletter import Newsletter
 
 class Base(RequestHandler):
 
@@ -29,6 +30,7 @@ class AutonomusAPI(API):
         ('/events', Events()),
         ('/events/details', EventInfo()),
         ('/events/crawl', EventsCrawl()),
+        ('/newsletter', Newsletter()),
         ('/calendar', Calendar()),
         ('/links', Links()),
         ('/requests',Api_Requests()),

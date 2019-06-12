@@ -5,3 +5,6 @@ cron:
 - description: "token cleaning"
   url: /links/clean
   schedule: every 30 minutes
+- description: "send newsletter"
+  url: /newsletter
+  schedule: every 48 hours

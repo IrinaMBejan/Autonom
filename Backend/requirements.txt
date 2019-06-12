@@ -6,5 +6,6 @@ pytz>=2019.1
 requests>=2.22.0
 twilio>=6.27.1
 ics>=0.4
+sendgrid>=6.0.5
 
 -e git://github.com/savvybit/ndb-orm.git@develop#egg=ndb_orm

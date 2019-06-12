@@ -8,28 +8,40 @@ ENCODING = "utf-8"
 DEFAULT_MAIL="irinam.bejan@gmail.com"
 
 
-def send_mail(from_mail, to_mails, subject, text_content, html_content=None):
-    html_content = html_content or text_content
+def link(urlsafe):
+    return "https://develop-dot-autonomus.appspot.com/events/details?event_id=" + urlsafe
+
+
+def send_newsletter(users, event1, event2):
+    for user in users:
+        send_mail(DEFAULT_MAIL, user.username, user.email, event1, event2)
+
+
+def send_mail(from_mail, username, to_mails, event1, event2):
     message = Mail(
         from_email=from_mail,
-        to_emails=to_mails,
-        subject=subject,
-        plain_text_content=text_content,
-        html_content=html_content
+        to_emails=to_mails
     )
     
     message.dynamic_template_data = {
-    'name': 'Testing Templates & Stuff',
+    'name': username,
+    'title1' : event1.title,
+    'src1' : link(event1.urlsafe),
+    'loc1': event1.location,
+    'date1': event1.date.strftime('%d-%m-%Y %H:%M'),
+    'title2' : event2.title,
+    'src2' : link(event2.urlsafe),
+    'loc2': event2.location,
+    'date2': event2.date.strftime('%d-%m-%Y %H:%M')
     }
-    
+   
+    print('before')
     message.template_id = 'd-6607926b2aba4f8fba984dccdaa9ece6'
     client = SendGridAPIClient(API_KEY)
     response = client.send(message)
     code = response.status_code
-
+    print('after')
     was_successful = lambda ret_code: ret_code // 100 in (2, 3)
     if not was_successful(code):
         raise Exception("Couldn't send e-mail: {} {}".format(code, response.body))
 
-
-send_mail(DEFAULT_MAIL, DEFAULT_MAIL, "Ana", "Bla bla")

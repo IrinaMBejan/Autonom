@@ -4,24 +4,54 @@ version: v1
 baseUri: http://develop-dot-autonomus.appspot.com/
 mediaType: application/json
 description: Our project for web technologies 2019
+traits: 
+  hasHeaders: 
+    headers: 
+      Authorization: 
+        displayName: Authorization
+        description: Basic authentication base 64 encoded string
+        type: string
+        required: true
+      Content-type: 
+        displayName: Content-type
+        description: either xml or json
+        type: string
+        required: false
 
 /login:
   displayName: Login
-  get:
-    description: Login for user
+  post:
+    is: ["hasHeaders"]
+    description: Login for user or admin
     queryParameters:
       username:
-        displayName: Username
+        displayName: email
         type: string
-        description: Username of an existing user
-        example: AndreeaB
+        description: Email of an existing user
+        example: ifjkghd@gmail.com
         required: true
       password:
-        displayName: Password
+        displayName: password
         type: string
         description: Password of the user willing to log in
         example: anaremere1
         required: true
+    body:
+      application/json:
+         type: |
+      {
+	"type": "object",
+        "required": true,
+        "properties": {
+	        "email": "string",       
+		"password": "string",
+        }
+      }
+    example: |
+      {
+	"email": "irina453orufs@gmail.com",
+ 	"password": "irin349824"
+      }
     responses:
         200:
           body:
@@ -46,6 +76,14 @@ description: Our project for web technologies 2019
                   "success": false,
                   "status": 404
                 }
+	400:
+	  body:
+	    application/json:
+ 	      example: {
+    		"status": "400",
+  		"message": "Please specify email and password",
+    		"payload": null
+		}
       
 /register:
   displayName: Register
