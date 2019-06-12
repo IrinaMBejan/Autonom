@@ -100,9 +100,12 @@ class MyEvents(RequestHandler):
         user_urlsafe = verify_token(token)
         events = get_user_events(user_urlsafe)
 
+        print (events)
         for event_key in events:
 
             event = event_key.get()
+            if event is None:
+                continue
             event_dict = {}
             
             event_dict["id"] = event.urlsafe
