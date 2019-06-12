@@ -12,6 +12,7 @@ from autonomus.utils import sms
 from concurrent.futures import ThreadPoolExecutor
 
 
+
 executor = ThreadPoolExecutor(50000)
 
 class JsonObject(object):
@@ -166,6 +167,7 @@ def meetUp():
                print("Error: unable to start thread")
 
 def scanMeetUpPage(url):
+    url=url[0]
     # a meetup group
     if 'meetup.com' in url:
         groupName= url.split('meetup.com/')[1].replace('/',"")
@@ -188,6 +190,7 @@ def scanMeetUpPage(url):
     return 0
 
 def scanEventBritePage(url):
+    url=url[0]
     if 'eventbrite.com' in url:
         request = requests.get(url, headers=eventBrideHeaders)
 
@@ -250,4 +253,8 @@ def scanAllEvents():
     eventBrite()
     nrEvents = len(Event.all()) - nrEvents
     sendSMSToAllUsers(nrEvents)
+
+
+scanAllLinks()
+
 
