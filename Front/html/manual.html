@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
+
+    <meta name="keywords" content="uaic, web, project, infouaic">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Autonomus Raport</title>
   </head>
-  <body prefix="schema: http://schema.org">
+  <body prefix="schema: http://schema.org" style="padding: 60px">
     <header>
         <br>
       <div>
@@ -48,14 +50,14 @@
         a agendei zilnice. Acesta va fi si notificat prin SMS la aparitia unor evenimente noi, dar
         va fi tinut la curent si cu ajutor unor newslettere.
         <br>
+        <br>
         <img src="../Photos/use-case1.png" alt="Diagrama de use case al utilizatorului" width="85%" height="85%">
+        <br>
         <br>
         Din perspectiva administratorului, el poate adauga diverse pagini de profil, precum 
         cele de pe Meetup, Eventbrite, Fb, care vor fi urmarite si din care se vor extrage
         evenimente. De asemenea, el are dreptul de a aproba sau respinge cererile de modificare
         transmise de utilizatori.
-        <br>
-        <img src="../Photos/use-case2.png" alt="Diagrama de use case al adminului" width="85%" height="85%">
         <br>
       </p>
      
@@ -63,30 +65,28 @@
     <section id="method" role="doc-introduction">
         <h2>Implelementare</h2>
         <p>
-            Pentru a realiza acest proiect, am realizat in prima faza diagramele de use-case si am 
+            Pentru a realiza acest proiect, am realizat in prima faza diagramele de use-case si am stabilit
+            documentatia pentru un API Rest care sa fie ulterior consumat in client. Am realizat un workflow
+            minimal prin care sa extindem cu usurinta APIul cu functionalitati noi, folosind Python si Google Cloud.
+            In partea de frontend, am realizat apelurile AJAX folosind JavaScript. Pentru a extrage evenimentele
+            urmarind tagurile adauge, am utilizat API-urile expuse de Meetup, Eventbrite si Facebook si am extras
+            inteligent tagurile pentru evenimente din descrierea acestora. Pentru a putea trimite SMS-uri si newslettere,
+            am utilizat serviciile SendGrid prin API-ul pe care il pun la dispozitie.
         </p>
     </section> <section id="method" role="doc-introduction">
         <h2>Rezultate</h2>
         <p>
-            Bla bla
-           </p>
+            In acest moment, oferim utilizatorilor o platforma unde evenimentele sunt mult mai usor de descoperit,
+            agregate dintr-un numar mare si interesant de surse si promitem sa il tinem la curent cu toate noutatile.
+            Ne dorim sa continuam dezvoltarea proiectului, integrand si o forma de localizare si de traducere a locatiilor
+            date prin API-ul de la Google Maps pentru a putea pe viitor oferi si evenimetne doar din proximitatea utilizatorului
+            sau dintr-o zona selectata.
+        </p>
     </section>
 
 <section id="biblio-references" role="doc-bibliography">
   <h2>References</h2>
-  <dl><dt id="ref-NYT">NYT</dt><dd property="schema:citation" typeof="schema:ScholarlyArticle" resource="http://www.scribd.com/doc/224608514/The-Full-New-York-Times-Innovation-Report">
-    <cite property="schema:name"><a href="http://www.scribd.com/doc/224608514/The-Full-New-York-Times-Innovation-Report">The
-      Full New York Times Innovation Report</a></cite>,
-    by
-    <span property="schema:author" typeof="schema:Person">
-      <span property="schema:name">New York Times</span>
-    </span>;
-    <time property="schema:datePublished" datetime="2014-03" datatype="xsd:gYearMonth">2014 Mar</time>.
-  </dd><dt id="ref-HTML">HTML</dt><dd property="schema:citation" typeof="schema:WebPage" resource="http://www.w3.org/TR/html5/">
-    <cite property="schema:name"><a href="http://www.w3.org/TR/html5/">One of the HTML
-    Specifications</a></cite>.
-  </dd><dt id="ref-WAI-ARIA">WAI-ARIA</dt><dd property="schema:citation" typeof="schema:WebPage" resource="https://www.w3.org/TR/wai-aria/complete">
-    <cite property="schema:name"><a href="https://www.w3.org/TR/wai-aria/complete">Accessible Rich
-    Internet Applications (WAI-ARIA) 1.0</a></cite>.
+   </dd><dt id="ref-HTML">JavaScript, API Rest</dt><dd property="schema:citation" typeof="schema:WebPage" resource="http://www.w3.org/TR/html5/">
+    <cite property="schema:name"><a href="https://iampava.com/">Pava's website</a></cite>.
   </dd></dl>
 </section></body></html>
