@@ -6,14 +6,14 @@
     <title>Home</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body class="base events-page">
     <header class="base-container">
-        <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
+        <div class="logo"><img style="width:22em; height:auto;" src="./Photos/Logo.png" alt="Logo"></div>
         <div class="nav-placeholder">
             <section>
                 <nav>
@@ -22,13 +22,13 @@
                             <a href="" title="Home" class="active">Home</a>
                         </li>
                         <li>
-                            <a href="../html/tags.html" title="Tags">Tags</a>
+                            <a href="./tags.html" title="Tags">Tags</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca
                                     Popa</i> <i class="fas fa-caret-down"></i> </a>
                             <div class="dropdown-content">
-                                <a href="../html/myEvents.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
+                                <a href="./myEvents.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
                                 <a href="#" id="export" download="calendar"><i class="fas fa-calendar-alt lg"></i>
                                     Export Calendar</a>
                                 <a id="logout"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
@@ -87,7 +87,7 @@
                         var img = document.createElement("img");
                         console.log("img e " + resp[element].image_link);
                         if (resp[element].image_link == "N/A")
-                            img.src = "../Photos/event.jpg";
+                            img.src = "./Photos/event.jpg";
                         else
                             img.src = resp[element].image_link;
                         img.setAttribute("alt", "eventImage");
@@ -163,7 +163,7 @@
                     }
                 }).then(function () {
                     var script = document.createElement('script');
-                    script.src = "../js/Home.js";
+                    script.src = "./js/Home.js";
                     var body = document.getElementsByTagName("body")[0];
                     body.appendChild(script);
                     var readMore = document.getElementsByClassName("readMoreButton");
@@ -241,26 +241,26 @@
             var meniu = document.getElementsByTagName("nav")[0];
             var string = `<ul>
                         <li>
-                            <a href="../html/home.html" title="Home">Home</a>
+                            <a href="./home.html" title="Home">Home</a>
                         </li>
                         <li>
-                            <a href="../html/tags.html" title="Tags">Tags</a>
+                            <a href="./tags.html" title="Tags">Tags</a>
                         </li>
                         <li>
-                            <a href="../html/Panel.html" title="Requests" class="active">Requests</a>
+                            <a href="./Panel.html" title="Requests" class="active">Requests</a>
                         </li>
 
                         <li>
-                            <a href="../html/link.html" title="Links">Links</a>
+                            <a href="./link.html" title="Links">Links</a>
                         </li>
 
                         <li class="dropdown">
                             <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Admin</i> <i
                                     class="fas fa-caret-down"></i> </a>
                             <div class="dropdown-content">
-                                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
+                                <a href="./home.html"><i class="fas fa-thumbtack lg"></i> My Events </a>
                                 <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
-                                <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+                                <a href="./LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
                             </div>
                         </li>
                     </ul>`;

@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="../css/eveniment.css">
-  <link rel="stylesheet" type="text/css" href="../css/home.css">
-  <link rel="stylesheet" type="text/css" href="../css/link.css">
+  <link rel="stylesheet" type="text/css" href="./css/eveniment.css">
+  <link rel="stylesheet" type="text/css" href="./css/home.css">
+  <link rel="stylesheet" type="text/css" href="./css/link.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <meta charset="UTF-8">
@@ -15,24 +15,24 @@
 
 <body class="base events-page">
   <header class="base-container">
-    <div class="logo"><img style="width:22em; height:auto;" src="../Photos/Logo.png" alt="Logo"></div>
+    <div class="logo"><img style="width:22em; height:auto;" src="./Photos/Logo.png" alt="Logo"></div>
     <div class="nav-placeholder">
       <section>
         <nav>
           <ul>
             <li>
-              <a href="../html/home.html" title="Home">Home</a>
+              <a href="./home.html" title="Home">Home</a>
             </li>
             <li>
-              <a href="../html/tags.html" title="Tags">Tags</a>
+              <a href="./tags.html" title="Tags">Tags</a>
             </li>
             <li class="dropdown">
               <a href="#" class="dropbtn"><i class="far fa-user-circle fa-lg"></i> <i id="user">Anca Popa</i> <i
                   class="fas fa-caret-down"></i> </a>
               <div class="dropdown-content">
-                <a href="../html/home.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
+                <a href="./home.html"><i class="fas fa-thumbtack lg"></i> My Events</a>
                 <a href="#"><i class="fas fa-calendar-alt lg"></i> Export Calendar</a>
-                <a href="../html/LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
+                <a href="./LoginFinal.html"><i class="fas fa-sign-out-alt lg"></i> Logout</a>
               </div>
             </li>
           </ul>
@@ -43,9 +43,9 @@
   <main class="base-container">
     <!-- <h1>Nume Eveniment</h1> -->
     <div class="containerDetaliiEveniment">
-      <img class="imagineEveniment" src="../Photos/event.jpg" alt="Event">
-      <img class="imagineEveniment2" src="../Photos/event2.jpg" alt="Event">
-      <img class="imagineEveniment3" src="../Photos/event3.jpg" alt="Event">
+      <img class="imagineEveniment" src="./Photos/event.jpg" alt="Event">
+      <img class="imagineEveniment2" src="./Photos/event2.jpg" alt="Event">
+      <img class="imagineEveniment3" src="./Photos/event3.jpg" alt="Event">
       <!-- <button id="firstPhoto">Try it</button>
         <button id="secondPhoto">Try it</button>
         <button id="thirdPhoto">Try it</button> -->
@@ -106,7 +106,7 @@
 
     </div>
   </main>
-  <script src="../js/eveniment.js"></script>
+  <script src="./js/eveniment.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const urlParams = new URLSearchParams(window.location.search);
@@ -142,7 +142,7 @@
           category.innerHTML = "Categoria:  -";
           var tags = document.getElementById('tags');
           tags.innerHTML = "Taguri:  " + xmlDoc.getElementsByTagName("tags")[0].childNodes[0].nodeValue;;
-          var imgDefault = "../Photos/event.jpg";
+          var imgDefault = "./Photos/event.jpg";
           if (resp.image_link == "N/A") {
             var photo1 = document.getElementsByClassName("imagineEveniment")[0];
             photo1.src = imgDefault;
